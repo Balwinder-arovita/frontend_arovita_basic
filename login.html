@@ -52,7 +52,7 @@ a{text-decoration:none;color:inherit}
 /* Left content */
 .al-content{position:relative;z-index:2;text-align:center;max-width:400px}
 .al-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px}
-.al-logo svg{flex-shrink:0}
+.al-logo img{flex-shrink:0}
 .al-logo-text{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .al-logo-text span{color:var(--gl)}
 .al-tagline{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:16px;letter-spacing:-.3px}
@@ -186,27 +186,40 @@ a{text-decoration:none;color:inherit}
 
 /* ============ MOBILE HEADER (hidden desktop) ============ */
 .auth-mobile-header{display:none;text-decoration:none}
+.amh-back-ic{width:20px;height:20px;flex-shrink:0;color:rgba(255,255,255,.92)}
 
 /* ============ RESPONSIVE ============ */
 @media(max-width:900px){
   .auth-left{display:none}
-  .auth-mobile-header{display:flex;align-items:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,var(--dark),var(--dark2));position:relative;overflow:hidden}
+  .auth-mobile-header{display:flex;align-items:center;gap:10px;padding:16px 18px;background:linear-gradient(135deg,var(--dark),var(--dark2));position:sticky;top:0;z-index:50;overflow:hidden}
   .amh-orb{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(46,196,138,.15),transparent 70%);border-radius:50%;filter:blur(60px);top:-60px;right:-40px;pointer-events:none}
   .amh-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.2px}
   .amh-logo span{color:var(--gl)}
   .amh-tag{font-size:11px;color:var(--hint);font-weight:500;margin-left:auto}
   .auth-wrapper{flex-direction:column}
-  .auth-right{min-height:auto;padding:32px 20px 48px}
-  .auth-back{position:relative;top:auto;left:auto;margin-bottom:20px}
+  .auth-right{min-height:auto;padding:28px 18px 48px;align-items:flex-start}
+  .auth-back{display:none}
 }
 @media(max-width:600px){
+  .auth-right{padding:22px 14px 40px}
+  .auth-mobile-header{padding:14px 14px}
+  .amh-logo{font-size:18px}
   .auth-heading{font-size:24px}
-  .auth-desc{font-size:13px}
+  .auth-desc{font-size:13px;margin-bottom:26px}
   .auth-form-wrap{max-width:100%}
-  .otp-boxes{gap:7px}
-  .otp-box{width:44px;height:50px;font-size:18px;border-radius:12px}
+  .otp-boxes{gap:6px}
+  .otp-box{width:40px;height:48px;font-size:18px;border-radius:12px}
   .al-card{padding:12px 14px;min-width:90px}
   .al-card-num{font-size:18px}
+}
+@media(max-width:380px){
+  .auth-right{padding:20px 12px 36px}
+  .amh-tag{display:none}
+  .auth-heading{font-size:22px}
+  .auth-divider{margin:22px 0}
+  .social-btns{flex-direction:column}
+  .otp-boxes{gap:5px}
+  .otp-box{width:34px;height:44px;font-size:16px;border-radius:11px}
 }
 
 @media(hover:none){
@@ -223,8 +236,9 @@ a{text-decoration:none;color:inherit}
 <div class="cursor-ring"></div>
 
 <!-- Mobile Header -->
-<a href="index.html" class="auth-mobile-header" style="text-decoration:none">
+<a href="index.html" class="auth-mobile-header" style="text-decoration:none" aria-label="Back to Arovita">
   <div class="amh-orb"></div>
+  <svg class="amh-back-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
   <img src="logoPoppins.svg" alt="Arovita" width="28" height="28">
   <div class="amh-logo">Aro<span>vita</span></div>
   <span class="amh-tag">Healthcare Platform</span>
