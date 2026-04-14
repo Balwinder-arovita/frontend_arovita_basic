@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Nursing Care — Arovita Healthcare Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1A7A5A;--gm:#22A374;--gl:#2EC48A;--gp:#E6F7F0;--gxp:#F2FBF7;
+  --dark:#091810;--dark2:#0D2118;--ink:#162820;--ink2:#2E4D3A;--muted:#607A6A;--hint:#A8C8B8;
+  --cream:#FAF8F4;--white:#fff;--gold:#C09A52;--gold2:#E8B84B;
+  --border:rgba(26,122,90,0.11);--border2:rgba(26,122,90,0.22);
+  --sh:0 4px 28px rgba(9,24,16,0.08);--sh-lg:0 18px 56px rgba(9,24,16,0.13);
+  --r:12px;--rl:20px;--rx:26px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+
+.cursor{position:fixed;width:10px;height:10px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s ease,width .25s,height .25s,background .25s}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(26,122,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,opacity .2s}
+body:has(a:hover) .cursor,.cursor.hovered{width:18px;height:18px;background:var(--gl)}
+body:has(a:hover) .cursor-ring,.cursor-ring.hovered{width:60px;height:60px;border-color:var(--gl);opacity:.5}
+a,button{cursor:none}
+
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:linear-gradient(var(--gm),var(--gl));border-radius:4px}
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+.sec-label{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.sec-label::before,.sec-label::after{content:'';width:22px;height:1.5px;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:2px}
+
+.sec-title{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1.15;color:var(--dark);letter-spacing:-0.5px}
+.sec-title em{font-style:italic;color:var(--g);position:relative}
+.sec-title em::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:2px;animation:shimmer-line 3s ease-in-out infinite}
+@keyframes shimmer-line{0%,100%{opacity:.4;transform:scaleX(.7)}50%{opacity:1;transform:scaleX(1)}}
+
+.btn-green{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;padding:15px 32px;border-radius:50px;font-size:14.5px;font-weight:600;border:none;cursor:none;transition:all .25s;position:relative;overflow:hidden}
+.btn-green::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn-green:hover::before{transform:translateX(100%)}
+.btn-green:hover{background:var(--gm);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,90,.42)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--g);border:1.5px solid var(--g);padding:14px 30px;border-radius:50px;font-size:14.5px;font-weight:600;cursor:none;transition:all .25s}
+.btn-outline:hover{background:var(--gp);transform:translateY(-2px)}
+
+.fu{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.fu.vis{opacity:1;transform:none}
+.fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.17s}.fu.d3{transition-delay:.26s}.fu.d4{transition-delay:.35s}.fu.d5{transition-delay:.44s}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .35s;background:rgba(250,248,244,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(9,24,16,.05),0 1px 0 rgba(26,122,90,.06)}
+.navbar.sc{background:rgba(250,248,244,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 4px 32px rgba(9,24,16,.09),0 1px 0 rgba(26,122,90,.1)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 44px;max-width:1400px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-svg-wrap{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+.logo-svg-wrap img{width:100%;height:100%;object-fit:contain}
+.nav-brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--dark);letter-spacing:-.3px}
+.nav-brand span{color:var(--g)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-a{font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .22s;position:relative;padding:8px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.nav-a svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;opacity:.65;transition:opacity .22s}
+.nav-a:hover svg{opacity:1}
+.nav-a::after{content:'';position:absolute;bottom:2px;left:14px;right:14px;height:2px;background:linear-gradient(90deg,var(--g),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);border-radius:2px}
+.nav-a:hover{color:var(--g);background:rgba(26,122,90,.04)}.nav-a:hover::after{transform:scaleX(1)}
+.nav-a.active{color:var(--g);background:var(--gp)}.nav-a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-profile{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gp),#A8D8BC);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--g);border:2px solid var(--border2);cursor:none;transition:all .22s;flex-shrink:0;text-decoration:none}
+.nav-profile:hover{border-color:var(--g);transform:scale(1.08);box-shadow:0 4px 16px rgba(26,122,90,.2)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:none;padding:0;cursor:none;z-index:1002;position:relative}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s cubic-bezier(.16,1,.3,1)}
+.hamburger span:nth-child(1){margin-bottom:6px}
+.hamburger span:nth-child(3){margin-top:6px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+.hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu{position:fixed;inset:0;z-index:1001;visibility:hidden;opacity:0;transition:visibility .4s,opacity .4s}
+.mobile-menu.open{visibility:visible;opacity:1}
+.mobile-menu-backdrop{position:absolute;inset:0;background:rgba(9,24,16,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.mobile-menu-panel{position:absolute;top:0;right:0;width:min(340px,85vw);height:100%;background:var(--cream);transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:88px 32px 40px;display:flex;flex-direction:column;gap:8px;box-shadow:-20px 0 60px rgba(9,24,16,.15)}
+.mobile-menu.open .mobile-menu-panel{transform:translateX(0)}
+.mm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--hint);padding:8px 16px 4px;margin-top:6px}
+.mm-link{display:flex;align-items:center;gap:12px;padding:14px 16px;font-size:15px;font-weight:600;color:var(--ink2);border-radius:14px;transition:all .22s}
+.mm-link:hover,.mm-link:active{background:var(--gp);color:var(--g)}
+.mm-link svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.mm-sep{height:1px;background:var(--border);margin:10px 0}
+.mm-cta{display:flex;flex-direction:column;gap:12px;margin-top:auto;padding-top:20px}
+.mm-cta .btn-green,.mm-cta .btn-outline{justify-content:center;width:100%}
+
+/* HERO */
+.hn-hero{min-height:400px;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:76px;background:var(--cream)}
+.hn-hero-mesh{position:absolute;inset:0;z-index:0}
+.mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:morph-orb ease-in-out infinite}
+.mo1{width:600px;height:600px;background:radial-gradient(circle,rgba(13,148,136,.12),transparent 70%);top:-120px;left:-180px;animation-duration:14s}
+.mo2{width:450px;height:450px;background:radial-gradient(circle,rgba(26,122,90,.10),transparent 70%);bottom:-60px;right:-80px;animation-duration:18s;animation-delay:-7s}
+.mo3{width:300px;height:300px;background:radial-gradient(circle,rgba(192,154,82,.07),transparent 70%);top:50%;right:20%;animation-duration:10s;animation-delay:-3s}
+@keyframes morph-orb{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.15) translate(30px,-30px)}66%{transform:scale(.9) translate(-20px,20px)}}
+.hn-hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(26,122,90,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,122,90,.04) 1px,transparent 1px);background-size:60px 60px}
+
+.hn-hero-inner{position:relative;z-index:2;text-align:center;padding:80px 0 60px}
+.hn-hero-h{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;color:var(--dark);line-height:1.1;margin-bottom:18px;letter-spacing:-1px}
+.hn-hero-h em{font-style:italic;color:var(--g)}
+.hn-hero-p{font-size:17px;color:var(--muted);max-width:620px;margin:0 auto 32px;line-height:1.7}
+.hn-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* SERVICE CATEGORIES */
+.nurse-cats{padding:80px 0 100px;background:linear-gradient(180deg,#fff 0%,#FAFDF9 40%,var(--gxp) 100%);position:relative}
+.nurse-cats::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(242,251,247,.4) 100%)}
+.nurse-cats-header{text-align:center;margin-bottom:56px;position:relative;z-index:1}
+.nc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+.nc-card{background:white;border-radius:24px;overflow:hidden;border:1px solid var(--border);transition:all .35s;cursor:none;position:relative;box-shadow:var(--sh)}
+.nc-card:hover{transform:translateY(-10px);box-shadow:0 24px 60px rgba(9,24,16,.14);border-color:var(--border2)}
+.nc-card-top{height:130px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.nc-card-top svg{width:56px;height:56px;position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,.1))}
+.nc-card-top::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:inherit;filter:blur(12px);transform:translateY(50%);opacity:.4}
+.nc-card-body{padding:24px 22px 26px}
+.nc-card-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--dark);margin-bottom:9px;line-height:1.3}
+.nc-card-desc{font-size:13.5px;color:var(--muted);line-height:1.65;margin-bottom:14px}
+.nc-card-price{font-size:14px;font-weight:700;color:var(--g);margin-bottom:16px}
+.nc-card-price span{font-size:12px;color:var(--muted);font-weight:500}
+.nc-card-btn{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;padding:10px 20px;border-radius:50px;transition:all .25s;border:none;cursor:none;font-family:'Outfit',sans-serif;background:var(--g);color:white}
+.nc-card-btn:hover{background:var(--gm);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,122,90,.35)}
+.nc-card-btn.disabled{background:rgba(96,122,106,.08);color:var(--hint);pointer-events:none}
+.nc-card-btn .arr{transition:transform .22s}
+.nc-card:hover .nc-card-btn .arr{transform:translateX(4px)}
+
+/* HOW IT WORKS */
+.how-sec{padding:100px 0;background:var(--gxp);position:relative}
+.how-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2) 40%,var(--border2) 60%,transparent)}
+.how-header{text-align:center;margin-bottom:64px}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:1000px;margin:0 auto;position:relative}
+.how-steps::before{content:'';position:absolute;top:36px;left:calc(12.5% + 20px);right:calc(12.5% + 20px);height:2px;background:var(--border);z-index:0}
+.how-step{text-align:center;position:relative;z-index:1}
+.how-step-num{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:white;position:relative;box-shadow:0 8px 28px rgba(26,122,90,.3)}
+.how-step-num::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px dashed rgba(26,122,90,.2);animation:spin-slow 12s linear infinite}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.how-step-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.how-step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* WHY OUR NURSES */
+.trust-sec{padding:100px 0;background:linear-gradient(180deg,var(--gxp) 0%,#fff 30%,#fff 70%,var(--cream) 100%)}
+.trust-header{text-align:center;margin-bottom:56px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.trust-card{text-align:center;padding:28px 20px;border-radius:22px;border:1px solid var(--border);transition:all .3s;background:white}
+.trust-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:var(--border2)}
+.trust-ic{width:60px;height:60px;border-radius:50%;background:var(--gp);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:all .3s}
+.trust-card:hover .trust-ic{background:rgba(46,196,138,.18);transform:scale(1.08)}
+.trust-check{width:28px;height:28px}
+.trust-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.trust-desc{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* BOOKING FORM */
+.booking-sec{padding:100px 0;background:var(--gxp);position:relative;overflow:hidden}
+.booking-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2) 40%,var(--border2) 60%,transparent)}
+.booking-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.booking-info{padding-right:20px}
+.booking-info-h{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--dark);margin-bottom:14px;line-height:1.2}
+.booking-info-h em{font-style:italic;color:var(--g)}
+.booking-info-p{font-size:15px;color:var(--muted);line-height:1.76;margin-bottom:28px}
+.booking-features{list-style:none;display:flex;flex-direction:column;gap:14px}
+.booking-features li{display:flex;align-items:center;gap:12px;font-size:14.5px;font-weight:500;color:var(--ink2)}
+.bf-ic{width:32px;height:32px;border-radius:10px;background:var(--gp);border:1px solid rgba(26,122,90,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+.booking-form{background:white;border-radius:28px;padding:36px;box-shadow:var(--sh-lg);border:1px solid var(--border)}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:12.5px;font-weight:700;color:var(--ink2);margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
+.form-input,.form-select,.form-textarea{width:100%;padding:13px 16px;border-radius:var(--r);border:1.5px solid var(--border);font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);background:var(--white);transition:border .2s;outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(26,122,90,.08)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--hint)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23607A6A' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:none}
+.form-textarea{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-submit{width:100%;padding:15px;border-radius:50px;background:var(--g);color:white;border:none;font-size:15px;font-weight:700;font-family:'Outfit',sans-serif;cursor:none;transition:all .25s;position:relative;overflow:hidden}
+.form-submit::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.form-submit:hover::before{transform:translateX(100%)}
+.form-submit:hover{background:var(--gm);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,90,.42)}
+.form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+
+/* TESTIMONIALS */
+.stories-sec{padding:100px 0;background:linear-gradient(180deg,#fff 0%,#FAFDF9 50%,var(--gxp) 100%)}
+.stories-header{text-align:center;margin-bottom:56px}
+.stories-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:900px;margin:0 auto}
+.story-card{background:white;border-radius:24px;padding:30px;border:1px solid var(--border);box-shadow:var(--sh);transition:all .3s;position:relative;overflow:hidden}
+.story-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:var(--border2)}
+.story-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--g),var(--gl));border-radius:3px 0 0 3px;transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.story-card:hover::before{transform:scaleY(1)}
+.story-q{font-size:44px;color:var(--gl);line-height:.7;font-family:'Playfair Display',serif;display:block;margin-bottom:12px;opacity:.5}
+.story-text{font-size:14.5px;color:var(--ink2);line-height:1.75;margin-bottom:16px;font-style:italic}
+.story-stars{color:var(--gold2);font-size:13px;letter-spacing:1.5px;margin-bottom:14px}
+.story-auth{display:flex;align-items:center;gap:12px}
+.story-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gp),#A8D8BC);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;color:var(--g);flex-shrink:0;border:2px solid var(--border2)}
+.story-name{font-weight:700;font-size:14.5px;color:var(--dark)}
+.story-role{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* FAQ */
+.faq-sec{padding:100px 0;background:var(--gxp)}
+.faq-sec::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2) 40%,var(--border2) 60%,transparent)}
+.faq-header{text-align:center;margin-bottom:56px}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.faq-item{background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:all .3s}
+.faq-item:hover{border-color:var(--border2)}
+.faq-item.open{box-shadow:var(--sh)}
+.faq-q{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:none;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s}
+.faq-item.open .faq-q{color:var(--g)}
+.faq-chevron{width:20px;height:20px;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+.faq-a-text{font-size:14px;color:var(--muted);line-height:1.7}
+
+/* CTA BANNER */
+.cta-banner{padding:80px 0;background:linear-gradient(135deg,var(--g) 0%,var(--gm) 60%,var(--gl) 100%);position:relative;overflow:hidden;text-align:center}
+.cta-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.08)'/%3E%3C/svg%3E");background-size:60px 60px}
+.cta-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.co1{width:400px;height:400px;background:rgba(255,255,255,.08);top:-100px;right:-100px;animation:morph-orb 12s ease-in-out infinite}
+.co2{width:300px;height:300px;background:rgba(0,0,0,.06);bottom:-100px;left:0;animation:morph-orb 15s ease-in-out 4s infinite}
+.cta-inner{position:relative;z-index:1}
+.cta-h{font-family:'Playfair Display',serif;font-size:40px;font-weight:800;color:white;line-height:1.15;margin-bottom:16px;letter-spacing:-.4px}
+.cta-p{font-size:15px;color:rgba(255,255,255,.68);margin-bottom:28px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7}
+.btn-white{display:inline-flex;align-items:center;gap:9px;background:white;color:var(--g);padding:15px 32px;border-radius:50px;font-size:14.5px;font-weight:700;transition:all .25s;cursor:none;border:none}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.18)}
+
+/* FOOTER */
+.footer{padding:80px 0 0;background:var(--dark);position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(46,196,138,.3) 40%,rgba(46,196,138,.3) 60%,transparent)}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:48px;margin-bottom:60px}
+.footer-logo{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.footer-brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:white;letter-spacing:-.3px}
+.footer-brand span{color:var(--gl)}
+.footer-desc{font-size:13.5px;color:rgba(255,255,255,.34);line-height:1.76;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.fsb{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:rgba(255,255,255,.5);cursor:none;transition:all .22s}
+.fsb:hover{background:var(--g);color:white;border-color:var(--g);transform:translateY(-3px)}
+.footer-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.28);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13.5px;color:rgba(255,255,255,.42);transition:color .18s;display:inline-flex;align-items:center;gap:6px}
+.footer-links a::before{content:'→';font-size:11px;opacity:0;transform:translateX(-8px);transition:all .2s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}.footer-links a:hover::before{opacity:1;transform:none}
+.nl-form{display:flex;gap:8px}
+.nl-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;color:white;font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:border .2s}
+.nl-input::placeholder{color:rgba(255,255,255,.25)}
+.nl-input:focus{border-color:var(--g)}
+.nl-btn{background:var(--g);color:white;border:none;border-radius:12px;padding:12px 18px;font-size:12.5px;font-weight:700;cursor:none;transition:all .22s;font-family:'Outfit',sans-serif;white-space:nowrap}
+.nl-btn:hover{background:var(--gm)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12.5px;color:rgba(255,255,255,.24)}
+.footer-copy a{color:rgba(46,196,138,.6);transition:color .18s}.footer-copy a:hover{color:var(--gl)}
+.footer-links2{list-style:none;display:flex;gap:22px}
+.footer-links2 a{font-size:12px;color:rgba(255,255,255,.24);transition:color .18s}.footer-links2 a:hover{color:rgba(255,255,255,.6)}
+
+/* SCROLL TOP */
+.stb{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));display:flex;align-items:center;justify-content:center;cursor:none;opacity:0;transform:translateY(20px) scale(.8);transition:all .3s;z-index:999;box-shadow:0 6px 20px rgba(26,122,90,.4)}
+.stb.show{opacity:1;transform:none}
+.stb:hover{transform:translateY(-3px) scale(1.08);box-shadow:0 10px 28px rgba(26,122,90,.5)}
+.stb svg{width:20px;height:20px}
+
+/* ===================== RESPONSIVE ===================== */
+@media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}a,button{cursor:pointer}}
+
+@media(max-width:900px){
+  .nav-links,.nav-cta,.nav-profile{display:none}
+  .hamburger{display:flex}
+  .nav-in{padding:0 20px;height:62px}
+  .navbar{box-shadow:0 1px 16px rgba(9,24,16,.06),0 1px 0 rgba(26,122,90,.06)}
+  .container{padding:0 22px}
+  .sec-title{font-size:34px}
+  .sec-label{font-size:10.5px;letter-spacing:1.2px;gap:6px}
+  .sec-label::before,.sec-label::after{width:16px}
+  .btn-green{padding:13px 26px;font-size:13.5px;gap:8px}
+  .btn-outline{padding:12px 24px;font-size:13.5px}
+  .hn-hero-h{font-size:38px}
+  .hn-hero-p{font-size:15px}
+  .nc-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+  .how-steps{grid-template-columns:repeat(2,1fr);gap:24px}
+  .how-steps::before{display:none}
+  .trust-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  .booking-inner{grid-template-columns:1fr;gap:40px}
+  .booking-info{padding-right:0}
+  .booking-info-h{font-size:30px}
+  .stories-grid{grid-template-columns:1fr;gap:20px}
+  .cta-banner{padding:64px 0}
+  .cta-h{font-size:32px}
+  .form-row{grid-template-columns:1fr}
+  .footer{padding:56px 0 0}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px}
+  .footer-brand{font-size:20px}
+  .footer-desc{font-size:12.5px}
+  .footer-h{font-size:11px}
+  .footer-links a{font-size:12.5px}
+  .footer-bottom{padding:18px 0;gap:10px}
+  .footer-copy{font-size:11.5px}
+  .footer-links2{gap:16px}
+  .footer-links2 a{font-size:11px}
+}
+@media(max-width:600px){
+  .container{padding:0 18px}
+  .nav-in{padding:0 16px;height:58px}
+  .nav-brand{font-size:20px}
+  .logo-svg-wrap{width:36px;height:36px}
+  .sec-title{font-size:28px;letter-spacing:-.3px}
+  .sec-label{font-size:10px;margin-bottom:10px}
+  .btn-green{padding:12px 22px;font-size:13px}
+  .btn-outline{padding:11px 20px;font-size:13px}
+  .hn-hero-inner{padding:56px 0 44px}
+  .hn-hero-h{font-size:30px;letter-spacing:-.5px}
+  .hn-hero-p{font-size:14px;margin-bottom:24px}
+  .hn-hero-btns{gap:10px}
+  .hn-hero-btns .btn-green{padding:12px 24px;font-size:13px}
+  .hn-hero-btns .btn-outline{padding:11px 20px;font-size:13px}
+  .nurse-cats{padding:52px 0 70px}
+  .nc-grid{grid-template-columns:1fr;gap:16px}
+  .nc-card{border-radius:20px}
+  .nc-card-top{height:110px}
+  .nc-card-top svg{width:48px;height:48px}
+  .nc-card-body{padding:20px 18px 22px}
+  .nc-card-title{font-size:17px;margin-bottom:6px}
+  .nc-card-desc{font-size:12.5px;margin-bottom:10px}
+  .nc-card-price{font-size:13px;margin-bottom:12px}
+  .nc-card-btn{padding:9px 16px;font-size:12px}
+  .how-sec{padding:60px 0}
+  .how-steps{grid-template-columns:1fr;gap:28px}
+  .how-step-num{width:56px;height:56px;font-size:22px}
+  .how-step-num::after{inset:-4px}
+  .how-step-title{font-size:15px}
+  .how-step-desc{font-size:12px}
+  .trust-sec{padding:60px 0}
+  .trust-grid{grid-template-columns:1fr;gap:14px}
+  .trust-card{padding:22px 16px;border-radius:18px}
+  .trust-ic{width:50px;height:50px}
+  .trust-title{font-size:15px}
+  .trust-desc{font-size:11.5px}
+  .booking-sec{padding:60px 0}
+  .booking-inner{gap:28px}
+  .booking-info-h{font-size:26px}
+  .booking-info-p{font-size:13.5px}
+  .booking-features li{font-size:13px;gap:10px}
+  .bf-ic{width:28px;height:28px;border-radius:8px}
+  .booking-form{padding:24px 18px;border-radius:20px}
+  .form-input,.form-select,.form-textarea{padding:12px 14px;font-size:13px}
+  .form-label{font-size:11.5px}
+  .form-submit{padding:13px;font-size:14px}
+  .form-note{font-size:11px}
+  .stories-sec{padding:60px 0}
+  .story-card{padding:22px 18px;border-radius:18px}
+  .story-text{font-size:13.5px}
+  .story-name{font-size:13.5px}
+  .story-role{font-size:11px}
+  .story-av{width:40px;height:40px;font-size:14px}
+  .story-q{font-size:36px}
+  .faq-sec{padding:60px 0}
+  .faq-item{border-radius:14px}
+  .faq-q{padding:16px 18px;font-size:14px}
+  .faq-a{padding:0 18px}
+  .faq-item.open .faq-a{padding:0 18px 16px}
+  .faq-a-text{font-size:13px}
+  .cta-banner{padding:52px 0}
+  .cta-h{font-size:26px}
+  .cta-p{font-size:13.5px}
+  .btn-white{padding:13px 28px;font-size:14px}
+  .footer{padding:44px 0 0}
+  .footer-grid{grid-template-columns:1fr;gap:28px;margin-bottom:32px}
+  .nl-form{flex-direction:column;gap:10px}
+  .footer-bottom{flex-direction:column;align-items:center;text-align:center;padding:16px 0}
+  .footer-links2{gap:14px;flex-wrap:wrap;justify-content:center}
+  .stb{bottom:20px;right:20px;width:42px;height:42px}
+}
+@media(max-width:380px){
+  .container{padding:0 14px}
+  .sec-title{font-size:25px}
+  .hn-hero-h{font-size:27px}
+  .nc-card-body{padding:16px 14px 18px}
+  .booking-form{padding:20px 14px}
+  .booking-info-h{font-size:24px}
+  .cta-h{font-size:23px}
+  .story-card{padding:18px 14px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-svg-wrap">
+        <img src="logoPoppins.svg" alt="Arovita" width="42" height="42">
+      </div>
+      <span class="nav-brand">Aro<span>vita</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="consult.html" class="nav-a">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Consult
+      </a>
+      <a href="lab-tests.html" class="nav-a">
+        <svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
+        Lab Tests
+      </a>
+      <a href="home-nurse.html" class="nav-a active">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        Home Nurse
+      </a>
+      <a href="my-care.html" class="nav-a">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        My Care
+      </a>
+      <a href="services.html" class="nav-a">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Services
+      </a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-cta">
+        <a href="login.html" class="btn-outline" style="padding:10px 20px;font-size:13px">Sign In</a>
+        <a href="consult.html" class="btn-green" style="padding:10px 20px;font-size:13px">Book Now <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="profile.html" class="nav-profile" title="My Profile">RS</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-backdrop" id="mmBackdrop"></div>
+  <div class="mobile-menu-panel">
+    <div class="mm-label">Quick Access</div>
+    <a href="consult.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Book Consultation
+    </a>
+    <a href="lab-tests.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
+      Lab Tests
+    </a>
+    <a href="home-nurse.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      Home Nurse
+    </a>
+    <a href="my-care.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      My Care
+    </a>
+    <div class="mm-sep"></div>
+    <div class="mm-label">Explore</div>
+    <a href="services.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      All Services
+    </a>
+    <a href="index.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      About Us
+    </a>
+    <div class="mm-sep"></div>
+    <div class="mm-label">Account</div>
+    <a href="profile.html" class="mm-link">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      My Profile
+    </a>
+    <div class="mm-cta">
+      <a href="login.html" class="btn-outline" style="justify-content:center">Sign In</a>
+      <a href="consult.html" class="btn-green" style="justify-content:center">Book Now <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hn-hero">
+  <div class="hn-hero-mesh">
+    <div class="mesh-orb mo1"></div>
+    <div class="mesh-orb mo2"></div>
+    <div class="mesh-orb mo3"></div>
+  </div>
+  <div class="hn-hero-grid"></div>
+  <div class="container">
+    <div class="hn-hero-inner">
+      <div class="sec-label fu">Professional Healthcare at Home</div>
+      <h1 class="hn-hero-h fu d1">Home <em>Nursing</em> Care</h1>
+      <p class="hn-hero-p fu d2">Professional healthcare at your doorstep. Trained nurses for post-surgical, elderly, and specialized care.</p>
+      <div class="hn-hero-btns fu d3">
+        <a href="#booking" class="btn-green">Book a Nurse <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="tel:+911800AROVITA" class="btn-outline">Call Us <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NURSING SERVICE CATEGORIES -->
+<section class="nurse-cats">
+  <div class="container">
+    <div class="nurse-cats-header">
+      <div class="sec-label fu">Our Services</div>
+      <h2 class="sec-title fu d1">Nursing <em>Service</em> Categories</h2>
+    </div>
+    <div class="nc-grid">
+
+      <!-- Wound Care -->
+      <div class="nc-card fu">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#1A7A5A,#2EC48A)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="16" width="32" height="24" rx="6" stroke="white" stroke-width="2.2" fill="none"/>
+            <line x1="12" y1="28" x2="44" y2="28" stroke="white" stroke-width="1.5"/>
+            <line x1="22" y1="22" x2="22" y2="34" stroke="white" stroke-width="1" opacity="0.4"/>
+            <line x1="34" y1="22" x2="34" y2="34" stroke="white" stroke-width="1" opacity="0.4"/>
+            <line x1="28" y1="24" x2="28" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="24" y1="28" x2="32" y2="28" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="28" cy="28" r="10" stroke="white" stroke-width="0.8" opacity="0.2" fill="none">
+              <animate attributeName="r" values="10;12;10" dur="3s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.2;0;0.2" dur="3s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Wound Care</div>
+          <div class="nc-card-desc">Post-surgical wound dressing, suture removal, and infection prevention by trained professionals</div>
+          <div class="nc-card-price">From ₹499<span>/visit</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Elderly Care -->
+      <div class="nc-card fu d1">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#92400E,#D97706)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="28" cy="14" r="5" stroke="white" stroke-width="2" fill="none"/>
+            <path d="M22 26C22 22.7 24.7 20 28 20C31.3 20 34 22.7 34 26V32" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M28 32V44" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M24 44H32" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M34 32L40 44" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="38" r="6" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <circle cx="18" cy="38" r="2" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+            <path d="M12 38H14M22 38H24" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="28" cy="14" r="8" stroke="white" stroke-width="0.6" opacity="0.2" fill="none">
+              <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Elderly Care</div>
+          <div class="nc-card-desc">Companionship, medication management, mobility assistance, and daily living support</div>
+          <div class="nc-card-price">From ₹999<span>/day</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Baby Care -->
+      <div class="nc-card fu d2">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#BE185D,#F472B6)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="28" cy="32" rx="14" ry="10" stroke="white" stroke-width="2.2" fill="none"/>
+            <circle cx="28" cy="22" r="8" stroke="white" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="21" r="1.5" fill="white" opacity="0.7"/>
+            <circle cx="32" cy="21" r="1.5" fill="white" opacity="0.7"/>
+            <path d="M25 25C25 25 26.5 27 28 27C29.5 27 31 25 31 25" stroke="white" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M14 32C14 32 18 28 28 28C38 28 42 32 42 32" stroke="white" stroke-width="0.8" opacity="0.3" fill="none"/>
+            <path d="M20 42L22 38M36 42L34 38" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="28" cy="32" r="16" stroke="white" stroke-width="0.5" opacity="0.15" fill="none">
+              <animate attributeName="r" values="16;18;16" dur="3s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Baby Care</div>
+          <div class="nc-card-desc">Newborn care, feeding assistance, mother support, and infant health monitoring</div>
+          <div class="nc-card-price">From ₹799<span>/day</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Injection & IV -->
+      <div class="nc-card fu d3">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#1E40AF,#3B82F6)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M36 8L44 16" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M40 12L22 30L16 36L12 44L20 40L26 34L44 16" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line x1="26" y1="22" x2="34" y2="30" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <line x1="22" y1="26" x2="30" y2="34" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            <circle cx="12" cy="44" r="2" fill="white" opacity="0.6">
+              <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Injection & IV</div>
+          <div class="nc-card-desc">Insulin, IV drips, injections administered at home by certified nurses</div>
+          <div class="nc-card-price">From ₹299<span>/visit</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Physiotherapy -->
+      <div class="nc-card fu d4">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#0D9488,#2DD4BF)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="28" cy="12" r="5" stroke="white" stroke-width="2" fill="none"/>
+            <path d="M28 18V30" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M20 24L28 22L36 24" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M28 30L22 42" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M28 30L34 42" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M36 24L42 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M20 24L14 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M42 20L44 18" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+            <path d="M14 20L12 18" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Physiotherapy</div>
+          <div class="nc-card-desc">Post-surgery rehab, pain management, mobility training by expert therapists</div>
+          <div class="nc-card-price">From ₹599<span>/session</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Post-Surgery Care -->
+      <div class="nc-card fu d5">
+        <div class="nc-card-top" style="background:linear-gradient(135deg,#6D28D9,#A78BFA)">
+          <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="22" width="36" height="22" rx="4" stroke="white" stroke-width="2.2" fill="none"/>
+            <path d="M10 30H46" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <path d="M18 22V16C18 14.9 18.9 14 20 14H36C37.1 14 38 14.9 38 16V22" stroke="white" stroke-width="2" fill="none"/>
+            <line x1="28" y1="30" x2="28" y2="38" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="24" y1="34" x2="32" y2="34" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="28" cy="34" r="6" stroke="white" stroke-width="0.8" opacity="0.2" fill="none">
+              <animate attributeName="r" values="6;8;6" dur="2.5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.2;0;0.2" dur="2.5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+        <div class="nc-card-body">
+          <div class="nc-card-title">Post-Surgery Care</div>
+          <div class="nc-card-desc">Complete post-operative care and monitoring with dedicated nursing support</div>
+          <div class="nc-card-price">From ₹1,499<span>/day</span></div>
+          <a href="#booking" class="nc-card-btn">Book Now <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW HOME NURSING WORKS -->
+<section class="how-sec">
+  <div class="container">
+    <div class="how-header">
+      <div class="sec-label fu">Simple Process</div>
+      <h2 class="sec-title fu d1">How Home Nursing <em>Works</em></h2>
+    </div>
+    <div class="how-steps">
+
+      <div class="how-step fu">
+        <div class="how-step-num">1</div>
+        <div class="how-step-title">Choose Service</div>
+        <div class="how-step-desc">Select your required nursing service category</div>
+      </div>
+
+      <div class="how-step fu d1">
+        <div class="how-step-num">2</div>
+        <div class="how-step-title">Select Date & Time</div>
+        <div class="how-step-desc">Pick a convenient date and time slot for the visit</div>
+      </div>
+
+      <div class="how-step fu d2">
+        <div class="how-step-num">3</div>
+        <div class="how-step-title">Nurse Assigned</div>
+        <div class="how-step-desc">A verified nurse is assigned and confirmed for your booking</div>
+      </div>
+
+      <div class="how-step fu d3">
+        <div class="how-step-num">4</div>
+        <div class="how-step-title">Care at Home</div>
+        <div class="how-step-desc">Professional care delivered right at your doorstep</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY OUR NURSES -->
+<section class="trust-sec">
+  <div class="container">
+    <div class="trust-header">
+      <div class="sec-label fu">Our Promise</div>
+      <h2 class="sec-title fu d1">Why Our <em>Nurses</em></h2>
+    </div>
+    <div class="trust-grid">
+
+      <div class="trust-card fu">
+        <div class="trust-ic">
+          <svg class="trust-check" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="#1A7A5A" stroke-width="2" fill="none"/>
+            <path d="M9 14l3 3 7-7" stroke="#2EC48A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.8s" fill="freeze"/>
+            </path>
+          </svg>
+        </div>
+        <div class="trust-title">Certified & Trained</div>
+        <div class="trust-desc">All nurses hold valid certifications and undergo rigorous training programs</div>
+      </div>
+
+      <div class="trust-card fu d1">
+        <div class="trust-ic">
+          <svg class="trust-check" viewBox="0 0 28 28" fill="none">
+            <path d="M14 2L18 6H24V12L28 14L24 16V22H18L14 26L10 22H4V16L0 14L4 12V6H10L14 2Z" stroke="#1A7A5A" stroke-width="1.5" fill="none"/>
+            <path d="M9 14l3 3 7-7" stroke="#2EC48A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <animate attributeName="stroke-dashoffset" from="20" to="0" dur="0.8s" begin="0.2s" fill="freeze"/>
+            </path>
+          </svg>
+        </div>
+        <div class="trust-title">Background Verified</div>
+        <div class="trust-desc">Thorough background checks ensure your safety and peace of mind</div>
+      </div>
+
+      <div class="trust-card fu d2">
+        <div class="trust-ic">
+          <svg class="trust-check" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="#1A7A5A" stroke-width="2" fill="none"/>
+            <path d="M14 6v8l5 3" stroke="#2EC48A" stroke-width="2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="trust-title">24/7 Support</div>
+        <div class="trust-desc">Round-the-clock customer support for any concerns or emergencies</div>
+      </div>
+
+      <div class="trust-card fu d3">
+        <div class="trust-ic">
+          <svg class="trust-check" viewBox="0 0 28 28" fill="none">
+            <path d="M14 4C8 4 4 8 4 14S8 24 14 24S24 20 24 14" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M14 10V14H18" stroke="#2EC48A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M20 4L24 4L24 8" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="trust-title">Affordable Rates</div>
+        <div class="trust-desc">Transparent pricing with no hidden fees. Quality care that fits your budget</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section class="booking-sec" id="booking">
+  <div class="container">
+    <div class="booking-inner">
+      <div class="booking-info fu">
+        <div class="sec-label">Request a Booking</div>
+        <h2 class="booking-info-h">Book Your <em>Home Nurse</em> Today</h2>
+        <p class="booking-info-p">Fill in the form and our team will confirm your booking within 2 hours. We match you with the best-suited nurse for your needs.</p>
+        <ul class="booking-features">
+          <li>
+            <div class="bf-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+            Free consultation before booking
+          </li>
+          <li>
+            <div class="bf-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+            Confirmation within 2 hours
+          </li>
+          <li>
+            <div class="bf-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+            Flexible rescheduling available
+          </li>
+          <li>
+            <div class="bf-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+            Secure online payment options
+          </li>
+        </ul>
+      </div>
+      <div class="booking-form fu d2">
+        <div class="form-group">
+          <label class="form-label">Select Service</label>
+          <select class="form-select">
+            <option value="">Choose a service...</option>
+            <option>Wound Care</option>
+            <option>Elderly Care</option>
+            <option>Baby Care</option>
+            <option>Injection & IV</option>
+            <option>Physiotherapy</option>
+            <option>Post-Surgery Care</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Address</label>
+          <input type="text" class="form-input" placeholder="Full address for service">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Preferred Date</label>
+            <input type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Time</label>
+            <select class="form-select">
+              <option value="">Select time...</option>
+              <option>Morning (8 AM - 12 PM)</option>
+              <option>Afternoon (12 PM - 4 PM)</option>
+              <option>Evening (4 PM - 8 PM)</option>
+              <option>Night (8 PM - 12 AM)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Special Requirements</label>
+          <textarea class="form-textarea" placeholder="Any specific requirements or medical conditions to note..."></textarea>
+        </div>
+        <button class="form-submit">Request Booking <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:4px;vertical-align:middle"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="form-note">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Our team will confirm within 2 hours
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT STORIES -->
+<section class="stories-sec">
+  <div class="container">
+    <div class="stories-header">
+      <div class="sec-label fu">Real Experiences</div>
+      <h2 class="sec-title fu d1">Patient <em>Stories</em></h2>
+    </div>
+    <div class="stories-grid">
+
+      <div class="story-card fu">
+        <span class="story-q">"</span>
+        <p class="story-text">After my mother's hip surgery, the Arovita nurse was a godsend. She was incredibly caring, managed wound dressing perfectly, and even helped Mom with physiotherapy exercises. The 24/7 support line gave us peace of mind.</p>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-auth">
+          <div class="story-av">R</div>
+          <div>
+            <div class="story-name">Rajesh Kumar</div>
+            <div class="story-role">Post-Surgery Care · New Delhi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-card fu d1">
+        <span class="story-q">"</span>
+        <p class="story-text">We hired a baby care nurse for our newborn and it was the best decision. She helped my wife with breastfeeding, managed the baby's sleep schedule, and taught us so much about infant care. Truly professional service.</p>
+        <div class="story-stars">★★★★★</div>
+        <div class="story-auth">
+          <div class="story-av">P</div>
+          <div>
+            <div class="story-name">Priya Sharma</div>
+            <div class="story-role">Baby Care · Mumbai</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="container">
+    <div class="faq-header">
+      <div class="sec-label fu">Common Questions</div>
+      <h2 class="sec-title fu d1">Frequently <em>Asked</em></h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item fu">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are nurses certified?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a">
+          <p class="faq-a-text">Yes, all our nurses hold valid nursing certificates (GNM/BSc Nursing) and are registered with the Indian Nursing Council. They undergo additional training specific to home care before joining our platform.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fu d1">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What areas do you cover?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a">
+          <p class="faq-a-text">We currently serve 100+ cities across India including all major metros — Delhi NCR, Mumbai, Bangalore, Chennai, Hyderabad, Kolkata, Pune, and Ahmedabad. We're expanding to more cities every month.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fu d2">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I choose my nurse?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a">
+          <p class="faq-a-text">We match you with the best-suited nurse based on your requirements. If you've had a positive experience with a specific nurse, you can request them for future bookings subject to availability.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fu d3">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What about emergencies?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="faq-a">
+          <p class="faq-a-text">Our 24/7 support helpline is always available. In case of a medical emergency, our nurses are trained to provide first response and will immediately coordinate with nearby hospitals and your consulting doctor.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-orb co1"></div>
+  <div class="cta-orb co2"></div>
+  <div class="container">
+    <div class="cta-inner fu">
+      <h2 class="cta-h">Professional care, right at your doorstep</h2>
+      <p class="cta-p">Book a home nurse today and experience healthcare the way it should be — caring, convenient, and affordable.</p>
+      <a href="#booking" class="btn-white">Book a Nurse Now <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="logoPoppins.svg" alt="Arovita" width="36" height="36">
+          <span class="footer-brand">Aro<span>vita</span></span>
+        </div>
+        <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
+        <div class="footer-social">
+          <div class="fsb">f</div><div class="fsb">𝕏</div><div class="fsb">in</div><div class="fsb">▶</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-h">Services</div>
+        <ul class="footer-links">
+          <li><a href="consult.html">Online Consultation</a></li>
+          <li><a href="lab-tests.html">Home Lab Tests</a></li>
+          <li><a href="home-nurse.html">Home Nursing</a></li>
+          <li><a href="services.html">All Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="my-care.html">My Care Dashboard</a></li>
+          <li><a href="profile.html">My Profile</a></li>
+          <li><a href="login.html">Sign In</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Stay Healthy</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.32);margin-bottom:14px;line-height:1.7">Subscribe for weekly health tips, wellness reads, and exclusive offers.</p>
+        <div class="nl-form">
+          <input type="email" class="nl-input" placeholder="Your email address">
+          <button class="nl-btn">Subscribe</button>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ABDM Registered</div>
+          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ISO Certified</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© <a href="index.html">Arovita</a> 2025 · All Rights Reserved · ABDM Registered · NABH Certified</div>
+      <ul class="footer-links2">
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<div class="stb" id="stb" onclick="scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';setTimeout(()=>{curRing.style.left=e.clientX+'px';curRing.style.top=e.clientY+'px'},80)});
+document.querySelectorAll('a,button,.nc-card,.faq-q').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.classList.add('hovered');curRing.classList.add('hovered')});el.addEventListener('mouseleave',()=>{cur.classList.remove('hovered');curRing.classList.remove('hovered')})});
+
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('sc',scrollY>60);document.getElementById('stb').classList.toggle('show',scrollY>400)});
+
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+const mmBackdrop=document.getElementById('mmBackdrop');
+function openMenu(){hamburger.classList.add('active');mobileMenu.classList.add('open');document.body.style.overflow='hidden'}
+function closeMenu(){hamburger.classList.remove('active');mobileMenu.classList.remove('open');document.body.style.overflow=''}
+hamburger.addEventListener('click',()=>{mobileMenu.classList.contains('open')?closeMenu():openMenu()});
+mmBackdrop.addEventListener('click',closeMenu);
+document.querySelectorAll('.mm-link').forEach(link=>{link.addEventListener('click',closeMenu)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:0.12});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+
+function toggleFaq(el){
+  const item=el.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+window.addEventListener('scroll',()=>{const g=document.querySelector('.hn-hero-grid');if(g)g.style.transform='translateY('+scrollY*.3+'px)'});
+</script>
+</body>
+</html>

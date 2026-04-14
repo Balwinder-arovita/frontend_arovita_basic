@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arovita — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1A7A5A;--gm:#22A374;--gl:#2EC48A;--gp:#E6F7F0;--gxp:#F2FBF7;
+  --dark:#091810;--dark2:#0D2118;--ink:#162820;--ink2:#2E4D3A;--muted:#607A6A;--hint:#A8C8B8;
+  --cream:#FAF8F4;--white:#fff;--gold:#C09A52;--gold2:#E8B84B;
+  --border:rgba(26,122,90,0.11);--border2:rgba(26,122,90,0.22);
+  --sh:0 4px 28px rgba(9,24,16,0.08);--sh-lg:0 18px 56px rgba(9,24,16,0.13);
+  --r:12px;--rl:20px;--rx:26px;
+  --red:#D94545;--orange:#E89030;--green-str:#2EC48A;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none;min-height:100vh}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s ease,width .25s,height .25s,background .25s}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(26,122,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,opacity .2s}
+body:has(a:hover) .cursor,body:has(button:hover) .cursor,.cursor.hovered{width:18px;height:18px;background:var(--gl)}
+body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring,.cursor-ring.hovered{width:60px;height:60px;border-color:var(--gl);opacity:.5}
+a,button,input,label{cursor:none}
+
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:linear-gradient(var(--gm),var(--gl));border-radius:4px}
+
+/* ============ LAYOUT ============ */
+.auth-wrapper{display:flex;min-height:100vh;position:relative}
+
+/* LEFT PANEL */
+.auth-left{width:48%;min-height:100vh;background:linear-gradient(165deg,var(--dark) 0%,var(--dark2) 40%,#0B3020 100%);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 50px;flex-shrink:0}
+.al-mesh{position:absolute;inset:0;pointer-events:none}
+.al-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:morph-orb ease-in-out infinite}
+.al-o1{width:500px;height:500px;background:radial-gradient(circle,rgba(46,196,138,.18),transparent 70%);top:-100px;left:-100px;animation-duration:14s}
+.al-o2{width:350px;height:350px;background:radial-gradient(circle,rgba(26,122,90,.15),transparent 70%);bottom:-50px;right:-80px;animation-duration:18s;animation-delay:-7s}
+.al-o3{width:250px;height:250px;background:radial-gradient(circle,rgba(192,154,82,.1),transparent 70%);top:50%;left:60%;animation-duration:11s;animation-delay:-4s}
+@keyframes morph-orb{0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.15) translate(30px,-30px)}66%{transform:scale(.9) translate(-20px,20px)}}
+
+/* Grid overlay */
+.al-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(46,196,138,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(46,196,138,.04) 1px,transparent 1px);background-size:50px 50px;pointer-events:none}
+
+/* ECG Line */
+.ecg-wrap{position:absolute;width:100%;bottom:38%;left:0;overflow:hidden;height:60px;opacity:.25;pointer-events:none}
+.ecg-line{stroke-dasharray:1200;stroke-dashoffset:1200;animation:ecg-draw 4s linear infinite}
+@keyframes ecg-draw{0%{stroke-dashoffset:1200}100%{stroke-dashoffset:0}}
+
+/* Left content */
+.al-content{position:relative;z-index:2;text-align:center;max-width:400px}
+.al-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px}
+.al-logo svg{flex-shrink:0}
+.al-logo-text{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:#fff;letter-spacing:-.3px}
+.al-logo-text span{color:var(--gl)}
+.al-tagline{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:16px;letter-spacing:-.3px}
+.al-tagline em{font-style:italic;color:var(--gl)}
+.al-sub{font-size:14.5px;color:var(--hint);line-height:1.7;margin-bottom:48px}
+
+/* Floating stat cards */
+.al-cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:42px}
+.al-card{background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 20px;text-align:center;min-width:105px}
+.al-card.fc1{animation:float-a 3.6s ease-in-out infinite}
+.al-card.fc2{animation:float-b 4.2s ease-in-out .6s infinite}
+.al-card.fc3{animation:float-a 5s ease-in-out 1.2s infinite}
+@keyframes float-a{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes float-b{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.al-card-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1}
+.al-card-lbl{font-size:10.5px;color:var(--hint);margin-top:4px;font-weight:500}
+
+/* Trust badges */
+.al-trust{display:flex;align-items:center;gap:20px;justify-content:center}
+.al-badge{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase}
+.al-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gl);opacity:.6}
+
+/* ============ RIGHT PANEL ============ */
+.auth-right{flex:1;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:40px 24px;overflow:hidden;background:linear-gradient(165deg,var(--cream) 0%,#FAFDF9 40%,var(--gxp) 100%)}
+
+/* Right mesh orbs */
+.ar-mesh{position:absolute;inset:0;pointer-events:none;z-index:0}
+.ar-orb{position:absolute;border-radius:50%;filter:blur(100px);animation:morph-orb ease-in-out infinite}
+.ar-o1{width:400px;height:400px;background:radial-gradient(circle,rgba(46,196,138,.06),transparent 70%);top:-100px;right:-100px;animation-duration:16s}
+.ar-o2{width:300px;height:300px;background:radial-gradient(circle,rgba(192,154,82,.04),transparent 70%);bottom:-60px;left:-60px;animation-duration:12s;animation-delay:-5s}
+
+/* Back nav */
+.auth-back{position:absolute;top:28px;left:32px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;color:var(--ink2);z-index:10;transition:color .2s}
+.auth-back:hover{color:var(--g)}
+.auth-back svg{transition:transform .2s}
+.auth-back:hover svg{transform:translateX(-3px)}
+.auth-back-brand{font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--dark);letter-spacing:-.2px}
+.auth-back-brand span{color:var(--g)}
+
+/* ============ FORM CONTAINER ============ */
+.auth-form-wrap{width:100%;max-width:420px;position:relative;z-index:2}
+
+/* Panel switching */
+.auth-panel{display:none;animation:panelIn .45s cubic-bezier(.16,1,.3,1) both}
+.auth-panel.active{display:block}
+@keyframes panelIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+.auth-heading{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;color:var(--dark);margin-bottom:6px;letter-spacing:-.3px}
+.auth-desc{font-size:14px;color:var(--muted);margin-bottom:32px;line-height:1.6}
+
+/* Input group */
+.input-group{position:relative;margin-bottom:18px}
+.input-group label{display:block;font-size:12.5px;font-weight:600;color:var(--ink2);margin-bottom:7px;letter-spacing:.2px}
+.input-icon{position:absolute;left:16px;bottom:14px;color:var(--hint);pointer-events:none;transition:color .2s}
+.input-group input:focus ~ .input-icon{color:var(--g)}
+.input-group input{width:100%;height:52px;border:1.5px solid var(--border);border-radius:14px;padding:0 48px 0 48px;font-family:'Outfit',sans-serif;font-size:14.5px;color:var(--ink);background:var(--white);transition:border-color .2s,box-shadow .2s;outline:none}
+.input-group input::placeholder{color:var(--hint);font-weight:400}
+.input-group input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(26,122,90,.1)}
+
+/* Eye toggle */
+.eye-toggle{position:absolute;right:14px;bottom:14px;background:none;border:none;color:var(--hint);padding:0;display:flex;transition:color .2s}
+.eye-toggle:hover{color:var(--g)}
+
+/* Phone prefix */
+.phone-prefix{position:absolute;left:48px;bottom:0;height:52px;display:flex;align-items:center;font-size:14px;font-weight:600;color:var(--ink2);pointer-events:none;padding-right:10px;border-right:1.5px solid var(--border)}
+.input-group .phone-input{padding-left:108px}
+
+/* Password strength */
+.pw-strength{display:flex;gap:4px;margin-top:8px;height:4px}
+.pw-bar{flex:1;border-radius:2px;background:var(--border);transition:background .3s}
+.pw-bar.weak{background:var(--red)}
+.pw-bar.medium{background:var(--orange)}
+.pw-bar.strong{background:var(--green-str)}
+.pw-label{font-size:11px;font-weight:600;margin-top:5px;transition:color .3s}
+.pw-label.weak{color:var(--red)}
+.pw-label.medium{color:var(--orange)}
+.pw-label.strong{color:var(--green-str)}
+
+/* Checkbox */
+.check-group{display:flex;align-items:flex-start;gap:10px;margin-bottom:24px}
+.check-group input[type="checkbox"]{width:18px;height:18px;accent-color:var(--g);margin-top:2px;flex-shrink:0;cursor:none}
+.check-group label{font-size:13px;color:var(--muted);line-height:1.5;cursor:none}
+.check-group label a{color:var(--g);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+/* Forgot link */
+.forgot-link{display:block;text-align:right;font-size:13px;font-weight:600;color:var(--g);margin-bottom:24px;margin-top:-8px;transition:color .2s}
+.forgot-link:hover{color:var(--gm)}
+
+/* Buttons */
+.btn-green{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;height:52px;background:var(--g);color:#fff;border-radius:50px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;border:none;cursor:none;transition:all .25s;position:relative;overflow:hidden}
+.btn-green::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn-green:hover::before{transform:translateX(100%)}
+.btn-green:hover{background:var(--gm);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,90,.42)}
+
+/* Divider */
+.auth-divider{display:flex;align-items:center;gap:16px;margin:28px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border2)}
+.auth-divider span{font-size:12px;color:var(--hint);font-weight:500;white-space:nowrap}
+
+/* Social buttons */
+.social-btns{display:flex;gap:12px;margin-bottom:28px}
+.social-btn{flex:1;height:50px;border-radius:14px;border:1.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;color:var(--ink);transition:all .2s;cursor:none}
+.social-btn:hover{border-color:var(--border2);background:var(--gxp);transform:translateY(-1px)}
+.social-btn svg{flex-shrink:0}
+
+/* Switch link */
+.switch-link{text-align:center;font-size:13.5px;color:var(--muted)}
+.switch-link a{color:var(--g);font-weight:700;transition:color .2s}
+.switch-link a:hover{color:var(--gm)}
+
+/* Back link inside panels */
+.panel-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);margin-top:20px;transition:color .2s}
+.panel-back:hover{color:var(--g)}
+.panel-back svg{transition:transform .2s}
+.panel-back:hover svg{transform:translateX(-3px)}
+
+/* ============ OTP ============ */
+.otp-info{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.otp-info strong{color:var(--ink);font-weight:700}
+.otp-boxes{display:flex;gap:10px;margin-bottom:8px;justify-content:center}
+.otp-box{width:52px;height:58px;border:1.5px solid var(--border);border-radius:14px;text-align:center;font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;color:var(--ink);background:var(--white);outline:none;transition:border-color .2s,box-shadow .2s}
+.otp-box:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(26,122,90,.1)}
+.otp-box.filled{border-color:var(--g);background:var(--gxp)}
+.otp-resend{text-align:center;font-size:13px;color:var(--muted);margin-bottom:28px;margin-top:14px}
+.otp-resend a{color:var(--g);font-weight:700;cursor:none}
+.otp-resend a.disabled{color:var(--hint);pointer-events:none}
+
+/* ============ STAGGER LOAD ============ */
+.stagger{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.stagger.vis{opacity:1;transform:none}
+
+/* ============ MOBILE HEADER (hidden desktop) ============ */
+.auth-mobile-header{display:none;text-decoration:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .auth-left{display:none}
+  .auth-mobile-header{display:flex;align-items:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,var(--dark),var(--dark2));position:relative;overflow:hidden}
+  .amh-orb{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(46,196,138,.15),transparent 70%);border-radius:50%;filter:blur(60px);top:-60px;right:-40px;pointer-events:none}
+  .amh-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.2px}
+  .amh-logo span{color:var(--gl)}
+  .amh-tag{font-size:11px;color:var(--hint);font-weight:500;margin-left:auto}
+  .auth-wrapper{flex-direction:column}
+  .auth-right{min-height:auto;padding:32px 20px 48px}
+  .auth-back{position:relative;top:auto;left:auto;margin-bottom:20px}
+}
+@media(max-width:600px){
+  .auth-heading{font-size:24px}
+  .auth-desc{font-size:13px}
+  .auth-form-wrap{max-width:100%}
+  .otp-boxes{gap:7px}
+  .otp-box{width:44px;height:50px;font-size:18px;border-radius:12px}
+  .al-card{padding:12px 14px;min-width:90px}
+  .al-card-num{font-size:18px}
+}
+
+@media(hover:none){
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none!important}
+  a,button,input,label{cursor:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- Mobile Header -->
+<a href="index.html" class="auth-mobile-header" style="text-decoration:none">
+  <div class="amh-orb"></div>
+  <img src="logoPoppins.svg" alt="Arovita" width="28" height="28">
+  <div class="amh-logo">Aro<span>vita</span></div>
+  <span class="amh-tag">Healthcare Platform</span>
+</a>
+
+<div class="auth-wrapper">
+
+  <!-- ============ LEFT ILLUSTRATION PANEL ============ -->
+  <div class="auth-left">
+    <!-- Mesh orbs -->
+    <div class="al-mesh">
+      <div class="al-orb al-o1"></div>
+      <div class="al-orb al-o2"></div>
+      <div class="al-orb al-o3"></div>
+    </div>
+    <div class="al-grid"></div>
+
+    <!-- ECG animation -->
+    <div class="ecg-wrap">
+      <svg width="100%" height="60" viewBox="0 0 600 60" preserveAspectRatio="none" fill="none">
+        <polyline class="ecg-line" points="0,30 40,30 60,30 80,30 100,28 110,32 120,30 160,30 180,8 190,52 200,2 210,55 220,30 260,30 300,30 340,30 360,28 370,32 380,30 420,30 440,8 450,52 460,2 470,55 480,30 520,30 560,30 600,30" stroke="#2EC48A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="al-content">
+      <div class="al-logo">
+        <img src="logoPoppins.svg" alt="Arovita" width="44" height="44">
+        <div class="al-logo-text">Aro<span>vita</span></div>
+      </div>
+
+      <h1 class="al-tagline">Your <em>Health</em> Journey<br>Starts Here</h1>
+      <p class="al-sub">India's most trusted digital healthcare platform — connecting patients with verified doctors, powered by technology.</p>
+
+      <!-- Floating stat cards -->
+      <div class="al-cards">
+        <div class="al-card fc1">
+          <div class="al-card-num">200+</div>
+          <div class="al-card-lbl">Verified Doctors</div>
+        </div>
+        <div class="al-card fc2">
+          <div class="al-card-num">50K+</div>
+          <div class="al-card-lbl">Happy Patients</div>
+        </div>
+        <div class="al-card fc3">
+          <div class="al-card-num">4.9★</div>
+          <div class="al-card-lbl">User Rating</div>
+        </div>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="al-trust">
+        <div class="al-badge"><div class="al-badge-dot"></div>ABDM</div>
+        <div class="al-badge"><div class="al-badge-dot"></div>NABH</div>
+        <div class="al-badge"><div class="al-badge-dot"></div>ISO 27001</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT AUTH PANEL ============ -->
+  <div class="auth-right">
+    <!-- Background orbs -->
+    <div class="ar-mesh">
+      <div class="ar-orb ar-o1"></div>
+      <div class="ar-orb ar-o2"></div>
+    </div>
+
+    <!-- Back nav -->
+    <a href="index.html" class="auth-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      <span class="auth-back-brand">Aro<span>vita</span></span>
+    </a>
+
+    <div class="auth-form-wrap">
+
+      <!-- ========== LOGIN PANEL ========== -->
+      <div class="auth-panel active" id="panel-login">
+        <h2 class="auth-heading stagger">Welcome Back</h2>
+        <p class="auth-desc stagger">Sign in to access your health dashboard, appointments, and more.</p>
+
+        <form onsubmit="return false" autocomplete="off">
+          <div class="input-group stagger">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 6L2 7"/></svg>
+            </div>
+          </div>
+
+          <div class="input-group stagger">
+            <label>Password</label>
+            <input type="password" placeholder="Enter your password" class="pw-field" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <button type="button" class="eye-toggle" onclick="togglePw(this)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+
+          <a href="#" class="forgot-link" onclick="showPanel('forgot')">Forgot Password?</a>
+
+          <button type="submit" class="btn-green stagger">Sign In</button>
+        </form>
+
+        <div class="auth-divider stagger"><span>or continue with</span></div>
+
+        <div class="social-btns stagger">
+          <button class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09a6.87 6.87 0 010-4.18V7.07H2.18a11.01 11.01 0 000 9.86l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google
+          </button>
+          <button class="social-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.32-2.11 4.45-3.74 4.25z"/></svg>
+            Apple
+          </button>
+        </div>
+
+        <p class="switch-link stagger">Don't have an account? <a href="#" onclick="showPanel('signup')">Sign Up</a></p>
+      </div>
+
+      <!-- ========== SIGNUP PANEL ========== -->
+      <div class="auth-panel" id="panel-signup">
+        <h2 class="auth-heading stagger">Create Account</h2>
+        <p class="auth-desc stagger">Join thousands of patients trusting Arovita for their healthcare needs.</p>
+
+        <form onsubmit="handleSignup(event)" autocomplete="off">
+          <div class="input-group stagger">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your full name" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+          </div>
+
+          <div class="input-group stagger">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 6L2 7"/></svg>
+            </div>
+          </div>
+
+          <div class="input-group stagger">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="XXXXX XXXXX" class="phone-input" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <span class="phone-prefix">+91</span>
+          </div>
+
+          <div class="input-group stagger">
+            <label>Password</label>
+            <input type="password" placeholder="Create a strong password" class="pw-field signup-pw" oninput="checkStrength(this.value)" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </div>
+            <button type="button" class="eye-toggle" onclick="togglePw(this)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <div class="pw-strength" id="pw-strength"><div class="pw-bar"></div><div class="pw-bar"></div><div class="pw-bar"></div></div>
+            <div class="pw-label" id="pw-label"></div>
+          </div>
+
+          <div class="check-group stagger">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a></label>
+          </div>
+
+          <button type="submit" class="btn-green stagger">Create Account</button>
+        </form>
+
+        <p class="switch-link stagger" style="margin-top:24px">Already have an account? <a href="#" onclick="showPanel('login')">Sign In</a></p>
+      </div>
+
+      <!-- ========== OTP PANEL ========== -->
+      <div class="auth-panel" id="panel-otp">
+        <h2 class="auth-heading stagger">Verify Your Number</h2>
+        <p class="otp-info stagger">We sent a 6-digit verification code to<br><strong id="otp-phone">+91 XXXXX XXXXX</strong></p>
+
+        <div class="otp-boxes stagger">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]">
+          <input type="text" maxlength="1" class="otp-box" inputmode="numeric" pattern="[0-9]">
+        </div>
+
+        <p class="otp-resend stagger"><span id="resend-wrap"><a href="#" id="resend-link" class="disabled" onclick="resendOTP()">Resend code</a> in <span id="resend-timer">30</span>s</span></p>
+
+        <button class="btn-green stagger" onclick="verifyOTP()">Verify & Continue</button>
+
+        <a href="#" class="panel-back stagger" onclick="showPanel('signup')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Back to Sign Up
+        </a>
+      </div>
+
+      <!-- ========== FORGOT PASSWORD PANEL ========== -->
+      <div class="auth-panel" id="panel-forgot">
+        <h2 class="auth-heading stagger">Reset Password</h2>
+        <p class="auth-desc stagger">Enter your registered email address and we'll send you a link to reset your password.</p>
+
+        <form onsubmit="return false" autocomplete="off">
+          <div class="input-group stagger">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+            <div class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 6L2 7"/></svg>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-green stagger">Send Reset Link</button>
+        </form>
+
+        <a href="#" class="panel-back stagger" onclick="showPanel('login')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Back to Sign In
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ CUSTOM CURSOR ============ */
+const cur = document.querySelector('.cursor');
+const ring = document.querySelector('.cursor-ring');
+let mx = 0, my = 0, cx = 0, cy = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function loop() {
+  cx += (mx - cx) * .15; cy += (my - cy) * .15;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  ring.style.left = cx + 'px'; ring.style.top = cy + 'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.social-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); ring.classList.add('hovered'); });
+  el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); ring.classList.remove('hovered'); });
+});
+
+/* ============ PANEL SWITCHING ============ */
+function showPanel(name) {
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  if (panel) {
+    panel.classList.add('active');
+    triggerStagger(panel);
+  }
+  if (name === 'otp') startResendTimer();
+}
+
+/* ============ STAGGER ANIMATION ============ */
+function triggerStagger(container) {
+  const els = container.querySelectorAll('.stagger');
+  els.forEach(el => el.classList.remove('vis'));
+  els.forEach((el, i) => {
+    setTimeout(() => el.classList.add('vis'), 60 + i * 70);
+  });
+}
+
+/* Initial stagger on load */
+window.addEventListener('DOMContentLoaded', () => {
+  const active = document.querySelector('.auth-panel.active');
+  if (active) triggerStagger(active);
+});
+
+/* ============ PASSWORD TOGGLE ============ */
+function togglePw(btn) {
+  const inp = btn.parentElement.querySelector('.pw-field');
+  if (!inp) return;
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  btn.innerHTML = show
+    ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
+    : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+}
+
+/* ============ PASSWORD STRENGTH ============ */
+function checkStrength(val) {
+  const bars = document.querySelectorAll('#pw-strength .pw-bar');
+  const label = document.getElementById('pw-label');
+  bars.forEach(b => b.className = 'pw-bar');
+  label.className = 'pw-label';
+  label.textContent = '';
+
+  if (!val) return;
+
+  let score = 0;
+  if (val.length >= 6) score++;
+  if (val.length >= 10) score++;
+  if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+
+  let level = 'weak', count = 1;
+  if (score >= 4) { level = 'strong'; count = 3; }
+  else if (score >= 2) { level = 'medium'; count = 2; }
+
+  for (let i = 0; i < count; i++) bars[i].classList.add(level);
+  label.classList.add(level);
+  label.textContent = level.charAt(0).toUpperCase() + level.slice(1);
+}
+
+/* ============ SIGNUP -> OTP ============ */
+function handleSignup(e) {
+  e.preventDefault();
+  const phone = e.target.querySelector('.phone-input');
+  if (phone) {
+    const num = phone.value.replace(/\s/g, '');
+    const masked = num.length > 4
+      ? num.slice(0, -4).replace(/./g, 'X') + ' ' + num.slice(-4)
+      : num;
+    document.getElementById('otp-phone').textContent = '+91 ' + masked;
+  }
+  showPanel('otp');
+}
+
+/* ============ OTP INPUT HANDLING ============ */
+const otpBoxes = document.querySelectorAll('.otp-box');
+otpBoxes.forEach((box, i) => {
+  box.addEventListener('input', e => {
+    const val = e.target.value.replace(/\D/g, '');
+    e.target.value = val.slice(-1);
+    if (val && i < otpBoxes.length - 1) otpBoxes[i + 1].focus();
+    e.target.classList.toggle('filled', !!e.target.value);
+  });
+  box.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !box.value && i > 0) {
+      otpBoxes[i - 1].focus();
+      otpBoxes[i - 1].value = '';
+      otpBoxes[i - 1].classList.remove('filled');
+    }
+  });
+  box.addEventListener('paste', e => {
+    e.preventDefault();
+    const paste = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+    paste.split('').forEach((ch, j) => {
+      if (otpBoxes[i + j]) {
+        otpBoxes[i + j].value = ch;
+        otpBoxes[i + j].classList.add('filled');
+      }
+    });
+    const next = Math.min(i + paste.length, otpBoxes.length - 1);
+    otpBoxes[next].focus();
+  });
+});
+
+function verifyOTP() {
+  const code = Array.from(otpBoxes).map(b => b.value).join('');
+  if (code.length === 6) {
+    alert('Verification successful! Welcome to Arovita.');
+  }
+}
+
+/* ============ RESEND TIMER ============ */
+let resendInterval = null;
+function startResendTimer() {
+  clearInterval(resendInterval);
+  let sec = 30;
+  const timerEl = document.getElementById('resend-timer');
+  const linkEl = document.getElementById('resend-link');
+  timerEl.textContent = sec;
+  linkEl.classList.add('disabled');
+  resendInterval = setInterval(() => {
+    sec--;
+    timerEl.textContent = sec;
+    if (sec <= 0) {
+      clearInterval(resendInterval);
+      linkEl.classList.remove('disabled');
+      document.getElementById('resend-wrap').innerHTML = '<a href="#" id="resend-link" onclick="resendOTP()">Resend code</a>';
+    }
+  }, 1000);
+}
+
+function resendOTP() {
+  startResendTimer();
+}
+</script>
+</body>
+</html>

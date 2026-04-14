@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Care — Arovita Healthcare Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1A7A5A;--gm:#22A374;--gl:#2EC48A;--gp:#E6F7F0;--gxp:#F2FBF7;
+  --dark:#091810;--dark2:#0D2118;--ink:#162820;--ink2:#2E4D3A;--muted:#607A6A;--hint:#A8C8B8;
+  --cream:#FAF8F4;--white:#fff;--gold:#C09A52;--gold2:#E8B84B;
+  --border:rgba(26,122,90,0.11);--border2:rgba(26,122,90,0.22);
+  --sh:0 4px 28px rgba(9,24,16,0.08);--sh-lg:0 18px 56px rgba(9,24,16,0.13);
+  --r:12px;--rl:20px;--rx:26px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+
+.cursor{position:fixed;width:10px;height:10px;background:var(--g);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s ease,width .25s,height .25s,background .25s}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(26,122,90,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,opacity .2s}
+body:has(a:hover) .cursor,.cursor.hovered{width:18px;height:18px;background:var(--gl)}
+body:has(a:hover) .cursor-ring,.cursor-ring.hovered{width:60px;height:60px;border-color:var(--gl);opacity:.5}
+a,button{cursor:none}
+
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:linear-gradient(var(--gm),var(--gl));border-radius:4px}
+.container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+.sec-label{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.sec-label::before,.sec-label::after{content:'';width:22px;height:1.5px;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:2px}
+.sec-title{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1.15;color:var(--dark);letter-spacing:-0.5px}
+.sec-title em{font-style:italic;color:var(--g);position:relative}
+.sec-title em::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g),var(--gl));border-radius:2px;animation:shimmer-line 3s ease-in-out infinite}
+@keyframes shimmer-line{0%,100%{opacity:.4;transform:scaleX(.7)}50%{opacity:1;transform:scaleX(1)}}
+
+.btn-green{display:inline-flex;align-items:center;gap:9px;background:var(--g);color:#fff;padding:15px 32px;border-radius:50px;font-size:14.5px;font-weight:600;border:none;cursor:none;transition:all .25s;position:relative;overflow:hidden}
+.btn-green::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn-green:hover::before{transform:translateX(100%)}
+.btn-green:hover{background:var(--gm);transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,90,.42)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--g);border:1.5px solid var(--g);padding:14px 30px;border-radius:50px;font-size:14.5px;font-weight:600;cursor:none;transition:all .25s}
+.btn-outline:hover{background:var(--gp);transform:translateY(-2px)}
+.btn-sm{padding:10px 22px;font-size:13px}
+.btn-xs{padding:8px 18px;font-size:12.5px;border-radius:40px}
+
+.fu{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.fu.vis{opacity:1;transform:none}
+.fu.d1{transition-delay:.08s}.fu.d2{transition-delay:.17s}.fu.d3{transition-delay:.26s}.fu.d4{transition-delay:.35s}.fu.d5{transition-delay:.44s}
+
+/* ===================== NAVBAR ===================== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .35s;background:rgba(250,248,244,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(9,24,16,.05),0 1px 0 rgba(26,122,90,.06)}
+.navbar.sc{background:rgba(250,248,244,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 4px 32px rgba(9,24,16,.09),0 1px 0 rgba(26,122,90,.1)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 44px;max-width:1400px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-svg-wrap{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+.logo-svg-wrap img{width:100%;height:100%;object-fit:contain}
+.nav-brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--dark);letter-spacing:-.3px}
+.nav-brand span{color:var(--g)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-a{font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .22s;position:relative;padding:8px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.nav-a svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;opacity:.65;transition:opacity .22s}
+.nav-a:hover svg{opacity:1}
+.nav-a::after{content:'';position:absolute;bottom:2px;left:14px;right:14px;height:2px;background:linear-gradient(90deg,var(--g),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);border-radius:2px}
+.nav-a:hover{color:var(--g);background:rgba(26,122,90,.04)}.nav-a:hover::after{transform:scaleX(1)}
+.nav-a.active{color:var(--g);background:var(--gp)}.nav-a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-profile{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gp),#A8D8BC);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--g);border:2px solid var(--border2);cursor:none;transition:all .22s;flex-shrink:0;text-decoration:none}
+.nav-profile:hover{border-color:var(--g);transform:scale(1.08);box-shadow:0 4px 16px rgba(26,122,90,.2)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(250,248,244,.98);backdrop-filter:blur(20px);padding:24px;border-bottom:1px solid var(--border);transform:translateY(-10px);opacity:0;transition:all .3s;z-index:999}
+.mobile-menu.open{display:flex;flex-direction:column;gap:6px;transform:none;opacity:1}
+.mobile-menu a{font-size:15px;font-weight:500;color:var(--ink2);padding:12px 16px;border-radius:12px;transition:all .2s}
+.mobile-menu a:hover{background:var(--gp);color:var(--g)}
+.mm-label{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;padding:14px 16px 4px;margin-top:4px}
+
+/* ===================== PAGE HEADER ===================== */
+.page-header{padding:112px 0 48px;background:var(--gxp);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,122,90,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(26,122,90,.03) 1px,transparent 1px);background-size:60px 60px}
+.ph-mesh{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(100px);background:radial-gradient(circle,rgba(46,196,138,.1),transparent 70%);top:-200px;right:-100px;pointer-events:none}
+.page-header .container{position:relative;z-index:1}
+.ph-sub{font-size:15.5px;color:var(--muted);line-height:1.7;margin-top:10px;max-width:500px}
+
+.quick-stats{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap}
+.qs-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 24px;display:flex;align-items:center;gap:14px;transition:all .25s;min-width:160px}
+.qs-card:hover{transform:translateY(-3px);box-shadow:var(--sh);border-color:var(--border2)}
+.qs-ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qs-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--dark);line-height:1}
+.qs-lbl{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px}
+
+/* ===================== MAIN TABS ===================== */
+.main-content{padding:40px 0 80px;background:linear-gradient(180deg,#fff 0%,var(--gxp) 100%)}
+.main-tabs{display:flex;gap:6px;background:var(--gxp);border-radius:50px;padding:5px;margin-bottom:36px;width:fit-content}
+.main-tab{padding:11px 28px;border-radius:50px;font-size:14px;font-weight:600;color:var(--muted);cursor:none;transition:all .25s;display:flex;align-items:center;gap:8px;border:none;background:none;font-family:'Outfit',sans-serif}
+.main-tab.on{background:var(--g);color:white;box-shadow:0 4px 16px rgba(26,122,90,.3)}
+.main-tab:hover:not(.on){color:var(--g);background:rgba(26,122,90,.06)}
+.tab-badge{background:rgba(255,255,255,.25);color:inherit;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.main-tab.on .tab-badge{background:rgba(255,255,255,.25)}
+.main-tab:not(.on) .tab-badge{background:var(--gp);color:var(--g)}
+
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeTab .4s ease}
+@keyframes fadeTab{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* SUB-TABS */
+.sub-tabs{display:flex;gap:4px;margin-bottom:28px}
+.sub-tab{padding:8px 20px;border-radius:40px;font-size:13px;font-weight:600;color:var(--muted);cursor:none;transition:all .2s;border:1.5px solid transparent;background:none;font-family:'Outfit',sans-serif}
+.sub-tab.on{color:var(--g);border-color:var(--g);background:var(--gp)}
+.sub-tab:hover:not(.on){color:var(--g)}
+
+.sub-panel{display:none}
+.sub-panel.active{display:block;animation:fadeTab .35s ease}
+
+/* ===================== APPOINTMENT CARDS ===================== */
+.appt-card{background:var(--white);border-radius:var(--rl);border:1px solid var(--border);padding:28px;margin-bottom:20px;transition:all .3s;position:relative;overflow:hidden}
+.appt-card:hover{box-shadow:var(--sh-lg);border-color:var(--border2);transform:translateY(-3px)}
+.appt-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
+.appt-card.upcoming::before{background:linear-gradient(var(--g),var(--gl))}
+.appt-card.past::before{background:var(--hint)}
+
+.appt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.appt-date{display:flex;align-items:center;gap:10px}
+.appt-date-ic{width:44px;height:44px;background:var(--gp);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.appt-date-txt{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark)}
+.appt-date-sub{font-size:12px;color:var(--muted);margin-top:2px}
+
+.consult-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:.3px}
+.consult-badge.video{background:rgba(99,102,241,.08);color:#6366F1;border:1px solid rgba(99,102,241,.15)}
+.consult-badge.audio{background:rgba(234,179,8,.08);color:#B8860B;border:1px solid rgba(234,179,8,.15)}
+
+.doc-row{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.doc-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;border:2.5px solid var(--white);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.doc-name{font-weight:700;font-size:15px;color:var(--dark)}
+.doc-spec{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+.appt-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cancel-link{font-size:13px;color:#DC2626;font-weight:600;cursor:none;transition:opacity .2s;background:none;border:none;font-family:'Outfit',sans-serif}
+.cancel-link:hover{opacity:.7}
+
+.countdown{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;color:var(--g);background:var(--gp);border:1px solid rgba(26,122,90,.15);margin-top:14px}
+.countdown-dot{width:7px;height:7px;background:var(--gl);border-radius:50%;animation:live-pulse 1.8s ease-in-out infinite}
+@keyframes live-pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.7);opacity:0}}
+
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:700}
+.status-badge.completed{background:var(--gp);color:var(--g)}
+.status-badge.cancelled{background:rgba(220,38,38,.06);color:#DC2626}
+
+.appt-meta{display:flex;gap:20px;margin-bottom:16px;flex-wrap:wrap}
+.appt-meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);font-weight:500}
+
+.expandable{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.expandable.open{max-height:600px}
+.expand-btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--g);cursor:none;transition:all .2s;background:none;border:none;font-family:'Outfit',sans-serif;margin-top:10px}
+.expand-btn svg{transition:transform .25s}
+.expand-btn.open svg{transform:rotate(180deg)}
+.rx-preview{padding:18px;background:var(--gxp);border-radius:var(--r);margin-top:14px;border:1px solid var(--border)}
+.rx-preview h4{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:10px}
+.rx-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.rx-list li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);font-weight:500}
+.rx-dot{width:6px;height:6px;background:var(--gl);border-radius:50%;flex-shrink:0}
+.rx-notes{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12.5px;color:var(--muted);line-height:1.6;font-style:italic}
+
+/* ===================== LAB ORDER CARDS ===================== */
+.lab-card{background:var(--white);border-radius:var(--rl);border:1px solid var(--border);padding:28px;margin-bottom:20px;transition:all .3s;position:relative;overflow:hidden}
+.lab-card:hover{box-shadow:var(--sh-lg);border-color:var(--border2);transform:translateY(-3px)}
+.lab-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.lab-order-num{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark)}
+.lab-date{font-size:12px;color:var(--muted);margin-top:3px}
+
+.test-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.test-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:var(--gxp);color:var(--ink2);border:1px solid var(--border)}
+
+.collection-info{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--gxp);border-radius:var(--r);margin-bottom:18px;border:1px solid var(--border)}
+.coll-ic{width:38px;height:38px;background:var(--gp);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.coll-text{font-size:13px;font-weight:600;color:var(--ink2)}
+.coll-sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* STATUS TIMELINE */
+.status-timeline{position:relative;padding-left:28px;margin:24px 0}
+.status-timeline::before{content:'';position:absolute;left:9px;top:4px;bottom:4px;width:2px;background:var(--border)}
+.tl-step{position:relative;padding-bottom:24px;padding-left:20px}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-22px;top:2px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.tl-dot.done{background:var(--gp);border:2px solid var(--g)}
+.tl-dot.active{background:var(--white);border:2px solid var(--gm);box-shadow:0 0 0 4px rgba(34,163,116,.15)}
+.tl-dot.active::after{content:'';width:8px;height:8px;background:var(--gm);border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.6}}
+.tl-dot.pending{background:var(--cream);border:2px solid var(--hint)}
+.tl-label{font-size:13.5px;font-weight:600;color:var(--dark)}
+.tl-step.done .tl-label{color:var(--g)}
+.tl-step.pending .tl-label{color:var(--hint)}
+.tl-time{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* ===================== HEALTH RECORDS ===================== */
+.hr-section{padding:50px 0;background:linear-gradient(180deg,var(--gxp) 0%,#fff 30%,#fff 70%,var(--cream) 100%);margin-top:20px;border-radius:var(--rx);position:relative;overflow:hidden}
+.hr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
+.hr-card{background:var(--white);border-radius:var(--rl);border:1px solid var(--border);padding:24px;text-align:center;transition:all .3s;cursor:none}
+.hr-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:var(--border2)}
+.hr-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.hr-card:hover::after{transform:scaleX(1)}
+.hr-ic{width:56px;height:56px;background:var(--gp);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;transition:all .3s}
+.hr-card:hover .hr-ic{background:rgba(34,163,116,.15);transform:scale(1.08) rotate(-3deg)}
+.hr-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.hr-count{font-size:12px;color:var(--muted);margin-bottom:12px}
+.hr-link{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--g);transition:gap .2s}
+.hr-card:hover .hr-link{gap:9px}
+
+/* ===================== REMINDERS ===================== */
+.reminders{padding:40px 0;background:linear-gradient(180deg,#fff 0%,#FAFDF9 40%,var(--gxp) 100%)}
+.rem-list{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.rem-item{display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--white);border-radius:var(--r);border:1px solid var(--border);transition:all .25s}
+.rem-item:hover{box-shadow:var(--sh);border-color:var(--border2);transform:translateX(4px)}
+.rem-ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rem-text{flex:1}
+.rem-title{font-size:14px;font-weight:600;color:var(--dark)}
+.rem-time{font-size:12px;color:var(--muted);margin-top:2px}
+.rem-badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap}
+
+/* ===================== CTA STRIP ===================== */
+.cta-strip{padding:60px 0;background:linear-gradient(135deg,var(--g) 0%,var(--gm) 60%,var(--gl) 100%);position:relative;overflow:hidden}
+.cta-strip::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.08)'/%3E%3C/svg%3E");background-size:60px 60px}
+.cta-strip-in{display:flex;align-items:center;justify-content:space-between;gap:30px;position:relative;z-index:1;flex-wrap:wrap}
+.cta-strip-h{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:white;line-height:1.2}
+.btn-white{display:inline-flex;align-items:center;gap:9px;background:white;color:var(--g);padding:15px 32px;border-radius:50px;font-size:14.5px;font-weight:700;transition:all .25s;cursor:none;border:none}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.18)}
+
+/* ===================== MODALS ===================== */
+.modal-overlay{position:fixed;inset:0;background:rgba(9,24,16,.5);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--white);border-radius:var(--rx);max-width:520px;width:92%;max-height:85vh;overflow-y:auto;padding:36px;position:relative;transform:scale(.92) translateY(20px);transition:transform .35s cubic-bezier(.16,1,.3,1);box-shadow:var(--sh-lg)}
+.modal-overlay.open .modal{transform:none}
+.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--gxp);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s}
+.modal-close:hover{background:rgba(220,38,38,.08);border-color:rgba(220,38,38,.2)}
+.modal-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.modal-desc{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+
+.form-group{margin-bottom:18px}
+.form-label{font-size:12.5px;font-weight:700;color:var(--ink2);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.5px}
+.form-select,.form-input{width:100%;padding:12px 16px;border:1.5px solid var(--border2);border-radius:var(--r);font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);background:var(--white);outline:none;transition:border .2s}
+.form-select:focus,.form-input:focus{border-color:var(--g)}
+.form-select{cursor:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23607A6A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+
+.date-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.date-slot{padding:10px;border-radius:var(--r);border:1.5px solid var(--border);text-align:center;cursor:none;transition:all .2s;font-size:12.5px;font-weight:600;color:var(--ink2);background:var(--white)}
+.date-slot:hover,.date-slot.selected{border-color:var(--g);background:var(--gp);color:var(--g)}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{padding:10px;border-radius:var(--r);border:1.5px solid var(--border);text-align:center;cursor:none;transition:all .2s;font-size:13px;font-weight:600;color:var(--ink2);background:var(--white)}
+.time-slot:hover,.time-slot.selected{border-color:var(--g);background:var(--gp);color:var(--g)}
+
+.rx-modal-med{display:flex;align-items:flex-start;gap:12px;padding:14px;background:var(--gxp);border-radius:var(--r);border:1px solid var(--border);margin-bottom:10px}
+.rx-modal-dot{width:8px;height:8px;background:var(--gl);border-radius:50%;flex-shrink:0;margin-top:5px}
+.rx-med-name{font-weight:700;font-size:14px;color:var(--dark)}
+.rx-med-dosage{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+.report-summary{padding:20px;background:var(--gxp);border-radius:var(--r);border:1px solid var(--border);margin-bottom:14px}
+.report-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.report-row:last-child{border-bottom:none}
+.report-param{font-weight:600;color:var(--ink2)}
+.report-val{font-weight:700;color:var(--dark)}
+.report-range{font-size:11px;color:var(--muted);margin-left:8px}
+.report-val.normal{color:var(--g)}
+.report-val.high{color:#DC2626}
+
+/* ===================== FOOTER ===================== */
+.footer{padding:80px 0 0;background:var(--dark);position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(46,196,138,.3) 40%,rgba(46,196,138,.3) 60%,transparent)}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:48px;margin-bottom:60px}
+.footer-logo{display:flex;align-items:center;gap:11px;margin-bottom:18px}
+.footer-brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:white;letter-spacing:-.3px}
+.footer-brand span{color:var(--gl)}
+.footer-desc{font-size:13.5px;color:rgba(255,255,255,.34);line-height:1.76;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.fsb{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:rgba(255,255,255,.5);cursor:none;transition:all .22s}
+.fsb:hover{background:var(--g);color:white;border-color:var(--g);transform:translateY(-3px)}
+.footer-h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.28);margin-bottom:18px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13.5px;color:rgba(255,255,255,.42);transition:color .18s;display:inline-flex;align-items:center;gap:6px}
+.footer-links a::before{content:'→';font-size:11px;opacity:0;transform:translateX(-8px);transition:all .2s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}.footer-links a:hover::before{opacity:1;transform:none}
+.nl-form{display:flex;gap:8px}
+.nl-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;color:white;font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:border .2s}
+.nl-input::placeholder{color:rgba(255,255,255,.25)}
+.nl-input:focus{border-color:var(--g)}
+.nl-btn{background:var(--g);color:white;border:none;border-radius:12px;padding:12px 18px;font-size:12.5px;font-weight:700;cursor:none;transition:all .22s;font-family:'Outfit',sans-serif;white-space:nowrap}
+.nl-btn:hover{background:var(--gm)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12.5px;color:rgba(255,255,255,.24)}
+.footer-copy a{color:rgba(46,196,138,.6);transition:color .18s}.footer-copy a:hover{color:var(--gl)}
+.footer-links2{list-style:none;display:flex;gap:22px}
+.footer-links2 a{font-size:12px;color:rgba(255,255,255,.24);transition:color .18s}.footer-links2 a:hover{color:rgba(255,255,255,.6)}
+
+/* SCROLL TOP */
+.stb{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gl));display:flex;align-items:center;justify-content:center;cursor:none;opacity:0;transform:translateY(20px) scale(.8);transition:all .3s;z-index:999;box-shadow:0 6px 20px rgba(26,122,90,.4)}
+.stb.show{opacity:1;transform:none}
+.stb:hover{transform:translateY(-3px) scale(1.08);box-shadow:0 10px 28px rgba(26,122,90,.5)}
+.stb svg{width:20px;height:20px}
+
+/* ===================== LAYOUT ===================== */
+.care-layout{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start}
+.care-main{min-width:0}
+.care-sidebar{position:sticky;top:100px}
+
+/* ===================== RESPONSIVE ===================== */
+@media(hover:none){body{cursor:auto}.cursor,.cursor-ring{display:none}a,button{cursor:pointer}}
+
+@media(max-width:900px){
+  .nav-links,.nav-cta,.nav-profile{display:none}
+  .hamburger{display:flex}
+  .nav-in{padding:0 20px;height:62px}
+  .navbar{box-shadow:0 1px 16px rgba(9,24,16,.06),0 1px 0 rgba(26,122,90,.06)}
+  .container{padding:0 22px}
+  .sec-title{font-size:34px}
+  .sec-label{font-size:10.5px;letter-spacing:1.2px;gap:6px}
+  .sec-label::before,.sec-label::after{width:16px}
+  .btn-green{padding:13px 26px;font-size:13.5px;gap:8px}
+  .btn-outline{padding:12px 24px;font-size:13.5px}
+  .page-header{padding:100px 0 40px}
+  .care-layout{grid-template-columns:1fr}
+  .care-sidebar{position:static}
+  .hr-grid{grid-template-columns:repeat(2,1fr)}
+  .quick-stats{flex-direction:row;flex-wrap:wrap}
+  .qs-card{min-width:auto;flex:1 1 140px}
+  .date-slots{grid-template-columns:repeat(3,1fr)}
+  .time-slots{grid-template-columns:repeat(2,1fr)}
+  .cta-strip-in{flex-direction:column;text-align:center;gap:20px}
+  .cta-strip-h{font-size:28px}
+  .modal{padding:28px;max-width:480px;width:94%}
+  .footer{padding:56px 0 0}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px}
+  .footer-brand{font-size:20px}
+  .footer-desc{font-size:12.5px}
+  .footer-h{font-size:11px}
+  .footer-links a{font-size:12.5px}
+  .footer-bottom{padding:18px 0;gap:10px}
+  .footer-copy{font-size:11.5px}
+  .footer-links2{gap:16px}
+  .footer-links2 a{font-size:11px}
+}
+@media(max-width:600px){
+  .container{padding:0 16px}
+  .nav-in{padding:0 16px;height:58px}
+  .nav-brand{font-size:20px}
+  .logo-svg-wrap{width:36px;height:36px}
+  .sec-title{font-size:28px;letter-spacing:-.3px}
+  .sec-label{font-size:10px;margin-bottom:10px}
+  .btn-green{padding:12px 22px;font-size:13px}
+  .btn-outline{padding:11px 20px;font-size:13px}
+  .page-header{padding:88px 0 32px}
+  .page-header .sec-title{font-size:28px}
+  .ph-sub{font-size:13.5px}
+  .quick-stats{flex-direction:column;gap:10px}
+  .qs-card{min-width:auto;padding:14px 18px}
+  .qs-num{font-size:22px}
+  .qs-lbl{font-size:10.5px}
+  .qs-ic{width:38px;height:38px;border-radius:10px}
+  .main-content{padding:28px 0 60px}
+  .main-tabs{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:4px;padding:4px}
+  .main-tabs::-webkit-scrollbar{display:none}
+  .main-tab{white-space:nowrap;padding:9px 18px;font-size:13px}
+  .tab-badge{font-size:10px;padding:2px 6px}
+  .sub-tabs{gap:3px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .sub-tab{padding:7px 16px;font-size:12px;white-space:nowrap}
+  .appt-card{padding:20px 16px;border-radius:16px}
+  .appt-top{flex-direction:column;gap:12px}
+  .appt-date{gap:8px}
+  .appt-date-ic{width:38px;height:38px;border-radius:10px}
+  .appt-date-txt{font-size:14px}
+  .appt-date-sub{font-size:11px}
+  .consult-badge{font-size:10.5px;padding:4px 12px}
+  .doc-row{gap:10px}
+  .doc-avatar{width:42px;height:42px;font-size:15px}
+  .doc-name{font-size:14px}
+  .doc-spec{font-size:11.5px}
+  .appt-actions{flex-direction:column;align-items:stretch;gap:8px}
+  .appt-actions .btn-green,.appt-actions .btn-outline{justify-content:center;width:100%}
+  .appt-meta{gap:12px}
+  .appt-meta-item{font-size:11.5px}
+  .countdown{font-size:11px;padding:5px 12px}
+  .lab-card{padding:20px 16px;border-radius:16px}
+  .lab-header{flex-direction:column;gap:10px}
+  .lab-order-num{font-size:14px}
+  .test-tags{gap:5px}
+  .test-tag{padding:4px 10px;font-size:11px}
+  .collection-info{padding:12px 14px;gap:10px;border-radius:10px}
+  .coll-ic{width:34px;height:34px;border-radius:8px}
+  .coll-text{font-size:12px}
+  .coll-sub{font-size:10.5px}
+  .status-timeline{padding-left:24px}
+  .tl-label{font-size:12.5px}
+  .tl-time{font-size:10.5px}
+  .tl-dot{width:18px;height:18px;left:-20px}
+  .rem-item{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px}
+  .rem-ic{width:36px;height:36px;border-radius:10px}
+  .rem-title{font-size:13px}
+  .rem-time{font-size:11px}
+  .rem-badge{font-size:10px;padding:3px 10px}
+  .rx-preview{padding:14px;border-radius:10px}
+  .rx-preview h4{font-size:13px}
+  .rx-list li{font-size:12px;gap:6px}
+  .rx-notes{font-size:11.5px}
+  .cta-strip{padding:44px 0}
+  .cta-strip-h{font-size:22px}
+  .btn-white{padding:13px 28px;font-size:14px}
+  .hr-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .hr-card{padding:18px;border-radius:14px}
+  .hr-ic{width:48px;height:48px;border-radius:14px}
+  .hr-title{font-size:14px}
+  .hr-count{font-size:11px}
+  .modal{padding:24px 18px;border-radius:20px;width:96%}
+  .modal-title{font-size:20px}
+  .modal-desc{font-size:13px}
+  .date-slots{grid-template-columns:repeat(2,1fr);gap:6px}
+  .date-slot{padding:8px;font-size:11.5px}
+  .time-slots{grid-template-columns:repeat(2,1fr);gap:6px}
+  .time-slot{padding:8px;font-size:12px}
+  .form-select,.form-input{font-size:13px;padding:11px 14px}
+  .footer{padding:44px 0 0}
+  .footer-grid{grid-template-columns:1fr;gap:28px;margin-bottom:32px}
+  .nl-form{flex-direction:column;gap:10px}
+  .footer-bottom{flex-direction:column;align-items:center;text-align:center;padding:16px 0}
+  .footer-links2{gap:14px;flex-wrap:wrap;justify-content:center}
+  .stb{bottom:20px;right:20px;width:42px;height:42px}
+}
+@media(max-width:380px){
+  .container{padding:0 12px}
+  .sec-title{font-size:25px}
+  .page-header .sec-title{font-size:25px}
+  .appt-card{padding:16px 12px}
+  .lab-card{padding:16px 12px}
+  .cta-strip-h{font-size:20px}
+  .modal{padding:20px 14px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-svg-wrap">
+        <img src="logoPoppins.svg" alt="Arovita" width="42" height="42">
+      </div>
+      <span class="nav-brand">Aro<span>vita</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="consult.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Consult</a>
+      <a href="lab-tests.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M8.5 10c-.83 0-1.5-.67-1.5-1.5v-5C7 2.67 7.67 2 8.5 2S10 2.67 10 3.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M15.5 16h-8a3 3 0 01-3-3v-1h14v1a3 3 0 01-3 3z"/></svg> Lab Tests</a>
+      <a href="home-nurse.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home Nurse</a>
+      <a href="my-care.html" class="nav-a active"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> My Care</a>
+      <a href="services.html" class="nav-a"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> Services</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-cta">
+        <a href="consult.html" class="btn-green" style="padding:11px 22px;font-size:13.5px">Book Now <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <a href="profile.html" class="nav-profile" title="My Profile">RS</a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mm-label">Quick Access</div>
+  <a href="consult.html">Consult</a>
+  <a href="lab-tests.html">Lab Tests</a>
+  <a href="home-nurse.html">Home Nurse</a>
+  <a href="my-care.html">My Care</a>
+  <div class="mm-label">Explore</div>
+  <a href="services.html">Services</a>
+  <a href="find-doctor.html">Find Doctor</a>
+  <a href="about.html">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="blog.html">Blog</a>
+  <div class="mm-label">Account</div>
+  <a href="profile.html">Profile</a>
+  <div class="mm-label" style="margin-top:8px"></div>
+  <a href="consult.html" class="btn-outline" style="justify-content:center;font-size:14px">Sign In</a>
+  <a href="consult.html" class="btn-green" style="justify-content:center;margin-top:4px">Book Now</a>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="ph-mesh"></div>
+  <div class="container">
+    <div class="sec-label fu">Dashboard</div>
+    <h1 class="sec-title fu d1">My <em>Care</em></h1>
+    <p class="ph-sub fu d2">Manage your appointments, lab orders, and health records — all in one place.</p>
+    <div class="quick-stats fu d3">
+      <div class="qs-card">
+        <div class="qs-ic" style="background:var(--gp)">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div>
+          <div class="qs-num">2</div>
+          <div class="qs-lbl">Upcoming</div>
+        </div>
+      </div>
+      <div class="qs-card">
+        <div class="qs-ic" style="background:rgba(46,196,138,.08)">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#22A374" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="qs-num">12</div>
+          <div class="qs-lbl">Completed</div>
+        </div>
+      </div>
+      <div class="qs-card">
+        <div class="qs-ic" style="background:rgba(192,154,82,.08)">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M8.5 10c-.83 0-1.5-.67-1.5-1.5v-5C7 2.67 7.67 2 8.5 2S10 2.67 10 3.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M15.5 16h-8a3 3 0 01-3-3v-1h14v1a3 3 0 01-3 3z"/><path d="M10 16v5M13 16v5M7 21h9"/></svg>
+        </div>
+        <div>
+          <div class="qs-num">5</div>
+          <div class="qs-lbl">Lab Orders</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="main-content">
+  <div class="container">
+
+    <!-- MAIN TABS -->
+    <div class="main-tabs fu">
+      <button class="main-tab on" data-tab="appointments" onclick="switchMainTab('appointments',this)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Appointments <span class="tab-badge">2</span>
+      </button>
+      <button class="main-tab" data-tab="laborders" onclick="switchMainTab('laborders',this)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M8.5 10c-.83 0-1.5-.67-1.5-1.5v-5C7 2.67 7.67 2 8.5 2S10 2.67 10 3.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M15.5 16h-8a3 3 0 01-3-3v-1h14v1a3 3 0 01-3 3z"/></svg>
+        Lab Orders <span class="tab-badge">3</span>
+      </button>
+    </div>
+
+    <div class="care-layout">
+      <div class="care-main">
+
+        <!-- ==================== APPOINTMENTS TAB ==================== -->
+        <div class="tab-panel active" id="tab-appointments">
+
+          <!-- Sub-tabs -->
+          <div class="sub-tabs">
+            <button class="sub-tab on" data-sub="upcoming" onclick="switchSubTab('appt',this,'upcoming')">Upcoming</button>
+            <button class="sub-tab" data-sub="past" onclick="switchSubTab('appt',this,'past')">Past</button>
+          </div>
+
+          <!-- UPCOMING -->
+          <div class="sub-panel active" id="appt-upcoming">
+
+            <!-- Card 1: Tomorrow -->
+            <div class="appt-card upcoming fu">
+              <div class="appt-top">
+                <div class="appt-date">
+                  <div class="appt-date-ic">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="12" cy="16" r="1"/></svg>
+                  </div>
+                  <div>
+                    <div class="appt-date-txt">Tomorrow, 10:30 AM</div>
+                    <div class="appt-date-sub">Apr 15, 2026</div>
+                  </div>
+                </div>
+                <div class="consult-badge video">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                  Video Consultation
+                </div>
+              </div>
+              <div class="doc-row">
+                <div class="doc-avatar" style="background:linear-gradient(135deg,#B8E8D0,#6EC9A0);color:#1A5A3A">PS</div>
+                <div>
+                  <div class="doc-name">Dr. Priya Sharma</div>
+                  <div class="doc-spec">Cardiologist · 15 yrs exp</div>
+                </div>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-sm" onclick="alert('Joining meeting...')">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                  Join Meeting
+                </button>
+                <button class="btn-outline btn-sm" onclick="openModal('rescheduleModal')">Reschedule</button>
+                <button class="cancel-link" onclick="openModal('cancelModal')">Cancel</button>
+              </div>
+              <div class="countdown">
+                <span class="countdown-dot"></span>
+                Starts in 18 hours
+              </div>
+            </div>
+
+            <!-- Card 2: Apr 18 -->
+            <div class="appt-card upcoming fu d1">
+              <div class="appt-top">
+                <div class="appt-date">
+                  <div class="appt-date-ic">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="12" cy="16" r="1"/></svg>
+                  </div>
+                  <div>
+                    <div class="appt-date-txt">Apr 18, 3:00 PM</div>
+                    <div class="appt-date-sub">Friday</div>
+                  </div>
+                </div>
+                <div class="consult-badge audio">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  Audio Consultation
+                </div>
+              </div>
+              <div class="doc-row">
+                <div class="doc-avatar" style="background:linear-gradient(135deg,#D4C4ED,#9882C9);color:#5B3FB0">AM</div>
+                <div>
+                  <div class="doc-name">Dr. Arjun Mehta</div>
+                  <div class="doc-spec">Dermatologist · 10 yrs exp</div>
+                </div>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-outline btn-sm" onclick="openModal('rescheduleModal')">Reschedule</button>
+                <button class="cancel-link" onclick="openModal('cancelModal')">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- PAST -->
+          <div class="sub-panel" id="appt-past">
+
+            <!-- Past 1 -->
+            <div class="appt-card past fu">
+              <div class="appt-top">
+                <div class="appt-date">
+                  <div class="appt-date-ic" style="background:rgba(168,200,184,.15)">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  </div>
+                  <div>
+                    <div class="appt-date-txt">Apr 8, 2026</div>
+                    <div class="appt-date-sub">11:00 AM</div>
+                  </div>
+                </div>
+                <div class="status-badge completed">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Completed
+                </div>
+              </div>
+              <div class="doc-row">
+                <div class="doc-avatar" style="background:linear-gradient(135deg,#B8E8D0,#6EC9A0);color:#1A5A3A">PS</div>
+                <div>
+                  <div class="doc-name">Dr. Priya Sharma</div>
+                  <div class="doc-spec">Cardiologist · Video Consultation</div>
+                </div>
+              </div>
+              <div class="appt-meta">
+                <div class="appt-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Duration: 25 min
+                </div>
+                <div class="appt-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                  Video Consultation
+                </div>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-xs" onclick="openModal('prescriptionModal')">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  View Prescription
+                </button>
+                <button class="btn-outline btn-xs">Book Follow-up</button>
+                <button class="cancel-link" style="color:var(--gold)">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  Rate
+                </button>
+              </div>
+              <button class="expand-btn" onclick="toggleExpand(this)">
+                View details
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="expandable">
+                <div class="rx-preview">
+                  <h4>Prescription</h4>
+                  <ul class="rx-list">
+                    <li><span class="rx-dot"></span>Atorvastatin 10mg — Once daily at bedtime</li>
+                    <li><span class="rx-dot"></span>Aspirin 75mg — Once daily after breakfast</li>
+                    <li><span class="rx-dot"></span>Metoprolol 25mg — Twice daily</li>
+                  </ul>
+                  <div class="rx-notes">
+                    <strong>Doctor's Notes:</strong> Blood pressure well controlled. Continue current medication. Follow-up in 2 weeks. HbA1c test recommended.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Past 2 -->
+            <div class="appt-card past fu d1">
+              <div class="appt-top">
+                <div class="appt-date">
+                  <div class="appt-date-ic" style="background:rgba(168,200,184,.15)">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  </div>
+                  <div>
+                    <div class="appt-date-txt">Mar 25, 2026</div>
+                    <div class="appt-date-sub">2:30 PM</div>
+                  </div>
+                </div>
+                <div class="status-badge completed">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Completed
+                </div>
+              </div>
+              <div class="doc-row">
+                <div class="doc-avatar" style="background:linear-gradient(135deg,#D4C4ED,#9882C9);color:#5B3FB0">AM</div>
+                <div>
+                  <div class="doc-name">Dr. Arjun Mehta</div>
+                  <div class="doc-spec">Dermatologist · Audio Consultation</div>
+                </div>
+              </div>
+              <div class="appt-meta">
+                <div class="appt-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Duration: 18 min
+                </div>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-xs" onclick="openModal('prescriptionModal2')">View Prescription</button>
+                <button class="btn-outline btn-xs">Book Follow-up</button>
+                <button class="cancel-link" style="color:var(--gold)">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  Rate
+                </button>
+              </div>
+              <button class="expand-btn" onclick="toggleExpand(this)">
+                View details
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="expandable">
+                <div class="rx-preview">
+                  <h4>Prescription</h4>
+                  <ul class="rx-list">
+                    <li><span class="rx-dot"></span>Adapalene 0.1% Gel — Apply at night</li>
+                    <li><span class="rx-dot"></span>Clindamycin 1% Lotion — Twice daily</li>
+                  </ul>
+                  <div class="rx-notes">
+                    <strong>Doctor's Notes:</strong> Mild acne vulgaris. Avoid oily skincare products. Follow up in 4 weeks to assess response.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Past 3 -->
+            <div class="appt-card past fu d2">
+              <div class="appt-top">
+                <div class="appt-date">
+                  <div class="appt-date-ic" style="background:rgba(168,200,184,.15)">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  </div>
+                  <div>
+                    <div class="appt-date-txt">Mar 10, 2026</div>
+                    <div class="appt-date-sub">4:00 PM</div>
+                  </div>
+                </div>
+                <div class="status-badge completed">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Completed
+                </div>
+              </div>
+              <div class="doc-row">
+                <div class="doc-avatar" style="background:linear-gradient(135deg,#EDD8C4,#C99A6E);color:#7A4E20">RK</div>
+                <div>
+                  <div class="doc-name">Dr. Ritu Kapoor</div>
+                  <div class="doc-spec">General Physician · Video Consultation</div>
+                </div>
+              </div>
+              <div class="appt-meta">
+                <div class="appt-meta-item">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Duration: 12 min
+                </div>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-xs" onclick="openModal('prescriptionModal')">View Prescription</button>
+                <button class="btn-outline btn-xs">Book Follow-up</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================== LAB ORDERS TAB ==================== -->
+        <div class="tab-panel" id="tab-laborders">
+
+          <div class="sub-tabs">
+            <button class="sub-tab on" data-sub="lab-active" onclick="switchSubTab('lab',this,'lab-active')">Active</button>
+            <button class="sub-tab" data-sub="lab-completed" onclick="switchSubTab('lab',this,'lab-completed')">Completed</button>
+          </div>
+
+          <!-- ACTIVE -->
+          <div class="sub-panel active" id="lab-active">
+            <div class="lab-card fu">
+              <div class="lab-header">
+                <div>
+                  <div class="lab-order-num">Order #ARV-LAB-2024-0847</div>
+                  <div class="lab-date">Placed on Apr 13, 2026</div>
+                </div>
+                <div class="status-badge" style="background:rgba(99,102,241,.08);color:#6366F1">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  In Progress
+                </div>
+              </div>
+              <div class="test-tags">
+                <span class="test-tag">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M12 2L12 22"/><path d="M5 12h14"/></svg>
+                  CBC
+                </span>
+                <span class="test-tag">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4"/></svg>
+                  HbA1c
+                </span>
+                <span class="test-tag">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                  Lipid Profile
+                </span>
+              </div>
+
+              <div class="collection-info">
+                <div class="coll-ic">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div>
+                  <div class="coll-text">Tomorrow, 8:00 – 10:00 AM</div>
+                  <div class="coll-sub">42, MG Road, Sector 14, Gurgaon, Haryana 122001</div>
+                </div>
+              </div>
+
+              <!-- Status Timeline -->
+              <div class="status-timeline">
+                <div class="tl-step done">
+                  <div class="tl-dot done">
+                    <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="#1A7A5A" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="tl-label">Order Placed</div>
+                  <div class="tl-time">Apr 13, 2026 · 6:45 PM</div>
+                </div>
+                <div class="tl-step active">
+                  <div class="tl-dot active"></div>
+                  <div class="tl-label">Sample Collection</div>
+                  <div class="tl-time">Scheduled for tomorrow morning</div>
+                </div>
+                <div class="tl-step pending">
+                  <div class="tl-dot pending"></div>
+                  <div class="tl-label">Processing</div>
+                  <div class="tl-time">—</div>
+                </div>
+                <div class="tl-step pending">
+                  <div class="tl-dot pending"></div>
+                  <div class="tl-label">Report Ready</div>
+                  <div class="tl-time">—</div>
+                </div>
+              </div>
+
+              <div class="appt-actions" style="margin-top:8px">
+                <button class="btn-outline btn-sm" onclick="openModal('rescheduleModal')">Reschedule Collection</button>
+                <button class="cancel-link" onclick="openModal('cancelModal')">Cancel Order</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPLETED -->
+          <div class="sub-panel" id="lab-completed">
+
+            <!-- Completed Lab 1 -->
+            <div class="lab-card fu">
+              <div class="lab-header">
+                <div>
+                  <div class="lab-order-num">Order #ARV-LAB-2024-0832</div>
+                  <div class="lab-date">Completed on Apr 5, 2026</div>
+                </div>
+                <div class="status-badge completed">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Report Ready
+                </div>
+              </div>
+              <div class="test-tags">
+                <span class="test-tag">CBC</span>
+                <span class="test-tag">Thyroid Profile</span>
+                <span class="test-tag">Vitamin D</span>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-xs" onclick="openModal('reportModal1')">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  View Reports
+                </button>
+                <button class="btn-outline btn-xs">Reorder</button>
+                <a href="#" class="cancel-link" style="color:var(--g)">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </a>
+              </div>
+            </div>
+
+            <!-- Completed Lab 2 -->
+            <div class="lab-card fu d1">
+              <div class="lab-header">
+                <div>
+                  <div class="lab-order-num">Order #ARV-LAB-2024-0791</div>
+                  <div class="lab-date">Completed on Mar 18, 2026</div>
+                </div>
+                <div class="status-badge completed">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Report Ready
+                </div>
+              </div>
+              <div class="test-tags">
+                <span class="test-tag">HbA1c</span>
+                <span class="test-tag">Lipid Profile</span>
+              </div>
+              <div class="appt-actions">
+                <button class="btn-green btn-xs" onclick="openModal('reportModal2')">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  View Reports
+                </button>
+                <button class="btn-outline btn-xs">Reorder</button>
+                <a href="#" class="cancel-link" style="color:var(--g)">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==================== SIDEBAR ==================== -->
+      <aside class="care-sidebar">
+
+        <!-- Upcoming Reminders -->
+        <div style="margin-bottom:28px">
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--dark);margin-bottom:16px">Upcoming Reminders</div>
+          <div class="rem-list" style="margin-top:0">
+            <div class="rem-item">
+              <div class="rem-ic" style="background:rgba(99,102,241,.08)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Take Atorvastatin 10mg</div>
+                <div class="rem-time">8:00 PM today</div>
+              </div>
+              <span class="rem-badge" style="background:rgba(99,102,241,.08);color:#6366F1">Medication</span>
+            </div>
+            <div class="rem-item">
+              <div class="rem-ic" style="background:var(--gp)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M15.5 16h-8a3 3 0 01-3-3v-1h14v1a3 3 0 01-3 3z"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Lab collection tomorrow</div>
+                <div class="rem-time">8:00 AM · Apr 15</div>
+              </div>
+              <span class="rem-badge" style="background:var(--gp);color:var(--g)">Lab</span>
+            </div>
+            <div class="rem-item">
+              <div class="rem-ic" style="background:rgba(192,154,82,.08)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Follow-up with Dr. Sharma</div>
+                <div class="rem-time">Apr 20, 2026</div>
+              </div>
+              <span class="rem-badge" style="background:rgba(192,154,82,.08);color:var(--gold)">Appt</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Health Records Quick Access -->
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--dark);margin-bottom:16px">Health Records</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="#" class="rem-item" style="text-decoration:none">
+              <div class="rem-ic" style="background:var(--gp)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Prescriptions</div>
+                <div class="rem-time">8 records</div>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:var(--g)">View All →</span>
+            </a>
+            <a href="#" class="rem-item" style="text-decoration:none">
+              <div class="rem-ic" style="background:rgba(192,154,82,.08)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M8.5 10c-.83 0-1.5-.67-1.5-1.5v-5C7 2.67 7.67 2 8.5 2S10 2.67 10 3.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M15.5 16h-8a3 3 0 01-3-3v-1h14v1a3 3 0 01-3 3z"/><path d="M10 16v5M13 16v5M7 21h9"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Lab Reports</div>
+                <div class="rem-time">5 reports</div>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:var(--g)">View All →</span>
+            </a>
+            <a href="profile.html" class="rem-item" style="text-decoration:none">
+              <div class="rem-ic" style="background:rgba(99,102,241,.08)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Health Profile</div>
+                <div class="rem-time">Last updated 3 days ago</div>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:var(--g)">Update →</span>
+            </a>
+            <a href="#" class="rem-item" style="text-decoration:none">
+              <div class="rem-ic" style="background:rgba(220,38,38,.06)">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="rem-text">
+                <div class="rem-title">Medical History</div>
+                <div class="rem-time">Complete timeline</div>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:var(--g)">View →</span>
+            </a>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <div class="container">
+    <div class="cta-strip-in">
+      <div>
+        <h2 class="cta-strip-h">Need a consultation?</h2>
+        <p style="font-size:14.5px;color:rgba(255,255,255,.65);margin-top:6px;line-height:1.6">Connect with verified specialists in minutes. Book your next appointment now.</p>
+      </div>
+      <a href="consult.html" class="btn-white">Book Now <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="logoPoppins.svg" alt="Arovita" width="36" height="36">
+          <span class="footer-brand">Aro<span>vita</span></span>
+        </div>
+        <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
+        <div class="footer-social">
+          <div class="fsb">f</div><div class="fsb">𝕏</div><div class="fsb">in</div><div class="fsb">▶</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-h">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Online Consultation</a></li>
+          <li><a href="#">Offline Clinic Visit</a></li>
+          <li><a href="#">Home Lab Tests</a></li>
+          <li><a href="#">Offline Lab Tests</a></li>
+          <li><a href="#">Wellness Programmes</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#">About Arovita</a></li>
+          <li><a href="#">Find a Doctor</a></li>
+          <li><a href="#">Health Blog</a></li>
+          <li><a href="#">Book Appointment</a></li>
+          <li><a href="#">Patient Login</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-h">Stay Healthy</div>
+        <p style="font-size:13px;color:rgba(255,255,255,.32);margin-bottom:14px;line-height:1.7">Subscribe for weekly health tips, wellness reads, and exclusive offers.</p>
+        <div class="nl-form">
+          <input type="email" class="nl-input" placeholder="Your email address">
+          <button class="nl-btn">Subscribe</button>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ABDM Registered</div>
+          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ISO Certified</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© <a href="#">Arovita</a> 2025 · All Rights Reserved · ABDM Registered · NABH Certified</div>
+      <ul class="footer-links2">
+        <li><a href="#">Terms & Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<div class="stb" id="stb" onclick="scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M18 15l-6-6-6 6"/></svg>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Cancel Modal -->
+<div class="modal-overlay" id="cancelModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('cancelModal')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:64px;height:64px;background:rgba(220,38,38,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      </div>
+    </div>
+    <div class="modal-title" style="text-align:center">Cancel Appointment?</div>
+    <div class="modal-desc" style="text-align:center">Are you sure you want to cancel this appointment? This action cannot be undone.</div>
+    <div class="form-group">
+      <label class="form-label">Reason for cancellation</label>
+      <select class="form-select">
+        <option value="">Select a reason...</option>
+        <option>Schedule conflict</option>
+        <option>Feeling better</option>
+        <option>Want to change doctor</option>
+        <option>Financial reasons</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <button class="btn-outline" style="flex:1;justify-content:center" onclick="closeModal('cancelModal')">Keep Appointment</button>
+      <button class="btn-green" style="flex:1;justify-content:center;background:#DC2626" onclick="closeModal('cancelModal')">Yes, Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reschedule Modal -->
+<div class="modal-overlay" id="rescheduleModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('rescheduleModal')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-title">Reschedule Appointment</div>
+    <div class="modal-desc">Select a new date and time for your appointment.</div>
+    <div class="form-group">
+      <label class="form-label">Select Date</label>
+      <div class="date-slots">
+        <div class="date-slot" onclick="selectSlot(this,'date-slots')">
+          <div style="font-size:10px;color:var(--muted)">Wed</div>
+          <div style="font-size:16px;font-weight:700;color:var(--dark)">16</div>
+          <div style="font-size:10px;color:var(--muted)">Apr</div>
+        </div>
+        <div class="date-slot" onclick="selectSlot(this,'date-slots')">
+          <div style="font-size:10px;color:var(--muted)">Thu</div>
+          <div style="font-size:16px;font-weight:700;color:var(--dark)">17</div>
+          <div style="font-size:10px;color:var(--muted)">Apr</div>
+        </div>
+        <div class="date-slot selected" onclick="selectSlot(this,'date-slots')">
+          <div style="font-size:10px;color:var(--muted)">Fri</div>
+          <div style="font-size:16px;font-weight:700;color:var(--dark)">18</div>
+          <div style="font-size:10px;color:var(--muted)">Apr</div>
+        </div>
+        <div class="date-slot" onclick="selectSlot(this,'date-slots')">
+          <div style="font-size:10px;color:var(--muted)">Sat</div>
+          <div style="font-size:16px;font-weight:700;color:var(--dark)">19</div>
+          <div style="font-size:10px;color:var(--muted)">Apr</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Select Time</label>
+      <div class="time-slots">
+        <div class="time-slot" onclick="selectSlot(this,'time-slots')">9:00 AM</div>
+        <div class="time-slot selected" onclick="selectSlot(this,'time-slots')">10:30 AM</div>
+        <div class="time-slot" onclick="selectSlot(this,'time-slots')">12:00 PM</div>
+        <div class="time-slot" onclick="selectSlot(this,'time-slots')">2:00 PM</div>
+        <div class="time-slot" onclick="selectSlot(this,'time-slots')">3:30 PM</div>
+        <div class="time-slot" onclick="selectSlot(this,'time-slots')">5:00 PM</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <button class="btn-outline" style="flex:1;justify-content:center" onclick="closeModal('rescheduleModal')">Cancel</button>
+      <button class="btn-green" style="flex:1;justify-content:center" onclick="closeModal('rescheduleModal')">Confirm Reschedule</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prescription Modal -->
+<div class="modal-overlay" id="prescriptionModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('prescriptionModal')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+      <div style="width:50px;height:50px;background:var(--gp);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div>
+        <div class="modal-title" style="margin-bottom:0">Prescription</div>
+        <div style="font-size:12.5px;color:var(--muted)">Dr. Priya Sharma · Apr 8, 2026</div>
+      </div>
+    </div>
+    <div class="rx-modal-med">
+      <span class="rx-modal-dot"></span>
+      <div>
+        <div class="rx-med-name">Atorvastatin 10mg</div>
+        <div class="rx-med-dosage">Once daily · At bedtime · 30 days</div>
+      </div>
+    </div>
+    <div class="rx-modal-med">
+      <span class="rx-modal-dot"></span>
+      <div>
+        <div class="rx-med-name">Aspirin 75mg</div>
+        <div class="rx-med-dosage">Once daily · After breakfast · 30 days</div>
+      </div>
+    </div>
+    <div class="rx-modal-med">
+      <span class="rx-modal-dot"></span>
+      <div>
+        <div class="rx-med-name">Metoprolol 25mg</div>
+        <div class="rx-med-dosage">Twice daily · Morning & Evening · 30 days</div>
+      </div>
+    </div>
+    <div style="padding:16px;background:var(--gxp);border-radius:var(--r);margin-top:16px;border:1px solid var(--border)">
+      <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Doctor's Notes</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.65">Blood pressure well controlled at 120/80. Continue current medication. Recommend HbA1c test in 2 weeks. Reduce sodium intake. Light exercise 30 min daily.</p>
+    </div>
+    <button class="btn-green" style="width:100%;justify-content:center;margin-top:20px" onclick="closeModal('prescriptionModal')">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Prescription
+    </button>
+  </div>
+</div>
+
+<!-- Prescription Modal 2 -->
+<div class="modal-overlay" id="prescriptionModal2">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('prescriptionModal2')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+      <div style="width:50px;height:50px;background:rgba(212,196,237,.15);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div>
+        <div class="modal-title" style="margin-bottom:0">Prescription</div>
+        <div style="font-size:12.5px;color:var(--muted)">Dr. Arjun Mehta · Mar 25, 2026</div>
+      </div>
+    </div>
+    <div class="rx-modal-med">
+      <span class="rx-modal-dot" style="background:#6366F1"></span>
+      <div>
+        <div class="rx-med-name">Adapalene 0.1% Gel</div>
+        <div class="rx-med-dosage">Apply at night · Pea-sized amount · 6 weeks</div>
+      </div>
+    </div>
+    <div class="rx-modal-med">
+      <span class="rx-modal-dot" style="background:#6366F1"></span>
+      <div>
+        <div class="rx-med-name">Clindamycin 1% Lotion</div>
+        <div class="rx-med-dosage">Twice daily · After wash · 4 weeks</div>
+      </div>
+    </div>
+    <div style="padding:16px;background:var(--gxp);border-radius:var(--r);margin-top:16px;border:1px solid var(--border)">
+      <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Doctor's Notes</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.65">Mild acne vulgaris. Avoid oily skincare products. Use non-comedogenic sunscreen. Follow up in 4 weeks to assess response.</p>
+    </div>
+    <button class="btn-green" style="width:100%;justify-content:center;margin-top:20px" onclick="closeModal('prescriptionModal2')">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Prescription
+    </button>
+  </div>
+</div>
+
+<!-- Report Modal 1 -->
+<div class="modal-overlay" id="reportModal1">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('reportModal1')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-title">Lab Report — #ARV-LAB-2024-0832</div>
+    <div class="modal-desc">Completed on Apr 5, 2026 · Home Collection</div>
+
+    <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">CBC — Complete Blood Count</div>
+    <div class="report-summary">
+      <div class="report-row">
+        <span class="report-param">Hemoglobin</span>
+        <span><span class="report-val normal">14.2 g/dL</span><span class="report-range">(13.0-17.0)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">WBC Count</span>
+        <span><span class="report-val normal">7,200 /µL</span><span class="report-range">(4,000-11,000)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">Platelet Count</span>
+        <span><span class="report-val normal">2.5 L/µL</span><span class="report-range">(1.5-4.0)</span></span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px">Thyroid Profile</div>
+    <div class="report-summary">
+      <div class="report-row">
+        <span class="report-param">TSH</span>
+        <span><span class="report-val normal">2.8 mIU/L</span><span class="report-range">(0.4-4.0)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">T3</span>
+        <span><span class="report-val normal">118 ng/dL</span><span class="report-range">(80-200)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">T4</span>
+        <span><span class="report-val normal">7.1 µg/dL</span><span class="report-range">(5.1-14.1)</span></span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px">Vitamin D</div>
+    <div class="report-summary">
+      <div class="report-row">
+        <span class="report-param">25-OH Vitamin D</span>
+        <span><span class="report-val high">18.2 ng/mL</span><span class="report-range">(30-100) ↓ Low</span></span>
+      </div>
+    </div>
+
+    <button class="btn-green" style="width:100%;justify-content:center;margin-top:20px" onclick="closeModal('reportModal1')">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Full Report
+    </button>
+  </div>
+</div>
+
+<!-- Report Modal 2 -->
+<div class="modal-overlay" id="reportModal2">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('reportModal2')">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#607A6A" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-title">Lab Report — #ARV-LAB-2024-0791</div>
+    <div class="modal-desc">Completed on Mar 18, 2026 · Home Collection</div>
+
+    <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">HbA1c</div>
+    <div class="report-summary">
+      <div class="report-row">
+        <span class="report-param">HbA1c</span>
+        <span><span class="report-val normal">5.6%</span><span class="report-range">(<5.7 Normal)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">Estimated Avg. Glucose</span>
+        <span><span class="report-val normal">114 mg/dL</span><span class="report-range">(—)</span></span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 10px">Lipid Profile</div>
+    <div class="report-summary">
+      <div class="report-row">
+        <span class="report-param">Total Cholesterol</span>
+        <span><span class="report-val normal">192 mg/dL</span><span class="report-range">(<200)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">HDL</span>
+        <span><span class="report-val normal">52 mg/dL</span><span class="report-range">(>40)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">LDL</span>
+        <span><span class="report-val normal">118 mg/dL</span><span class="report-range">(<130)</span></span>
+      </div>
+      <div class="report-row">
+        <span class="report-param">Triglycerides</span>
+        <span><span class="report-val high">178 mg/dL</span><span class="report-range">(<150) ↑ High</span></span>
+      </div>
+    </div>
+
+    <button class="btn-green" style="width:100%;justify-content:center;margin-top:20px" onclick="closeModal('reportModal2')">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Full Report
+    </button>
+  </div>
+</div>
+
+<script>
+/* ---- CUSTOM CURSOR ---- */
+const cur = document.getElementById('cur');
+const curRing = document.getElementById('curRing');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    curRing.style.left = e.clientX + 'px';
+    curRing.style.top = e.clientY + 'px';
+  }, 80);
+});
+function refreshCursorTargets() {
+  document.querySelectorAll('a,button,.main-tab,.sub-tab,.date-slot,.time-slot,.cancel-link,.expand-btn,.hr-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); curRing.classList.add('hovered'); });
+    el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); curRing.classList.remove('hovered'); });
+  });
+}
+refreshCursorTargets();
+
+/* ---- SCROLL & NAVBAR ---- */
+window.addEventListener('scroll', () => {
+  document.getElementById('stb').classList.toggle('show', scrollY > 400);
+  document.getElementById('nav').classList.toggle('sc', scrollY > 30);
+});
+
+/* ---- INTERSECTION OBSERVER ---- */
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), { threshold: 0.12 });
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+/* ---- HAMBURGER MENU ---- */
+function toggleMobile() {
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+/* ---- MAIN TAB SWITCHING ---- */
+function switchMainTab(tab, el) {
+  document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+}
+
+/* ---- SUB-TAB SWITCHING ---- */
+function switchSubTab(prefix, el, panelId) {
+  el.closest('.sub-tabs').querySelectorAll('.sub-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  const parent = el.closest('.tab-panel');
+  parent.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+}
+
+/* ---- MODALS ---- */
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(ov => {
+  ov.addEventListener('click', e => {
+    if (e.target === ov) { ov.classList.remove('open'); document.body.style.overflow = ''; }
+  });
+});
+
+/* ---- EXPANDABLE SECTIONS ---- */
+function toggleExpand(btn) {
+  const expandable = btn.nextElementSibling;
+  expandable.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = expandable.classList.contains('open') ? '' : '';
+  btn.innerHTML = expandable.classList.contains('open')
+    ? 'Hide details <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>'
+    : 'View details <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
+}
+
+/* ---- SLOT SELECTION ---- */
+function selectSlot(el, cls) {
+  el.closest('.' + cls).querySelectorAll('.' + cls.replace('s','')).forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* ---- STATUS TIMELINE ANIMATION ON SCROLL ---- */
+const tlObs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if(e.isIntersecting) {
+      const steps = e.target.querySelectorAll('.tl-step');
+      steps.forEach((step, i) => {
+        step.style.opacity = '0';
+        step.style.transform = 'translateX(-12px)';
+        step.style.transition = 'all 0.5s cubic-bezier(.16,1,.3,1)';
+        setTimeout(() => {
+          step.style.opacity = '1';
+          step.style.transform = 'none';
+        }, 150 * i);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.status-timeline').forEach(tl => tlObs.observe(tl));
+</script>
+</body>
+</html>
