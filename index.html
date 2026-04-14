@@ -149,6 +149,9 @@ a{text-decoration:none;color:inherit}
 .trust-text{font-size:12.5px;color:var(--muted);font-weight:500}
 .trust-sep{width:1px;height:32px;background:var(--border2)}
 
+/* Mobile hero stats — hidden on desktop */
+.hero-mobile-stats{display:none}
+
 /* HERO RIGHT */
 .hero-right{position:relative;display:flex;justify-content:center;align-items:center;animation:fade-in .9s .3s both}
 .hero-orb-wrap{position:relative;width:380px;height:460px;max-width:100%;display:flex;align-items:center;justify-content:center}
@@ -687,48 +690,48 @@ a{text-decoration:none;color:inherit}
   .sec-title{font-size:28px;letter-spacing:-.3px}
   .sec-label{font-size:10px;margin-bottom:10px}
 
-  /* Hero — fill exactly one phone viewport, no gap */
-  .hero{padding-top:56px;min-height:calc(100vh - 56px);min-height:calc(100svh - 56px);align-items:stretch;overflow:hidden}
-  .hero>.container.hero-inner{height:calc(100vh - 56px);height:calc(100svh - 56px)}
-  .hero-inner{padding:12px 14px 0;gap:0;display:flex;flex-direction:column;align-items:flex-start;width:100%}
+  /* Hero — fill one phone viewport, content-focused */
+  .hero{padding-top:56px;min-height:100vh;min-height:100svh;align-items:center}
+  .hero-inner{padding:28px 16px 24px;gap:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;width:100%}
   .hero-inner>div:first-child{position:relative;z-index:2;width:100%}
 
-  /* Kill hero animations on mobile — prevents vanishing on scroll */
-  .hero-tag,.hero-btns,.hero-trust,.hero-right{animation:none!important;opacity:1!important;transform:none!important}
+  /* Kill hero animations — prevents vanishing on scroll */
+  .hero-tag,.hero-btns,.hero-trust,.hero-right,.hero-p{animation:none!important;opacity:1!important;transform:none!important}
   .hero-h .word{animation:none!important;opacity:1!important;transform:none!important}
   .hero-h .line{overflow:visible}
 
-  /* Hide non-essential to save space */
-  .hero-p{display:none}
-  .hero-certs{display:none}
-  .trust-sep{display:none}
-  .trust-stars{display:none}
+  /* Hide illustration on mobile */
+  .hero-right{display:none!important}
 
-  /* Text: compact */
-  .hero-tag{font-size:10px;padding:5px 12px;margin-bottom:6px}
-  .hero-h{font-size:26px;letter-spacing:-.4px;line-height:1.13;margin-bottom:8px}
-  .hero-btns{margin-bottom:8px;gap:10px}
-  .hero-btns .btn-green{padding:11px 20px;font-size:13px}
-  .hero-btns .btn-outline{padding:10px 18px;font-size:13px}
-  .hero-trust{gap:8px;flex-wrap:nowrap;align-items:center;margin-bottom:0}
+  /* Show paragraph back */
+  .hero-p{display:block;font-size:14px;line-height:1.65;margin-bottom:20px;max-width:100%;color:var(--muted)}
+
+  /* Tag */
+  .hero-tag{font-size:10.5px;padding:6px 14px;margin-bottom:16px}
+
+  /* Heading */
+  .hero-h{font-size:32px;letter-spacing:-.5px;line-height:1.1;margin-bottom:12px}
+
+  /* Buttons — full width, stacked */
+  .hero-btns{margin-bottom:20px;gap:10px;width:100%;flex-direction:row}
+  .hero-btns .btn-green{padding:13px 24px;font-size:14px;flex:1;justify-content:center}
+  .hero-btns .btn-outline{padding:12px 22px;font-size:14px;flex:1;justify-content:center}
+
+  /* Trust strip */
+  .hero-trust{gap:12px;flex-wrap:nowrap;align-items:center;margin-bottom:20px}
   .trust-avs{margin-right:0}
-  .trust-av{width:26px;height:26px;font-size:7.5px;border-width:2px;margin-left:-7px}
-  .trust-text{font-size:10px}
+  .trust-av{width:28px;height:28px;font-size:8px;border-width:2px;margin-left:-7px}
+  .trust-text{font-size:10.5px}
+  .trust-sep{display:none}
+  .trust-stars{display:inline}
+  .hero-certs{display:none}
 
-  /* Illustration: flex-grows to fill ALL remaining space, centered */
-  .hero-right{position:relative;inset:auto;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;overflow:visible;flex:1;min-height:0}
-  .hero-orb-wrap{width:100%;height:100%;max-width:320px;max-height:388px;margin:0 auto}
-  .hero-orb-bg{width:82%;height:80%;max-width:260px;max-height:300px;left:50%;top:50%;transform:translate(-50%,-50%);animation:blob-morph 8s ease-in-out infinite}
-  .hero-right svg[viewBox="0 0 200 200"]{width:clamp(120px,30vw,150px);height:clamp(120px,30vw,150px)}
-  .hfc{padding:8px 10px;border-radius:14px;gap:8px}
-  .hfc-ic{width:30px;height:30px;border-radius:10px}
-  .hfc-ic svg{width:16px;height:16px}
-  .hfc-num{font-size:15px}
-  .hfc-lbl{font-size:9px}
-  .hfc1{left:2px;bottom:8%}
-  .hfc2{right:2px;top:8%}
-  .hfc3{left:0;top:42%}
-  .hfc4{right:0;bottom:24%}
+  /* Mobile hero stats grid — replaces illustration */
+  .hero-mobile-stats{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+  .hms-card{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border:1px solid rgba(26,122,90,.1);border-radius:16px;padding:16px 14px;display:flex;align-items:center;gap:12px}
+  .hms-ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .hms-num{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--dark);line-height:1}
+  .hms-lbl{font-size:10px;color:var(--muted);margin-top:2px;font-weight:500}
 
   /* Stats */
   .stat-num{font-size:32px}
@@ -879,18 +882,20 @@ a{text-decoration:none;color:inherit}
 /* ===================== SMALL PHONES ===================== */
 @media(max-width:380px){
   .container{padding:0 12px}
-  .hero-inner{padding:10px 12px 0}
-  .hero-tag{font-size:9px;padding:4px 10px;margin-bottom:4px}
-  .hero-h{font-size:23px;margin-bottom:6px}
-  .hero-btns{gap:8px;margin-bottom:6px}
-  .hero-btns .btn-green,.hero-btns .btn-outline{padding:10px 16px;font-size:12.5px}
+  .hero-inner{padding:22px 12px 18px}
+  .hero-tag{font-size:9.5px;padding:5px 12px;margin-bottom:12px}
+  .hero-h{font-size:28px;margin-bottom:10px}
+  .hero-p{font-size:13px;line-height:1.6;margin-bottom:16px}
+  .hero-btns{flex-direction:column;margin-bottom:16px}
+  .hero-btns .btn-green,.hero-btns .btn-outline{width:100%;flex:auto}
+  .hero-trust{margin-bottom:16px}
   .trust-av{width:24px;height:24px;font-size:7px;margin-left:-6px}
-  .trust-text{font-size:9px}
-  .hfc{padding:6px 8px;border-radius:12px;gap:6px}
-  .hfc-ic{width:26px;height:26px;border-radius:8px}
-  .hfc-ic svg{width:14px;height:14px}
-  .hfc-num{font-size:13px}
-  .hfc-lbl{font-size:8px}
+  .trust-text{font-size:9.5px}
+  .hero-mobile-stats{gap:8px}
+  .hms-card{padding:14px 12px;border-radius:14px;gap:10px}
+  .hms-ic{width:36px;height:36px;border-radius:10px}
+  .hms-num{font-size:18px}
+  .hms-lbl{font-size:9px}
   .sec-title{font-size:25px}
   .stat-num{font-size:28px}
   .mission-title{font-size:24px}
@@ -1069,6 +1074,46 @@ a{text-decoration:none;color:inherit}
         <div class="hero-certs">
           <div style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px">ABDM · NABH · ISO</div>
           <div style="font-size:11px;color:var(--hint);margin-top:2px">Certified Platform</div>
+        </div>
+      </div>
+
+      <!-- Mobile hero stats — hidden on desktop, shown on mobile -->
+      <div class="hero-mobile-stats">
+        <div class="hms-card">
+          <div class="hms-ic" style="background:rgba(46,196,138,.1)">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="hms-num">200<span style="font-size:12px;color:var(--g)">+</span></div>
+            <div class="hms-lbl">Verified Doctors</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-ic" style="background:rgba(192,154,82,.08)">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="hms-num" style="color:var(--gold)">4.9</div>
+            <div class="hms-lbl">Patient Rating</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-ic" style="background:rgba(26,122,90,.08)">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div>
+            <div class="hms-num">&lt;15<span style="font-size:10px;color:var(--muted)">min</span></div>
+            <div class="hms-lbl">Avg. Wait Time</div>
+          </div>
+        </div>
+        <div class="hms-card">
+          <div class="hms-ic" style="background:rgba(46,196,138,.08)">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2EC48A" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="hms-num">98<span style="font-size:12px;color:var(--gl)">%</span></div>
+            <div class="hms-lbl">Satisfaction Rate</div>
+          </div>
         </div>
       </div>
     </div>
