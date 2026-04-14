@@ -897,7 +897,7 @@ a{text-decoration:none;color:inherit}
     <div class="footer-grid">
       <div>
         <div class="footer-logo">
-          <img src="logoPoppins.svg" alt="Arovita" width="36" height="36">
+          <img src="logoPoppins-white.svg" alt="Arovita" width="36" height="36">
           <span class="footer-brand">Aro<span>vita</span></span>
         </div>
         <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
@@ -972,7 +972,11 @@ window.addEventListener('scroll',()=>{
 });
 
 const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu'),mmBackdrop=document.getElementById('mmBackdrop');
-function toggleMobile(){hamburger.classList.toggle('open');mobileMenu.classList.toggle('open')}
+function toggleMobile(){
+  const isOpen=mobileMenu.classList.toggle('open');
+  hamburger.classList.toggle('open');
+  document.body.style.overflow=isOpen?'hidden':'';
+}
 hamburger.addEventListener('click',toggleMobile);
 mmBackdrop.addEventListener('click',toggleMobile);
 

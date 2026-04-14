@@ -443,7 +443,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <a href="profile.html" class="nav-profile" title="My Profile" style="border-color:var(--g);box-shadow:0 4px 16px rgba(26,122,90,.2)">RS</a>
     </div>
-    <button class="hamburger" id="hamburger" onclick="this.classList.toggle('open');document.getElementById('mobMenu').classList.toggle('open')">
+    <button class="hamburger" id="hamburger" onclick="var m=document.getElementById('mobMenu'),o=m.classList.toggle('open');this.classList.toggle('open');document.body.style.overflow=o?'hidden':''">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1186,7 +1186,7 @@ a{text-decoration:none;color:inherit}
     <div class="footer-grid">
       <div>
         <div class="footer-logo">
-          <img src="logoPoppins.svg" alt="Arovita" width="36" height="36">
+          <img src="logoPoppins-white.svg" alt="Arovita" width="36" height="36">
           <span class="footer-brand">Aro<span>vita</span></span>
         </div>
         <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
