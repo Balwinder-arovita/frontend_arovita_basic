@@ -687,18 +687,16 @@ a{text-decoration:none;color:inherit}
   .sec-title{font-size:28px;letter-spacing:-.3px}
   .sec-label{font-size:10px;margin-bottom:10px}
 
-  /* Hero — fit everything in one phone viewport */
-  .hero{padding-top:56px;min-height:auto;align-items:flex-start}
-  .hero-inner{padding:14px 0 8px;padding-inline:14px;gap:6px;display:flex;flex-direction:column;align-items:center}
+  /* Hero — fill exactly one phone viewport, no gap */
+  .hero{padding-top:56px;min-height:calc(100vh - 56px);min-height:calc(100svh - 56px);align-items:stretch;overflow:hidden}
+  .hero>.container.hero-inner{height:calc(100vh - 56px);height:calc(100svh - 56px)}
+  .hero-inner{padding:12px 14px 0;gap:0;display:flex;flex-direction:column;align-items:flex-start;width:100%}
   .hero-inner>div:first-child{position:relative;z-index:2;width:100%}
 
   /* Kill hero animations on mobile — prevents vanishing on scroll */
-  .hero-tag{animation:none!important}
+  .hero-tag,.hero-btns,.hero-trust,.hero-right{animation:none!important;opacity:1!important;transform:none!important}
   .hero-h .word{animation:none!important;opacity:1!important;transform:none!important}
   .hero-h .line{overflow:visible}
-  .hero-btns{animation:none!important}
-  .hero-trust{animation:none!important}
-  .hero-right{animation:none!important}
 
   /* Hide non-essential to save space */
   .hero-p{display:none}
@@ -706,32 +704,31 @@ a{text-decoration:none;color:inherit}
   .trust-sep{display:none}
   .trust-stars{display:none}
 
-  /* Text: very compact */
-  .hero-tag{font-size:10px;padding:5px 12px;margin-bottom:6px;opacity:1;transform:none}
-  .hero-h{font-size:28px;letter-spacing:-.4px;line-height:1.12;margin-bottom:10px}
-  .hero-btns{margin-bottom:10px;gap:10px;opacity:1;transform:none}
+  /* Text: compact */
+  .hero-tag{font-size:10px;padding:5px 12px;margin-bottom:6px}
+  .hero-h{font-size:26px;letter-spacing:-.4px;line-height:1.13;margin-bottom:8px}
+  .hero-btns{margin-bottom:8px;gap:10px}
   .hero-btns .btn-green{padding:11px 20px;font-size:13px}
   .hero-btns .btn-outline{padding:10px 18px;font-size:13px}
-  .hero-trust{gap:8px;flex-wrap:nowrap;align-items:center;opacity:1;transform:none}
+  .hero-trust{gap:8px;flex-wrap:nowrap;align-items:center;margin-bottom:0}
   .trust-avs{margin-right:0}
   .trust-av{width:26px;height:26px;font-size:7.5px;border-width:2px;margin-left:-7px}
   .trust-text{font-size:10px}
 
-  /* Illustration: sized to content, no forced viewport stretch */
-  .hero-right{position:relative;inset:auto;margin-top:0;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;overflow:visible;opacity:1;transform:none}
-  .hero-orb-wrap{width:260px;height:316px}
-  .hero-orb-bg{width:218px;height:250px}
-  .hero-right svg[viewBox="0 0 200 200"]{width:140px;height:140px}
-  .hero-right svg[viewBox="0 0 380 460"]{width:260px;height:316px}
+  /* Illustration: flex-grows to fill ALL remaining space, centered */
+  .hero-right{position:relative;inset:auto;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;overflow:visible;flex:1;min-height:0}
+  .hero-orb-wrap{width:100%;height:100%;max-width:320px;max-height:388px;margin:0 auto}
+  .hero-orb-bg{width:82%;height:80%;max-width:260px;max-height:300px;left:50%;top:50%;transform:translate(-50%,-50%);animation:blob-morph 8s ease-in-out infinite}
+  .hero-right svg[viewBox="0 0 200 200"]{width:clamp(120px,30vw,150px);height:clamp(120px,30vw,150px)}
   .hfc{padding:8px 10px;border-radius:14px;gap:8px}
   .hfc-ic{width:30px;height:30px;border-radius:10px}
   .hfc-ic svg{width:16px;height:16px}
   .hfc-num{font-size:15px}
   .hfc-lbl{font-size:9px}
-  .hfc1{left:-8px;bottom:40px}
-  .hfc2{right:-6px;top:40px}
-  .hfc3{left:-6px;top:136px}
-  .hfc4{right:-6px;bottom:92px}
+  .hfc1{left:2px;bottom:8%}
+  .hfc2{right:2px;top:8%}
+  .hfc3{left:0;top:42%}
+  .hfc4{right:0;bottom:24%}
 
   /* Stats */
   .stat-num{font-size:32px}
@@ -881,27 +878,19 @@ a{text-decoration:none;color:inherit}
 
 /* ===================== SMALL PHONES ===================== */
 @media(max-width:380px){
-  .container{padding:0 14px}
-  .hero-inner{padding:10px 0 6px;gap:4px}
+  .container{padding:0 12px}
+  .hero-inner{padding:10px 12px 0}
   .hero-tag{font-size:9px;padding:4px 10px;margin-bottom:4px}
-  .hero-h{font-size:24px;margin-bottom:8px}
-  .hero-btns{gap:8px;margin-bottom:8px}
+  .hero-h{font-size:23px;margin-bottom:6px}
+  .hero-btns{gap:8px;margin-bottom:6px}
   .hero-btns .btn-green,.hero-btns .btn-outline{padding:10px 16px;font-size:12.5px}
   .trust-av{width:24px;height:24px;font-size:7px;margin-left:-6px}
   .trust-text{font-size:9px}
-  .hero-orb-wrap{width:230px;height:280px}
-  .hero-orb-bg{width:192px;height:220px}
-  .hero-right svg[viewBox="0 0 200 200"]{width:125px;height:125px}
-  .hero-right svg[viewBox="0 0 380 460"]{width:230px;height:280px}
-  .hfc{padding:7px 9px;border-radius:12px;gap:7px}
-  .hfc-ic{width:28px;height:28px;border-radius:9px}
-  .hfc-ic svg{width:15px;height:15px}
-  .hfc-num{font-size:14px}
-  .hfc-lbl{font-size:8.5px}
-  .hfc1{left:-6px;bottom:34px}
-  .hfc2{right:-4px;top:34px}
-  .hfc3{left:-4px;top:118px}
-  .hfc4{right:-4px;bottom:78px}
+  .hfc{padding:6px 8px;border-radius:12px;gap:6px}
+  .hfc-ic{width:26px;height:26px;border-radius:8px}
+  .hfc-ic svg{width:14px;height:14px}
+  .hfc-num{font-size:13px}
+  .hfc-lbl{font-size:8px}
   .sec-title{font-size:25px}
   .stat-num{font-size:28px}
   .mission-title{font-size:24px}
