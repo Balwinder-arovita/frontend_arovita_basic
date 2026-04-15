@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arovita — India's Healthcare Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -58,53 +59,50 @@ a{text-decoration:none;color:inherit}
 .sl-right.vis{opacity:1;transform:none}
 
 /* ===================== NAVBAR ===================== */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .35s;background:rgba(250,248,244,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(9,24,16,.05),0 1px 0 rgba(26,122,90,.06)}
-.navbar.sc{background:rgba(250,248,244,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 4px 32px rgba(9,24,16,.09),0 1px 0 rgba(26,122,90,.1)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 44px;max-width:1400px;margin:0 auto}
-.nav-logo{display:flex;align-items:center;gap:11px}
-.logo-svg-wrap{width:42px;height:42px;position:relative;display:flex;align-items:center;justify-content:center}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 24px;transition:all .35s}
+.nav-pill{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 10px 0 16px;max-width:1160px;margin:0 auto;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:100px;box-shadow:0 2px 24px rgba(9,24,16,.08),0 0 0 1px rgba(26,122,90,.08);transition:all .35s}
+.navbar.sc .nav-pill{box-shadow:0 4px 32px rgba(9,24,16,.12),0 0 0 1.5px rgba(26,122,90,.14)}
+.nav-logo{display:flex;align-items:center;gap:10px;padding:0 8px}
+.logo-svg-wrap{width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-svg-wrap img{width:100%;height:100%;object-fit:contain}
-.nav-brand{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--dark);letter-spacing:-.3px}
+.nav-brand{font-family:'Playfair Display',serif;font-size:21px;font-weight:800;color:var(--dark);letter-spacing:-.3px}
 .nav-brand span{color:var(--g)}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-a{font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .22s;position:relative;padding:8px 14px;border-radius:10px;display:inline-flex;align-items:center;gap:6px}
-.nav-a svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;opacity:.65;transition:opacity .22s}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-a{font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .22s;padding:8px 16px;border-radius:50px;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.nav-a svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;opacity:.6;transition:opacity .22s}
 .nav-a:hover svg{opacity:1}
-.nav-a::after{content:'';position:absolute;bottom:2px;left:14px;right:14px;height:2px;background:linear-gradient(90deg,var(--g),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.16,1,.3,1);border-radius:2px}
-.nav-a:hover{color:var(--g);background:rgba(26,122,90,.04)}.nav-a:hover::after{transform:scaleX(1)}
-.nav-a.active{color:var(--g);background:var(--gp)}
-.nav-a.active::after{transform:scaleX(1)}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-profile{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gp),#A8D8BC);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--g);border:2px solid var(--border2);cursor:none;transition:all .22s;flex-shrink:0}
-.nav-profile:hover{border-color:var(--g);transform:scale(1.08);box-shadow:0 4px 16px rgba(26,122,90,.2)}
-.nav-cta{display:flex;align-items:center;gap:10px}
+.nav-a:hover{color:var(--g);background:var(--gxp)}
+.nav-a.active{color:var(--g);font-weight:700}
+.nav-right{display:flex;align-items:center;gap:8px;padding-right:4px}
+.nav-cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:11px 22px;border-radius:50px;font-size:13.5px;font-weight:700;border:none;cursor:none;transition:all .25s;white-space:nowrap}
+.nav-cta-btn:hover{background:var(--gm);box-shadow:0 8px 24px rgba(26,122,90,.35);transform:translateY(-1px)}
 
 /* HAMBURGER */
-.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:none;padding:0;cursor:none;z-index:1002;position:relative}
-.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s cubic-bezier(.16,1,.3,1)}
-.hamburger span:nth-child(1){margin-bottom:6px}
-.hamburger span:nth-child(3){margin-top:6px}
-.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5.5px,5.5px)}
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;width:40px;height:40px;background:var(--gxp);border:1px solid var(--border2);border-radius:50%;padding:0;cursor:none;z-index:1002;position:relative;flex-shrink:0}
+.hamburger span{display:block;width:18px;height:2px;background:var(--g);border-radius:2px;transition:all .3s cubic-bezier(.16,1,.3,1)}
+.hamburger span:nth-child(1){margin-bottom:5px}
+.hamburger span:nth-child(3){margin-top:5px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4.9px,4.9px)}
 .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
-.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5.5px,-5.5px)}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4.9px,-4.9px)}
 
 /* MOBILE MENU OVERLAY */
 .mobile-menu{position:fixed;inset:0;z-index:1001;visibility:hidden;opacity:0;transition:visibility .4s,opacity .4s}
 .mobile-menu.open{visibility:visible;opacity:1}
-.mobile-menu-backdrop{position:absolute;inset:0;background:rgba(9,24,16,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.mobile-menu-panel{position:absolute;top:0;right:0;width:min(340px,85vw);height:100%;background:var(--cream);transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:88px 32px 40px;display:flex;flex-direction:column;gap:8px;box-shadow:-20px 0 60px rgba(9,24,16,.15)}
+.mobile-menu-backdrop{position:absolute;inset:0;background:rgba(9,24,16,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.mobile-menu-panel{position:absolute;top:0;right:0;width:min(320px,88vw);height:100%;background:var(--cream);transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:88px 24px 40px;display:flex;flex-direction:column;gap:6px;box-shadow:-20px 0 60px rgba(9,24,16,.15)}
 .mobile-menu.open .mobile-menu-panel{transform:translateX(0)}
-.mm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--hint);padding:8px 16px 4px;margin-top:6px}
-.mm-link{display:flex;align-items:center;gap:12px;padding:14px 16px;font-size:15px;font-weight:600;color:var(--ink2);border-radius:14px;transition:all .22s}
+.mm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--hint);padding:8px 12px 4px;margin-top:6px}
+.mm-link{display:flex;align-items:center;gap:12px;padding:13px 14px;font-size:15px;font-weight:600;color:var(--ink2);border-radius:14px;transition:all .22s}
 .mm-link:hover,.mm-link:active{background:var(--gp);color:var(--g)}
-.mm-link svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.mm-link svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
 .mm-link .mm-badge{margin-left:auto;font-size:10px;font-weight:700;color:var(--gold);background:rgba(192,154,82,.12);padding:3px 8px;border-radius:20px}
-.mm-sep{height:1px;background:var(--border);margin:10px 0}
-.mm-cta{display:flex;flex-direction:column;gap:12px;margin-top:auto;padding-top:20px}
+.mm-sep{height:1px;background:var(--border);margin:8px 0}
+.mm-cta{display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:20px}
 .mm-cta .btn-green,.mm-cta .btn-outline{justify-content:center;width:100%}
 
 /* ===================== HERO ===================== */
-.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:76px;background:var(--cream)}
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;padding-top:100px;background:var(--cream)}
 
 .hero-mesh{position:absolute;inset:0;z-index:0}
 .mesh-orb{position:absolute;border-radius:50%;filter:blur(80px);animation:morph-orb ease-in-out infinite}
@@ -502,10 +500,10 @@ a{text-decoration:none;color:inherit}
 /* ===================== RESPONSIVE — TABLET ===================== */
 @media(max-width:900px){
   /* Nav */
-  .nav-links,.nav-cta,.nav-profile{display:none}
+  .nav-links,.nav-right{display:none}
   .hamburger{display:flex}
-  .nav-in{padding:0 20px;height:62px}
-  .navbar{box-shadow:0 1px 16px rgba(9,24,16,.06),0 1px 0 rgba(26,122,90,.06)}
+  .navbar{padding:12px 16px}
+  .nav-pill{height:54px;padding:0 8px 0 14px}
 
   /* Container */
   .container{padding:0 22px}
@@ -523,7 +521,7 @@ a{text-decoration:none;color:inherit}
   .sec-label::before,.sec-label::after{width:16px}
 
   /* Hero */
-  .hero{min-height:auto;padding-top:62px;padding-bottom:0}
+  .hero{min-height:auto;padding-top:88px;padding-bottom:0}
   .hero-inner{grid-template-columns:1fr;gap:24px;padding:36px 0 28px;padding-inline:14px}
 
   /* Kill hero animations on tablet/mobile — prevents vanishing on scroll */
@@ -597,6 +595,8 @@ a{text-decoration:none;color:inherit}
   .ecg-m-val{font-size:18px}
   .mp2{font-size:13.5px;gap:12px}
   .mp2-dot{width:30px;height:30px}
+  #why-arovita [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  #why-arovita [style*="padding:32px 40px"]{padding:24px 22px!important;flex-direction:column;gap:16px!important}
 
   /* Features */
   .feat-grid2{grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
@@ -675,9 +675,10 @@ a{text-decoration:none;color:inherit}
   .container{padding:0 24px}
 
   /* Nav */
-  .nav-in{padding:0 16px;height:58px}
-  .nav-brand{font-size:20px}
-  .logo-svg-wrap{width:36px;height:36px}
+  .navbar{padding:10px 14px}
+  .nav-pill{height:50px;padding:0 6px 0 12px}
+  .nav-brand{font-size:19px}
+  .logo-svg-wrap{width:34px;height:34px}
 
   /* Section spacing */
   .about,.services,.features,.testimonials,.pricing,.blog{padding:52px 0}
@@ -691,7 +692,7 @@ a{text-decoration:none;color:inherit}
   .sec-label{font-size:10px;margin-bottom:10px}
 
   /* Hero — fill one phone viewport, content-focused */
-  .hero{padding-top:56px;min-height:100vh;min-height:100svh;align-items:center}
+  .hero{padding-top:80px;min-height:100vh;min-height:100svh;align-items:center}
   .hero-inner{padding:28px 16px 24px;gap:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;width:100%}
   .hero-inner>div:first-child{position:relative;z-index:2;width:100%}
 
@@ -781,6 +782,8 @@ a{text-decoration:none;color:inherit}
   .mp2-dot{width:28px;height:28px;border-radius:8px}
   .play-circle{width:48px;height:48px}
   .play-circle svg{width:18px;height:18px}
+  #why-arovita [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+  #why-arovita [style*="display:flex;align-items:center;gap:32px"]{flex-direction:column;gap:18px!important}
 
   /* Features */
   .feat-grid2{grid-template-columns:1fr;gap:14px;margin-top:28px}
@@ -932,109 +935,7 @@ a{text-decoration:none;color:inherit}
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="curRing"></div>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="nav">
-  <div class="nav-in">
-    <a href="index.html" class="nav-logo">
-      <div class="logo-svg-wrap">
-        <img src="logoPoppins.svg" alt="Arovita" width="42" height="42">
-      </div>
-      <span class="nav-brand">Aro<span>vita</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="consult.html" class="nav-a">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        Consult
-      </a>
-      <a href="lab-tests.html" class="nav-a">
-        <svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
-        Lab Tests
-      </a>
-      <a href="home-nurse.html" class="nav-a">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
-        Home Nurse
-      </a>
-      <a href="my-care.html" class="nav-a">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        My Care
-      </a>
-      <a href="services.html" class="nav-a">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Services
-      </a>
-    </div>
-    <div class="nav-right">
-      <div class="nav-cta">
-        <a href="login.html" class="btn-outline" style="padding:10px 20px;font-size:13px">Sign In</a>
-        <a href="consult.html" class="btn-green" style="padding:10px 20px;font-size:13px">Book Now <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
-      <a href="profile.html" class="nav-profile" title="My Profile">RS</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-backdrop" id="mmBackdrop"></div>
-  <div class="mobile-menu-panel">
-    <div class="mm-label">Quick Access</div>
-    <a href="consult.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      Book Consultation
-    </a>
-    <a href="lab-tests.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
-      Lab Tests
-    </a>
-    <a href="home-nurse.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
-      Home Nurse
-    </a>
-    <a href="my-care.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-      My Care
-    </a>
-    <div class="mm-sep"></div>
-    <div class="mm-label">Explore</div>
-    <a href="services.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      All Services
-    </a>
-    <a href="doctor.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-      Find Doctor
-    </a>
-    <a href="#about" class="mm-link">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      About Us
-    </a>
-    <a href="#pricing" class="mm-link">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-      Plans & Pricing
-    </a>
-    <a href="#blog" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-      Health Blog
-    </a>
-    <a href="#contact" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Contact
-    </a>
-    <div class="mm-sep"></div>
-    <div class="mm-label">Account</div>
-    <a href="profile.html" class="mm-link">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      My Profile
-    </a>
-    <div class="mm-cta">
-      <a href="login.html" class="btn-outline" style="justify-content:center">Sign In</a>
-      <a href="consult.html" class="btn-green" style="justify-content:center">Book Now <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-  </div>
-</div>
+<div id="navbar-placeholder"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1049,31 +950,31 @@ a{text-decoration:none;color:inherit}
     <div>
       <div class="hero-tag">
         <div class="htag-live"></div>
-        Available 24/7 · 50K+ Patients Served
+        One platform for continuous healthcare.
       </div>
       <h1 class="hero-h">
-        <span class="line"><span class="word">Your</span> <span class="word">Health,</span></span>
-        <span class="line"><span class="word"><em>Always</em></span> <span class="word">Within</span></span>
-        <span class="line"><span class="word">Reach</span></span>
+        <span class="line"><span class="word">One</span> <span class="word">platform</span></span>
+        <span class="line"><span class="word">for</span> <span class="word"><em>continuous</em></span></span>
+        <span class="line"><span class="word">healthcare.</span></span>
       </h1>
-      <p class="hero-p">India's most trusted telemedicine platform — connect with 200+ verified doctors, book home lab tests, and manage your health records from anywhere, anytime.</p>
+      <p class="hero-p">From booking a consultation to follow-ups, Arovita keeps every step of your healthcare journey connected.</p>
       <div class="hero-btns">
-        <a href="consult.html" class="btn-green">Book Consultation <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="services.html" class="btn-outline">Explore Services</a>
+        <a href="https://my.arovita.care" class="btn-green">Explore Platform <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#" class="btn-outline" onclick="return false;" style="cursor:default;opacity:.65">Download App — Coming Soon</a>
       </div>
       <div class="hero-trust">
         <div class="trust-avs">
-          <div class="trust-av">R</div><div class="trust-av">P</div><div class="trust-av">S</div><div class="trust-av">A</div>
-          <div class="trust-av" style="background:linear-gradient(135deg,var(--g),var(--gl));color:white;font-size:8px">50K+</div>
+          <div class="trust-av">A</div><div class="trust-av">R</div><div class="trust-av">V</div><div class="trust-av">T</div>
+          <div class="trust-av" style="background:linear-gradient(135deg,var(--g),var(--gl));color:white;font-size:8px">★</div>
         </div>
         <div>
           <div class="trust-stars">★★★★★</div>
-          <div class="trust-text">Trusted by 50,000+ patients across India</div>
+          <div class="trust-text">Trusted by patients in Bengaluru</div>
         </div>
         <div class="trust-sep"></div>
         <div class="hero-certs">
-          <div style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px">ABDM · NABH · ISO</div>
-          <div style="font-size:11px;color:var(--hint);margin-top:2px">Certified Platform</div>
+          <div style="font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.3px">ABDM · ABHA · Bengaluru</div>
+          <div style="font-size:11px;color:var(--hint);margin-top:2px">Digital Health Platform</div>
         </div>
       </div>
 
@@ -1084,35 +985,35 @@ a{text-decoration:none;color:inherit}
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
           <div>
-            <div class="hms-num">200<span style="font-size:12px;color:var(--g)">+</span></div>
-            <div class="hms-lbl">Verified Doctors</div>
+            <div class="hms-num" style="font-size:14px;color:var(--g)">Consult</div>
+            <div class="hms-lbl">Doctors Online</div>
           </div>
         </div>
         <div class="hms-card">
           <div class="hms-ic" style="background:rgba(192,154,82,.08)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
           </div>
           <div>
-            <div class="hms-num" style="color:var(--gold)">4.9</div>
-            <div class="hms-lbl">Patient Rating</div>
+            <div class="hms-num" style="font-size:14px;color:var(--gold)">Lab Tests</div>
+            <div class="hms-lbl">At Your Door</div>
           </div>
         </div>
         <div class="hms-card">
           <div class="hms-ic" style="background:rgba(26,122,90,.08)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
           </div>
           <div>
-            <div class="hms-num">&lt;15<span style="font-size:10px;color:var(--muted)">min</span></div>
-            <div class="hms-lbl">Avg. Wait Time</div>
+            <div class="hms-num" style="font-size:14px;color:var(--g)">In-Clinic</div>
+            <div class="hms-lbl">Book Visits</div>
           </div>
         </div>
         <div class="hms-card">
           <div class="hms-ic" style="background:rgba(46,196,138,.08)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2EC48A" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2EC48A" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div>
-            <div class="hms-num">98<span style="font-size:12px;color:var(--gl)">%</span></div>
-            <div class="hms-lbl">Satisfaction Rate</div>
+            <div class="hms-num" style="font-size:14px;color:var(--gl)">Wellness</div>
+            <div class="hms-lbl">Stay Healthy</div>
           </div>
         </div>
       </div>
@@ -1161,35 +1062,35 @@ a{text-decoration:none;color:inherit}
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
           <div>
-            <div class="hfc-num">200<span style="font-size:12px;color:var(--g)">+</span></div>
-            <div class="hfc-lbl">Verified Doctors</div>
+            <div class="hfc-num" style="font-size:13px;color:var(--g)">Tele-Consult</div>
+            <div class="hfc-lbl">Doctors Online</div>
           </div>
         </div>
         <div class="hfc hfc2">
           <div class="hfc-ic" style="background:rgba(192,154,82,.1)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#C09A52" stroke-width="2" stroke-linecap="round"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>
           </div>
           <div>
-            <div class="hfc-num" style="color:var(--gold)">4.9</div>
-            <div class="hfc-lbl">Patient Rating</div>
+            <div class="hfc-num" style="font-size:13px;color:var(--gold)">Lab Tests</div>
+            <div class="hfc-lbl">Doorstep Collection</div>
           </div>
         </div>
         <div class="hfc hfc3">
           <div class="hfc-ic" style="background:rgba(26,122,90,.1)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
           </div>
           <div>
-            <div class="hfc-num">&lt;15<span style="font-size:10px;color:var(--muted)">min</span></div>
-            <div class="hfc-lbl">Avg. Wait Time</div>
+            <div class="hfc-num" style="font-size:13px;color:var(--g)">In-Clinic</div>
+            <div class="hfc-lbl">Book Visits</div>
           </div>
         </div>
         <div class="hfc hfc4">
           <div class="hfc-ic" style="background:rgba(46,196,138,.1)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2EC48A" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2EC48A" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div>
-            <div class="hfc-num">98<span style="font-size:12px;color:var(--gl)">%</span></div>
-            <div class="hfc-lbl">Satisfaction Rate</div>
+            <div class="hfc-num" style="font-size:13px;color:var(--gl)">ABHA Ready</div>
+            <div class="hfc-lbl">Digital Records</div>
           </div>
         </div>
 
@@ -1224,26 +1125,26 @@ a{text-decoration:none;color:inherit}
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <div class="t-item"><div class="t-sep"></div>Online Doctor Consultation</div>
-    <div class="t-item"><div class="t-sep"></div>Home Lab Test Collection</div>
-    <div class="t-item"><div class="t-sep"></div>NABL-Accredited Labs</div>
-    <div class="t-item"><div class="t-sep"></div>Digital Health Records · ABDM</div>
+    <div class="t-item"><div class="t-sep"></div>Online Doctor Consultations</div>
+    <div class="t-item"><div class="t-sep"></div>Doorstep Lab Collection</div>
+    <div class="t-item"><div class="t-sep"></div>ABHA ID Integration · ABDM</div>
+    <div class="t-item"><div class="t-sep"></div>Digital Health Records</div>
     <div class="t-item"><div class="t-sep"></div>Wellness Programmes</div>
-    <div class="t-item"><div class="t-sep"></div>200+ Specialist Doctors</div>
-    <div class="t-item"><div class="t-sep"></div>500+ Lab Tests Available</div>
-    <div class="t-item"><div class="t-sep"></div>100+ Cities Covered</div>
-    <div class="t-item"><div class="t-sep"></div>15-Minute Consultations</div>
-    <div class="t-item"><div class="t-sep"></div>Secure Payments · RazorPay</div>
-    <div class="t-item"><div class="t-sep"></div>Online Doctor Consultation</div>
-    <div class="t-item"><div class="t-sep"></div>Home Lab Test Collection</div>
-    <div class="t-item"><div class="t-sep"></div>NABL-Accredited Labs</div>
-    <div class="t-item"><div class="t-sep"></div>Digital Health Records · ABDM</div>
+    <div class="t-item"><div class="t-sep"></div>Secure Video Consultations</div>
+    <div class="t-item"><div class="t-sep"></div>In-Clinic Appointment Booking</div>
+    <div class="t-item"><div class="t-sep"></div>Serving Bengaluru</div>
+    <div class="t-item"><div class="t-sep"></div>AI-Powered Health Insights</div>
+    <div class="t-item"><div class="t-sep"></div>Encrypted & Secure Platform</div>
+    <div class="t-item"><div class="t-sep"></div>Online Doctor Consultations</div>
+    <div class="t-item"><div class="t-sep"></div>Doorstep Lab Collection</div>
+    <div class="t-item"><div class="t-sep"></div>ABHA ID Integration · ABDM</div>
+    <div class="t-item"><div class="t-sep"></div>Digital Health Records</div>
     <div class="t-item"><div class="t-sep"></div>Wellness Programmes</div>
-    <div class="t-item"><div class="t-sep"></div>200+ Specialist Doctors</div>
-    <div class="t-item"><div class="t-sep"></div>500+ Lab Tests Available</div>
-    <div class="t-item"><div class="t-sep"></div>100+ Cities Covered</div>
-    <div class="t-item"><div class="t-sep"></div>15-Minute Consultations</div>
-    <div class="t-item"><div class="t-sep"></div>Secure Payments · RazorPay</div>
+    <div class="t-item"><div class="t-sep"></div>Secure Video Consultations</div>
+    <div class="t-item"><div class="t-sep"></div>In-Clinic Appointment Booking</div>
+    <div class="t-item"><div class="t-sep"></div>Serving Bengaluru</div>
+    <div class="t-item"><div class="t-sep"></div>AI-Powered Health Insights</div>
+    <div class="t-item"><div class="t-sep"></div>Encrypted & Secure Platform</div>
   </div>
 </div>
 
@@ -1252,24 +1153,24 @@ a{text-decoration:none;color:inherit}
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item fu">
-        <span class="stat-num" id="c1">0</span>
-        <div class="stat-lbl">Patients Served</div>
-        <div class="stat-desc">Across 100+ Indian cities</div>
+        <span class="stat-num" style="font-size:28px;letter-spacing:-0.5px">Consult</span>
+        <div class="stat-lbl">Doctors Online</div>
+        <div class="stat-desc">Video & in-clinic, all in one app</div>
       </div>
       <div class="stat-item fu d1">
-        <span class="stat-num" id="c2">0</span>
-        <div class="stat-lbl">Verified Doctors</div>
-        <div class="stat-desc">20+ medical specialties</div>
+        <span class="stat-num" style="font-size:28px;letter-spacing:-0.5px">Lab Tests</span>
+        <div class="stat-lbl">At Your Doorstep</div>
+        <div class="stat-desc">Sample collection from home</div>
       </div>
       <div class="stat-item fu d2">
-        <span class="stat-num" id="c3">0</span>
-        <div class="stat-lbl">Lab Tests Offered</div>
-        <div class="stat-desc">NABL & ISO certified</div>
+        <span class="stat-num" style="font-size:28px;letter-spacing:-0.5px">ABHA</span>
+        <div class="stat-lbl">Digital Health ID</div>
+        <div class="stat-desc">ABDM-compliant health records</div>
       </div>
       <div class="stat-item fu d3">
-        <span class="stat-num" id="c4">0</span>
-        <div class="stat-lbl">Satisfaction Rate</div>
-        <div class="stat-desc">Based on 12,000+ reviews</div>
+        <span class="stat-num" style="font-size:28px;letter-spacing:-0.5px">Bengaluru</span>
+        <div class="stat-lbl">Currently Serving</div>
+        <div class="stat-desc">More cities coming soon</div>
       </div>
     </div>
   </div>
@@ -1279,22 +1180,22 @@ a{text-decoration:none;color:inherit}
 <div class="brands">
   <div class="brand-wrap">
     <div class="brand-track">
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Apollo Diagnostics</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/></svg>Thyrocare</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14"/></svg>Dr. Lal PathLabs</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l9 7-9 7-9-7z"/></svg>Metropolis Health</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>SRL Diagnostics</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78z"/></svg>Max Healthcare</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Fortis Hospitals</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/></svg>Manipal Hospitals</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Apollo Diagnostics</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/></svg>Thyrocare</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5a2 2 0 012-2h12a2 2 0 012 2v14"/></svg>Dr. Lal PathLabs</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l9 7-9 7-9-7z"/></svg>Metropolis Health</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>SRL Diagnostics</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78z"/></svg>Max Healthcare</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Fortis Hospitals</div>
-      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/></svg>Manipal Hospitals</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Tele-Consultation</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>In-Clinic Visits</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2M6 2h8"/></svg>Home Lab Tests</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Digital Health Records</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>ABHA Integration</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>Wellness Programmes</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secure Health Data</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>AI Health Insights</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Tele-Consultation</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>In-Clinic Visits</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2M6 2h8"/></svg>Home Lab Tests</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>Digital Health Records</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>ABHA Integration</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>Wellness Programmes</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Secure Health Data</div>
+      <div class="brand-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>AI Health Insights</div>
     </div>
   </div>
 </div>
@@ -1341,14 +1242,14 @@ a{text-decoration:none;color:inherit}
               <circle cx="100" cy="100" r="56" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round" stroke-dasharray="352" stroke-dashoffset="352" transform="rotate(-90 100 100)">
                 <animate attributeName="stroke-dashoffset" values="352;70" dur="2.5s" begin=".3s" fill="freeze"/>
               </circle>
-              <text x="100" y="95" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="28" font-weight="bold" font-family="Georgia,serif">98%</text>
-              <text x="100" y="115" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="11" font-family="sans-serif">Satisfaction</text>
+              <text x="100" y="95" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="22" font-weight="bold" font-family="Georgia,serif">ABDM</text>
+              <text x="100" y="115" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="11" font-family="sans-serif">Compliant</text>
             </svg>
           </div>
         </div>
         <div class="ab-badge">
-          <div class="ab-badge-num">15<span style="font-size:16px">yr</span></div>
-          <div class="ab-badge-lbl">Healthcare<br>Excellence</div>
+          <div class="ab-badge-num" style="font-size:20px">ABHA</div>
+          <div class="ab-badge-lbl">Health ID<br>Ready</div>
         </div>
         <div class="ab-ring">
           <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1363,17 +1264,17 @@ a{text-decoration:none;color:inherit}
         <div class="sec-label">Our Story</div>
         <h2 class="sec-title" style="margin-bottom:20px">Transforming Healthcare for <em>Every Indian</em></h2>
         <div class="about-stats">
-          <div class="as2"><div class="as2-num">50K+</div><div class="as2-lbl">Patients</div></div>
-          <div class="as2"><div class="as2-num">200+</div><div class="as2-lbl">Doctors</div></div>
-          <div class="as2"><div class="as2-num">100+</div><div class="as2-lbl">Cities</div></div>
+          <div class="as2"><div class="as2-num" style="font-size:18px">Bengaluru</div><div class="as2-lbl">Currently Serving</div></div>
+          <div class="as2"><div class="as2-num" style="font-size:18px">ABDM</div><div class="as2-lbl">Compliant Platform</div></div>
+          <div class="as2"><div class="as2-num" style="font-size:18px">ABHA</div><div class="as2-lbl">ID Integrated</div></div>
         </div>
         <p class="about-desc">Arovita was born from a simple belief — that quality healthcare should never be a privilege. We've built a platform where world-class medical expertise meets the warmth of a family doctor, available every single moment of every day.</p>
-        <p class="about-desc" style="margin-bottom:28px">From AI-powered health insights to ABDM-compliant digital records, we combine cutting-edge technology with genuine compassion to ensure India's 1.4 billion people never have to face a health challenge alone.</p>
+        <p class="about-desc" style="margin-bottom:28px">From AI-powered health insights to ABDM-compliant digital records, we combine cutting-edge technology with genuine compassion to ensure every patient never has to face a health challenge alone.</p>
         <ul class="check-list">
-          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>ABDM-compliant digital health records & ABHA ID integration</li>
-          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Consult a verified specialist in under 15 minutes, 24/7</li>
-          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Home lab collection in 500+ cities with 4–6 hour digital reports</li>
-          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>End-to-end data encryption & RazorPay-secured transactions</li>
+          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>ABDM-compliant digital health records with ABHA ID integration</li>
+          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Video and in-clinic consultations with verified specialists</li>
+          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Home lab sample collection with digital reports delivered fast</li>
+          <li><div class="check-ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#1A7A5A" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>End-to-end data encryption and secure payment infrastructure</li>
         </ul>
         <a href="services.html" class="btn-green">Learn Our Story <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
@@ -1386,21 +1287,37 @@ a{text-decoration:none;color:inherit}
   <div class="container" style="position:relative;z-index:1">
     <div class="svc-header fu">
       <div>
-        <div class="sec-label">What We Offer</div>
-        <h2 class="sec-title">Services Built Around <em>Your Needs</em></h2>
-      </div>
-      <div class="svc-tabs">
-        <div class="svc-tab on">All</div>
-        <div class="svc-tab">Online</div>
-        <div class="svc-tab">Offline</div>
-        <div class="svc-tab">Wellness</div>
+        <div class="sec-label">Services</div>
+        <h2 class="sec-title">Healthcare services, connected in <em>one platform.</em></h2>
+        <p style="font-size:15px;color:var(--muted);max-width:520px;margin-top:10px;line-height:1.7">Access consultations, diagnostics, pharmacy, and ongoing care — all designed to work together.</p>
       </div>
     </div>
     <div class="svc-grid">
-      <!-- Card 1: Online Consultation -->
+      <!-- Card 1: In-Clinic Visits -->
       <div class="svc-card2 fu d1">
+        <div class="svc-img2" style="background:linear-gradient(145deg,#D4C4ED,#9882C9)">
+          <div class="svc-tag2" style="color:#4A2D8A;background:rgba(255,255,255,0.85)">In-Clinic</div>
+          <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="18" y="48" width="84" height="58" rx="4" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+            <path d="M12 48 L60 16 L108 48" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="48" y="28" width="24" height="8" rx="4" fill="rgba(255,255,255,0.8)"/>
+            <rect x="56" y="20" width="8" height="24" rx="4" fill="rgba(255,255,255,0.8)"/>
+            <rect x="26" y="60" width="18" height="14" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><animate attributeName="fill" values="rgba(255,255,255,0.2);rgba(255,255,255,0.5);rgba(255,255,255,0.2)" dur="3s" repeatCount="indefinite"/></rect>
+            <rect x="76" y="60" width="18" height="14" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><animate attributeName="fill" values="rgba(255,255,255,0.5);rgba(255,255,255,0.2);rgba(255,255,255,0.5)" dur="3s" repeatCount="indefinite"/></rect>
+            <rect x="46" y="80" width="28" height="26" rx="3" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+            <circle cx="60" cy="10" r="4" fill="rgba(255,255,255,0.8)"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle>
+          </svg>
+        </div>
+        <div class="svc-body2">
+          <div class="svc-title2">In-Clinic Visits</div>
+          <div class="svc-desc2">Book appointments with partner hospitals and clinics.</div>
+          <a href="doctor.html" class="svc-link2" style="background:rgba(107,82,217,.08);color:#6B52D9">Book Appointment <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <!-- Card 2: Tele-Consultation -->
+      <div class="svc-card2 fu d2">
         <div class="svc-img2" style="background:linear-gradient(145deg,#B8E8D0,#4FAF82)">
-          <div class="svc-tag2" style="color:#0B5C3A;background:rgba(255,255,255,0.85)">Online · 24/7</div>
+          <div class="svc-tag2" style="color:#0B5C3A;background:rgba(255,255,255,0.85)">Online · Secure</div>
           <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="14" y="20" width="92" height="62" rx="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.7)" stroke-width="2.5"/>
             <rect x="22" y="28" width="76" height="46" rx="4" fill="rgba(255,255,255,0.15)"/>
@@ -1416,36 +1333,15 @@ a{text-decoration:none;color:inherit}
           </svg>
         </div>
         <div class="svc-body2">
-          <div class="svc-title2">Online Consultation</div>
-          <div class="svc-desc2">HD video or chat consultations with 200+ verified specialists. Get e-prescriptions and follow-ups within minutes.</div>
+          <div class="svc-title2">Tele-Consultation</div>
+          <div class="svc-desc2">Consult doctors remotely through secure video calls.</div>
           <a href="consult.html" class="svc-link2" style="background:rgba(26,122,90,.08);color:var(--g)">Start Consultation <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
-      <!-- Card 2: Offline Clinic -->
-      <div class="svc-card2 fu d2">
-        <div class="svc-img2" style="background:linear-gradient(145deg,#D4C4ED,#9882C9)">
-          <div class="svc-tag2" style="color:#4A2D8A;background:rgba(255,255,255,0.85)">In-Clinic</div>
-          <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="18" y="48" width="84" height="58" rx="4" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
-            <path d="M12 48 L60 16 L108 48" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linejoin="round"/>
-            <rect x="48" y="28" width="24" height="8" rx="4" fill="rgba(255,255,255,0.8)"/>
-            <rect x="56" y="20" width="8" height="24" rx="4" fill="rgba(255,255,255,0.8)"/>
-            <rect x="26" y="60" width="18" height="14" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><animate attributeName="fill" values="rgba(255,255,255,0.2);rgba(255,255,255,0.5);rgba(255,255,255,0.2)" dur="3s" repeatCount="indefinite"/></rect>
-            <rect x="76" y="60" width="18" height="14" rx="2" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><animate attributeName="fill" values="rgba(255,255,255,0.5);rgba(255,255,255,0.2);rgba(255,255,255,0.5)" dur="3s" repeatCount="indefinite"/></rect>
-            <rect x="46" y="80" width="28" height="26" rx="3" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
-            <circle cx="60" cy="10" r="4" fill="rgba(255,255,255,0.8)"><animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle>
-          </svg>
-        </div>
-        <div class="svc-body2">
-          <div class="svc-title2">Offline Clinic Visit</div>
-          <div class="svc-desc2">Book slots at 1,000+ partner clinics near you. Meet your doctor in person for thorough, personal care and physical examination.</div>
-          <a href="doctor.html" class="svc-link2" style="background:rgba(107,82,217,.08);color:#6B52D9">Find Clinic <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-      <!-- Card 3: Home Lab -->
+      <!-- Card 3: Lab Tests -->
       <div class="svc-card2 fu d3">
         <div class="svc-img2" style="background:linear-gradient(145deg,#EDD8C4,#C99A6E)">
-          <div class="svc-tag2" style="color:#7A3E0A;background:rgba(255,255,255,0.85)">At Home</div>
+          <div class="svc-tag2" style="color:#7A3E0A;background:rgba(255,255,255,0.85)">Diagnostics</div>
           <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="42" y="16" width="22" height="54" rx="11" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
             <rect x="44" y="50" width="18" height="20" rx="0 0 9 9" fill="rgba(255,255,255,0.4)"><animate attributeName="height" values="20;28;20" dur="3s" repeatCount="indefinite"/><animate attributeName="y" values="50;42;50" dur="3s" repeatCount="indefinite"/></rect>
@@ -1458,15 +1354,15 @@ a{text-decoration:none;color:inherit}
           </svg>
         </div>
         <div class="svc-body2">
-          <div class="svc-title2">Home Lab Collection</div>
-          <div class="svc-desc2">Certified phlebotomist at your door within 60 min. Digital reports delivered in 4–6 hours. 500+ tests available.</div>
+          <div class="svc-title2">Lab Tests</div>
+          <div class="svc-desc2">Book diagnostic tests with doorstep sample collection.</div>
           <a href="lab-tests.html" class="svc-link2" style="background:rgba(217,123,10,.08);color:#D97B0A">Book Test <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
-      <!-- Card 4: Offline Lab -->
-      <div class="svc-card2 fu d1">
+      <!-- Card 4: Pharmacy (Coming Soon) -->
+      <div class="svc-card2 fu d1" style="opacity:.75;cursor:default">
         <div class="svc-img2" style="background:linear-gradient(145deg,#C4D8ED,#6E9AC9)">
-          <div class="svc-tag2" style="color:#12407A;background:rgba(255,255,255,0.85)">NABL · In-Lab</div>
+          <div class="svc-tag2" style="color:#12407A;background:rgba(255,255,255,0.85)">Coming Soon</div>
           <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="30" y="72" width="60" height="10" rx="4" fill="rgba(255,255,255,0.5)" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
             <path d="M60 72 L60 48" stroke="rgba(255,255,255,0.6)" stroke-width="5" stroke-linecap="round"/>
@@ -1480,15 +1376,15 @@ a{text-decoration:none;color:inherit}
           </svg>
         </div>
         <div class="svc-body2">
-          <div class="svc-title2">Offline Lab Tests</div>
-          <div class="svc-desc2">Walk into 500+ NABL-accredited partner labs. MRI, CT scan, blood panels, biopsies and advanced diagnostics with top-tier accuracy.</div>
-          <a href="lab-tests.html" class="svc-link2" style="background:rgba(26,111,212,.08);color:#1A6FD4">Find Lab <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="svc-title2">Pharmacy</div>
+          <div class="svc-desc2">Order prescribed medications with home delivery.</div>
+          <span class="svc-link2" style="background:rgba(26,111,212,.06);color:#1A6FD4;pointer-events:none">Coming Soon</span>
         </div>
       </div>
-      <!-- Card 5: Digital Health Records -->
-      <div class="svc-card2 fu d2">
+      <!-- Card 5: Disease Management (Coming Soon) -->
+      <div class="svc-card2 fu d2" style="opacity:.75;cursor:default">
         <div class="svc-img2" style="background:linear-gradient(145deg,#C4EDE8,#4EAF9E)">
-          <div class="svc-tag2" style="color:#0B4A40;background:rgba(255,255,255,0.85)">ABDM · Digital</div>
+          <div class="svc-tag2" style="color:#0B4A40;background:rgba(255,255,255,0.85)">Coming Soon</div>
           <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="18" y="16" width="70" height="88" rx="7" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="2.5"/>
             <rect x="34" y="10" width="38" height="12" rx="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
@@ -1504,15 +1400,15 @@ a{text-decoration:none;color:inherit}
           </svg>
         </div>
         <div class="svc-body2">
-          <div class="svc-title2">Digital Health Records</div>
-          <div class="svc-desc2">All prescriptions, reports & history in one ABDM-compliant vault. Share instantly with any doctor, anywhere, anytime.</div>
-          <a href="my-care.html" class="svc-link2" style="background:rgba(11,123,106,.08);color:#0B7B6A">View Records <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="svc-title2">Disease Management</div>
+          <div class="svc-desc2">Continuous care programs for chronic conditions.</div>
+          <span class="svc-link2" style="background:rgba(11,123,106,.06);color:#0B7B6A;pointer-events:none">Coming Soon</span>
         </div>
       </div>
-      <!-- Card 6: Wellness -->
-      <div class="svc-card2 fu d3">
+      <!-- Card 6: Wellness Programs (Coming Soon) -->
+      <div class="svc-card2 fu d3" style="opacity:.75;cursor:default">
         <div class="svc-img2" style="background:linear-gradient(145deg,#E8D8F0,#B882C9)">
-          <div class="svc-tag2" style="color:#5B0D8A;background:rgba(255,255,255,0.85)">Wellness</div>
+          <div class="svc-tag2" style="color:#5B0D8A;background:rgba(255,255,255,0.85)">Coming Soon</div>
           <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M60 98 Q20 70 20 46 A22 22 0 0 1 60 36 A22 22 0 0 1 100 46 Q100 70 60 98Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"><animate attributeName="d" values="M60 98 Q20 70 20 46 A22 22 0 0 1 60 36 A22 22 0 0 1 100 46 Q100 70 60 98Z;M60 95 Q18 67 18 44 A24 24 0 0 1 60 33 A24 24 0 0 1 102 44 Q102 67 60 95Z;M60 98 Q20 70 20 46 A22 22 0 0 1 60 36 A22 22 0 0 1 100 46 Q100 70 60 98Z" dur="1.2s" repeatCount="indefinite"/></path>
             <path d="M34 58 L40 58 L44 50 L48 66 L52 54 L56 60 L60 58 L86 58" stroke="rgba(255,255,255,0.9)" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="stroke-dasharray" values="0 100;100 0;100 0" dur="1.2s" repeatCount="indefinite"/></path>
@@ -1522,16 +1418,62 @@ a{text-decoration:none;color:inherit}
           </svg>
         </div>
         <div class="svc-body2">
-          <div class="svc-title2">Wellness Programmes</div>
-          <div class="svc-desc2">Personalised diet plans, fitness coaching, mental wellness sessions, and preventive health check-up packages tailored to you.</div>
-          <a href="services.html" class="svc-link2" style="background:rgba(184,82,201,.08);color:#8B2FA8">Explore Plans <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <div class="svc-title2">Wellness Programs</div>
+          <div class="svc-desc2">Preventive care and health improvement programs.</div>
+          <span class="svc-link2" style="background:rgba(184,82,201,.06);color:#8B2FA8;pointer-events:none">Coming Soon</span>
+        </div>
+      </div>
+      <!-- Card 7: Hospital Management System -->
+      <div class="svc-card2 fu d2">
+        <div class="svc-img2" style="background:linear-gradient(145deg,#C4D8ED,#4A7AB5)">
+          <div class="svc-tag2" style="color:#0D2A50;background:rgba(255,255,255,0.85)">For Hospitals</div>
+          <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="28" width="92" height="72" rx="6" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.55)" stroke-width="2.5"/>
+            <rect x="14" y="28" width="92" height="18" rx="6" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="0"/>
+            <circle cx="26" cy="37" r="4" fill="rgba(255,255,255,0.7)"><animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/></circle>
+            <circle cx="38" cy="37" r="4" fill="rgba(255,255,255,0.4)"/>
+            <circle cx="50" cy="37" r="4" fill="rgba(255,255,255,0.3)"/>
+            <rect x="24" y="56" width="28" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
+            <rect x="24" y="56" width="20" height="6" rx="3" fill="rgba(255,255,255,0.7)"><animate attributeName="width" values="20;28;20" dur="2.5s" repeatCount="indefinite"/></rect>
+            <rect x="24" y="68" width="28" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+            <rect x="24" y="68" width="14" height="6" rx="3" fill="rgba(255,255,255,0.6)"><animate attributeName="width" values="14;22;14" dur="3s" repeatCount="indefinite"/></rect>
+            <rect x="24" y="80" width="28" height="6" rx="3" fill="rgba(255,255,255,0.3)"/>
+            <rect x="24" y="80" width="24" height="6" rx="3" fill="rgba(255,255,255,0.55)"><animate attributeName="width" values="24;28;24" dur="2s" repeatCount="indefinite"/></rect>
+            <rect x="64" y="54" width="34" height="36" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            <path d="M70 72 L76 66 L82 74 L88 62 L94 68" stroke="rgba(255,255,255,0.85)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dasharray" values="0 80;80 0;80 0" dur="2s" repeatCount="indefinite"/></path>
+            <circle cx="94" cy="22" r="5" fill="rgba(255,255,255,0.6)"><animate attributeName="opacity" values="0.6;1;0.6" dur="1.8s" repeatCount="indefinite"/></circle>
+          </svg>
+        </div>
+        <div class="svc-body2">
+          <div class="svc-title2">Hospital Management System</div>
+          <div class="svc-desc2">End-to-end HMS — patients, billing, lab, pharmacy & more.</div>
+          <a href="hms.html" class="svc-link2" style="background:rgba(74,122,181,.1);color:#2A5FA8">Explore HMS <svg class="arr" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <!-- Card 8: Rewards for Staying Healthy -->
+      <div class="svc-card2 fu d3" style="opacity:.75;cursor:default">
+        <div class="svc-img2" style="background:linear-gradient(145deg,#F5E8C4,#D4A84B)">
+          <div class="svc-tag2" style="color:#7A4A0A;background:rgba(255,255,255,0.85)">Coming Soon</div>
+          <svg class="svc-animated-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,18 68,42 94,42 74,58 82,82 60,66 38,82 46,58 26,42 52,42" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.7)" stroke-width="2.5" stroke-linejoin="round"><animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/></polygon>
+            <polygon points="60,26 66,42 84,42 70,54 76,72 60,62 44,72 50,54 36,42 54,42" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="60" cy="48" r="10" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.6)" stroke-width="2"><animate attributeName="r" values="10;13;10" dur="1.5s" repeatCount="indefinite"/></circle>
+            <path d="M54 48 L58 52 L68 42" stroke="rgba(255,255,255,0.95)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dasharray" values="0 30;30 0;30 0" dur="1.5s" repeatCount="indefinite"/></path>
+            <circle cx="96" cy="24" r="3" fill="rgba(255,255,255,0.7)"><animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/></circle>
+            <circle cx="24" cy="32" r="2" fill="rgba(255,255,255,0.5)"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite"/></circle>
+          </svg>
+        </div>
+        <div class="svc-body2">
+          <div class="svc-title2">Rewards for Staying Healthy</div>
+          <div class="svc-desc2">Earn rewards for completing healthy activities.</div>
+          <span class="svc-link2" style="background:rgba(212,168,75,.08);color:#A07820;pointer-events:none">Coming Soon</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MISSION / LIVE HEALTH MONITOR -->
+<!-- ABHA INTEGRATION -->
 <section class="mission">
   <div class="mission-orb morb1"></div>
   <div class="mission-orb morb2"></div>
@@ -1543,8 +1485,8 @@ a{text-decoration:none;color:inherit}
     <div class="mission-in">
       <div class="ecg-display sl-left">
         <div class="ecg-header">
-          <div class="ecg-brand">Arovita Health Monitor</div>
-          <div class="ecg-live"><div class="ecg-live-dot"></div>LIVE</div>
+          <div class="ecg-brand">ABHA Health Record</div>
+          <div class="ecg-live"><div class="ecg-live-dot"></div>LINKED</div>
         </div>
         <div class="ecg-screen">
           <svg class="ecg-line-svg" viewBox="0 0 420 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1560,366 +1502,284 @@ a{text-decoration:none;color:inherit}
         </div>
         <div class="ecg-metrics">
           <div class="ecg-m">
-            <div class="ecg-m-val">72</div>
-            <div class="ecg-m-lbl">BPM</div>
-            <div class="ecg-m-status normal">● Normal</div>
+            <div class="ecg-m-val" style="font-size:13px;line-height:1.3">ABHA</div>
+            <div class="ecg-m-lbl">Linked Records</div>
+            <div class="ecg-m-status normal">● Active</div>
           </div>
           <div class="ecg-m">
-            <div class="ecg-m-val">120<span style="font-size:11px;color:rgba(255,255,255,.35)">/80</span></div>
-            <div class="ecg-m-lbl">BP mmHg</div>
-            <div class="ecg-m-status normal">● Optimal</div>
+            <div class="ecg-m-val" style="font-size:13px;line-height:1.3">Secure</div>
+            <div class="ecg-m-lbl">Data Sharing</div>
+            <div class="ecg-m-status normal">● Encrypted</div>
           </div>
           <div class="ecg-m">
-            <div class="ecg-m-val">98<span style="font-size:11px;color:rgba(255,255,255,.35)">%</span></div>
-            <div class="ecg-m-lbl">SpO₂</div>
-            <div class="ecg-m-status normal">● Healthy</div>
+            <div class="ecg-m-val" style="font-size:13px;line-height:1.3">Unified</div>
+            <div class="ecg-m-lbl">Health History</div>
+            <div class="ecg-m-status normal">● Connected</div>
           </div>
         </div>
         <div style="margin-top:20px;display:flex;align-items:center;justify-content:space-between">
-          <div style="font-size:12px;color:rgba(255,255,255,.35)">Last updated: just now</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.35)">Interoperable across providers</div>
           <div class="play-circle">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
           </div>
         </div>
       </div>
 
       <div class="mission-content sl-right">
-        <div class="sec-label" style="color:var(--gl)">Why Choose Arovita</div>
-        <h2 class="mission-title">Healthcare That Truly <em>Puts You First</em></h2>
-        <p class="mission-desc">We blend cutting-edge technology with compassionate care. Whether it's a midnight health scare or a routine check-up — Arovita is available 24/7, wherever you are in India.</p>
+        <div class="sec-label" style="color:var(--gl)">ABHA Integration</div>
+        <h2 class="mission-title">ABHA-Enabled <em>Connected Healthcare</em></h2>
+        <p class="mission-desc">Arovita supports ABHA to securely connect and access your health records across providers.</p>
         <div class="mission-pts">
-          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>ABDM-compliant digital health records & ABHA ID linking</div>
-          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>Consult a verified doctor in under 15 minutes, any time of day</div>
-          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>100% data privacy & end-to-end encrypted health data</div>
-          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>Home visits & lab collection available across 100+ cities</div>
+          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>ABHA linked records</div>
+          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Secure data sharing</div>
+          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Unified health history</div>
+          <div class="mp2"><div class="mp2-dot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2EC48A" stroke-width="2.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>Interoperable care</div>
         </div>
-        <a href="consult.html" class="btn-green">Book a Consultation <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="https://my.arovita.care" class="btn-green">Learn about ABHA <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="features" id="features">
+<!-- HOW AROVITA WORKS -->
+<section class="features" id="how-it-works">
   <div class="container">
     <div style="text-align:center" class="fu">
-      <div class="sec-label">Benefits & Features</div>
-      <h2 class="sec-title">Everything You Need for <em>Better Health</em></h2>
-      <p style="font-size:15px;color:var(--muted);max-width:500px;margin:14px auto 0;line-height:1.7">One platform, infinite care. We've thought of everything so you never have to compromise on your wellbeing.</p>
+      <div class="sec-label">How Arovita Works</div>
+      <h2 class="sec-title">Healthcare is not a one-time visit. <em>It's a continuous journey.</em></h2>
+      <p style="font-size:15px;color:var(--muted);max-width:580px;margin:14px auto 0;line-height:1.7">Arovita connects every step of care — from consultation to follow-ups — creating an ongoing healthcare loop instead of isolated visits.</p>
     </div>
-    <div class="feat-grid2">
+    <div class="feat-grid2" style="margin-top:52px">
       <div class="feat-card2 fu d1">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <div class="feat-title2">HD Video Consultation</div>
-        <div class="feat-desc2">Secure, crystal-clear video calls with verified doctors. Get instant e-prescriptions and follow-up scheduling in one click.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">1</span></div>
+        <div class="feat-title2">Book Consultation</div>
+        <div class="feat-desc2">User schedules in-clinic or tele-consultation.</div>
       </div>
       <div class="feat-card2 fu d2">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-        <div class="feat-title2">Chat with Doctor</div>
-        <div class="feat-desc2">Real-time text chat for quick questions, medication advice and follow-ups — without booking a full consultation.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">2</span></div>
+        <div class="feat-title2">Visit Doctor / Tele-Consult</div>
+        <div class="feat-desc2">Doctor evaluates symptoms and suggests next steps.</div>
       </div>
       <div class="feat-card2 fu d3">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8M5 10h14"/></svg></div>
-        <div class="feat-title2">500+ Lab Tests</div>
-        <div class="feat-desc2">CBC, lipid, HbA1c, thyroid, vitamins and more — NABL accredited at prices 30% lower than walk-in rates.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">3</span></div>
+        <div class="feat-title2">Get Prescription</div>
+        <div class="feat-desc2">Medication, tests, or care plan recommended.</div>
       </div>
       <div class="feat-card2 fu d1">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
-        <div class="feat-title2">Home Sample Pickup</div>
-        <div class="feat-desc2">Trained phlebotomists at your doorstep within 60 minutes. Available 6 AM–10 PM, 7 days a week.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">4</span></div>
+        <div class="feat-title2">Book Lab Tests</div>
+        <div class="feat-desc2">Diagnostics booked directly through Arovita.</div>
       </div>
       <div class="feat-card2 fu d2">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-        <div class="feat-title2">Fast Digital Reports</div>
-        <div class="feat-desc2">Receive lab reports in 4–6 hours. Easy-to-read with auto-flagging of abnormal values and trend analysis.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">5</span></div>
+        <div class="feat-title2">Receive Care</div>
+        <div class="feat-desc2">Treatment, home care, or medication support delivered.</div>
       </div>
       <div class="feat-card2 fu d3">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <div class="feat-title2">200+ Specialists</div>
-        <div class="feat-desc2">Cardiologists, dermatologists, gynaecologists, paediatricians, psychiatrists — all verified and highly experienced.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">6</span></div>
+        <div class="feat-title2">Follow-up Triggered</div>
+        <div class="feat-desc2">System reminds for review, repeat tests, or monitoring.</div>
       </div>
       <div class="feat-card2 fu d1">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <div class="feat-title2">Wellness Programmes</div>
-        <div class="feat-desc2">Personalised diet, fitness coaching, mental wellness, and preventive health packages designed for your lifestyle.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">7</span></div>
+        <div class="feat-title2">Continuous Monitoring</div>
+        <div class="feat-desc2">Vitals, records, and progress tracked over time.</div>
       </div>
       <div class="feat-card2 fu d2">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-width="2.5"/><path d="M9 7h6M9 11h4"/></svg></div>
-        <div class="feat-title2">Digital Health ID</div>
-        <div class="feat-desc2">ABHA-linked digital health identity. Carry your entire medical history in a secure QR, share instantly with any doctor.</div>
+        <div class="feat-ic2" style="background:rgba(26,122,90,.1)"><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:var(--g)">8</span></div>
+        <div class="feat-title2">Next Consultation</div>
+        <div class="feat-desc2">Data flows back to doctor for ongoing care. Then it loops again.</div>
       </div>
-      <div class="feat-card2 fu d3">
-        <div class="feat-ic2"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div class="feat-title2">Secure & Private</div>
-        <div class="feat-desc2">End-to-end encryption, HIPAA-compliant storage, RazorPay-secured payments. Your data is yours, always.</div>
-      </div>
+      <!-- <div class="feat-card2 fu d3" style="border:2px solid rgba(26,122,90,.18);background:var(--gxp)">
+        <div class="feat-ic2" style="background:rgba(26,122,90,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
+        <div class="feat-title2" style="color:var(--g)">Continuous care, not one-time visits.</div>
+        <div class="feat-desc2">Instead of isolated appointments, Arovita creates a continuous healthcare loop where each step informs the next — consultations lead to tests, tests lead to treatment, treatment leads to follow-ups, and follow-ups lead to ongoing monitoring.</div>
+      </div> -->
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
+<!-- WHY AROVITA -->
+<section class="testimonials" id="why-arovita">
   <div class="container">
-    <div class="fu" style="text-align:center">
-      <div class="sec-label">Patient Reviews</div>
-      <h2 class="sec-title">Trusted by <em>Thousands</em> Across India</h2>
+
+    <!-- Header -->
+    <div class="fu" style="text-align:center;margin-bottom:60px">
+      <div class="sec-label">Why Arovita</div>
+      <h2 class="sec-title">Healthcare today is <em>fragmented.</em><br>Care should be connected.</h2>
+      <p style="font-size:15px;color:var(--muted);max-width:520px;margin:18px auto 0;line-height:1.76">Patients move between consultations, tests, and treatments, but these steps rarely connect. Arovita brings everything into one unified healthcare journey.</p>
     </div>
-    <div class="testi-layout">
-      <div class="testi-left fu">
-        <span class="testi-big-num">"</span>
-        <div class="testi-rating-row">
-          <div class="testi-score">4.9</div>
-          <div class="testi-stars-col">
-            <div class="testi-stars">★★★★★</div>
-            <div class="testi-count">Based on 12,400+ reviews</div>
-          </div>
+
+    <!-- Two column comparison -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px">
+
+      <!-- LEFT — Problem -->
+      <div class="fu d1" style="background:linear-gradient(145deg,#FFF5F5,#FFE8E8);border:1.5px solid rgba(220,80,80,.15);border-radius:28px;padding:36px;box-shadow:0 4px 28px rgba(220,80,80,.06)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">
+          <div style="width:9px;height:9px;background:#E05555;border-radius:50%;box-shadow:0 0 0 4px rgba(224,85,85,.18)"></div>
+          <span style="font-size:11px;font-weight:700;color:#C03A3A;letter-spacing:1.2px;text-transform:uppercase">Today — Fragmented Healthcare</span>
         </div>
-        <div class="testi-bar-group">
-          <div class="tbar">
-            <div class="tbar-stars"><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div></div>
-            <div class="tbar-track"><div class="tbar-fill" style="width:88%;animation-delay:.6s"></div></div>
-            <div class="tbar-pct">88%</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(220,80,80,.1)">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Consultations happen in isolation</span>
           </div>
-          <div class="tbar">
-            <div class="tbar-stars"><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star e"></div></div>
-            <div class="tbar-track"><div class="tbar-fill" style="width:9%;animation-delay:.7s"></div></div>
-            <div class="tbar-pct">9%</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(220,80,80,.1)">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Lab results stored in different places</span>
           </div>
-          <div class="tbar">
-            <div class="tbar-stars"><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star e"></div><div class="tbar-star e"></div></div>
-            <div class="tbar-track"><div class="tbar-fill" style="width:2%;animation-delay:.8s"></div></div>
-            <div class="tbar-pct">2%</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(220,80,80,.1)">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Follow-ups are missed</span>
           </div>
-          <div class="tbar">
-            <div class="tbar-stars"><div class="tbar-star"></div><div class="tbar-star"></div><div class="tbar-star e"></div><div class="tbar-star e"></div><div class="tbar-star e"></div></div>
-            <div class="tbar-track"><div class="tbar-fill" style="width:1%;animation-delay:.9s"></div></div>
-            <div class="tbar-pct">1%</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(220,80,80,.1)">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Multiple apps for different services</span>
           </div>
-        </div>
-        <div style="padding:20px;background:white;border-radius:18px;border:1px solid var(--border)">
-          <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Verified Platform</div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--g);background:var(--gp);padding:5px 11px;border-radius:20px">✓ ABDM</div>
-            <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--g);background:var(--gp);padding:5px 11px;border-radius:20px">✓ NABH</div>
-            <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--g);background:var(--gp);padding:5px 11px;border-radius:20px">✓ ISO</div>
-            <div style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--gold);background:rgba(192,154,82,.1);padding:5px 11px;border-radius:20px">★ Google 4.9</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(220,80,80,.1)">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">No continuity in care</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0">
+            <div style="width:30px;height:30px;background:rgba(220,80,80,.1);border:1px solid rgba(220,80,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#C03A3A" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Doctors don't see full patient history</span>
           </div>
         </div>
       </div>
-      <div class="testi-cards">
-        <div class="tc fu d1">
-          <span class="tc-q">"</span>
-          <p class="tc-text">I had a 2 AM health scare. Within 10 minutes, an Arovita doctor was on call, diagnosed my concern and prescribed medicine. Absolute lifesaver.</p>
-          <div class="tc-stars">★★★★★</div>
-          <div class="tc-auth">
-            <div class="tc-av">R</div>
-            <div><div class="tc-name">Rajesh Malhotra</div><div class="tc-role">Software Engineer, Delhi</div></div>
-            <div class="tc-verified" style="margin-left:auto"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Verified</div>
-          </div>
+
+      <!-- RIGHT — Solution -->
+      <div class="fu d2" style="background:linear-gradient(145deg,#E6F7F0,#C8EFE0);border:1.5px solid rgba(26,122,90,.18);border-radius:28px;padding:36px;box-shadow:0 4px 28px rgba(26,122,90,.08);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(46,196,138,.25),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px">
+          <div style="width:9px;height:9px;background:var(--gl);border-radius:50%;box-shadow:0 0 0 4px rgba(46,196,138,.22);animation:live-pulse 1.8s ease-in-out infinite"></div>
+          <span style="font-size:11px;font-weight:700;color:var(--g);letter-spacing:1.2px;text-transform:uppercase">With Arovita — Connected Healthcare</span>
         </div>
-        <div class="tc fu d2">
-          <span class="tc-q">"</span>
-          <p class="tc-text">Home sample collection was seamless — the technician arrived right on time, and my HbA1c report was in my inbox within 5 hours. The price was 40% lower than the lab near my home!</p>
-          <div class="tc-stars">★★★★★</div>
-          <div class="tc-auth">
-            <div class="tc-av" style="background:linear-gradient(135deg,#D4C4ED,#9882C9);color:#6B52D9">P</div>
-            <div><div class="tc-name">Priya Nair</div><div class="tc-role">Teacher, Bengaluru</div></div>
-            <div class="tc-verified" style="margin-left:auto"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Verified</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(26,122,90,.1)">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">All services in one platform</span>
           </div>
-        </div>
-        <div class="tc fu d3">
-          <span class="tc-q">"</span>
-          <p class="tc-text">The digital records feature alone is worth it. Every prescription, every test, every report — all in one place. My new cardiologist had my entire history in seconds via ABHA ID.</p>
-          <div class="tc-stars">★★★★★</div>
-          <div class="tc-auth">
-            <div class="tc-av" style="background:linear-gradient(135deg,#EDD8C4,#C99A6E);color:#7A4E20">A</div>
-            <div><div class="tc-name">Amit Sharma</div><div class="tc-role">Retired Officer, Pune</div></div>
-            <div class="tc-verified" style="margin-left:auto"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Verified</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(26,122,90,.1)">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Unified patient health records</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(26,122,90,.1)">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Consultation to follow-up continuity</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(26,122,90,.1)">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Data shared across providers</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(26,122,90,.1)">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Automated reminders and monitoring</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0">
+            <div style="width:30px;height:30px;background:rgba(26,122,90,.12);border:1px solid rgba(26,122,90,.22);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--g)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span style="font-size:14px;color:var(--ink2);line-height:1.5">Continuous care journey</span>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Bridge statement -->
+    <div class="fu d3" style="background:linear-gradient(135deg,var(--dark2) 0%,#1a3a2a 100%);border-radius:24px;padding:32px 40px;display:flex;align-items:center;gap:28px;box-shadow:0 18px 56px rgba(9,24,16,.13)">
+      <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--g),var(--gl));border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 24px rgba(46,196,138,.35)">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">From fragmented visits to continuous care.</div>
+        <div style="font-size:16px;color:rgba(255,255,255,.82);font-weight:400;line-height:1.7">Arovita transforms isolated healthcare interactions into a continuous, connected care journey — where consultations lead to tests, tests lead to treatment, and treatment leads to ongoing monitoring.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="pricing" id="pricing">
+<!-- ECOSYSTEM -->
+<section class="pricing" id="ecosystem">
   <div class="container">
     <div style="text-align:center" class="fu">
-      <div class="sec-label">Transparent Pricing</div>
-      <h2 class="sec-title">Simple Plans, <em>No Hidden Costs</em></h2>
-      <p style="font-size:15px;color:var(--muted);max-width:440px;margin:14px auto 0;line-height:1.7">Start free, upgrade when you're ready. Cancel anytime.</p>
+      <div class="sec-label">Ecosystem</div>
+      <h2 class="sec-title">A connected ecosystem for <em>continuous healthcare.</em></h2>
+      <p style="font-size:15px;color:var(--muted);max-width:520px;margin:14px auto 0;line-height:1.7">Arovita brings care services, providers, and health data together to enable seamless and continuous care.</p>
     </div>
     <div class="price-grid2" style="margin-top:52px">
+      <!-- Block 1: Care Experience -->
       <div class="pc fu d1">
-        <div class="pc-name">Basic</div>
-        <div class="pc-price"><sup>₹</sup>0<sub>/mo</sub></div>
-        <div class="pc-desc">Essential healthcare access for individuals</div>
+        <div class="feat-ic2" style="margin-bottom:20px;background:var(--gp)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="pc-name" style="font-family:'Playfair Display',serif;font-size:20px">Care Experience</div>
+        <div class="pc-desc" style="margin-top:12px;font-size:14px;line-height:1.7">Access consultations, diagnostics, pharmacy, and follow-up care in one connected experience.</div>
         <div class="pc-sep"></div>
         <ul class="pc-feats">
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>2 video consultations/month</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Digital health records (ABHA)</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Lab test booking access</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Health articles & tips</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>In-clinic &amp; tele-consultations</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Lab diagnostics &amp; pharmacy</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Follow-up &amp; monitoring</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Rewards for staying healthy</li>
         </ul>
-        <a href="login.html" class="pc-btn">Get Started Free</a>
+        <a href="https://my.arovita.care" class="pc-btn">Explore Platform</a>
       </div>
-      <div class="pc feat fu d2">
-        <div class="pc-pop">Most Popular</div>
-        <div class="pc-name">Pro</div>
-        <div class="pc-price"><sup>₹</sup>499<sub>/mo</sub></div>
-        <div class="pc-desc" style="color:rgba(255,255,255,.48)">Complete healthcare for you and your family</div>
-        <div class="pc-sep"></div>
+      <!-- Block 2: Provider Platform -->
+      <div class="pc fu d2" style="background:linear-gradient(145deg,#D4C4ED,#9882C9);border-color:rgba(152,130,201,.3);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:130px;height:130px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-20px;left:-20px;width:100px;height:100px;background:radial-gradient(circle,rgba(107,82,217,.25),transparent 70%);pointer-events:none"></div>
+        <div class="feat-ic2" style="margin-bottom:20px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.3)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#4A2D8A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <div class="pc-name" style="font-family:'Playfair Display',serif;font-size:20px;color:#2A1060;text-transform:none;letter-spacing:0">Provider Platform</div>
+        <div class="pc-desc" style="margin-top:12px;font-size:14px;line-height:1.7;color:rgba(42,16,96,.65)">Hospitals and clinics manage workflows, patients, and care delivery through a unified system.</div>
+        <div class="pc-sep" style="background:rgba(74,45,138,.15)"></div>
         <ul class="pc-feats">
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Unlimited consultations</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Priority doctor access (15 min)</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>30% off all lab tests</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Free home sample collection</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Wellness programmes access</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#2EC48A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Family account (up to 4 members)</li>
+          <li><div class="pf-dot" style="background:rgba(255,255,255,.35)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4A2D8A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><span style="color:#2A1060">OPD &amp; IPD workflow management</span></li>
+          <li><div class="pf-dot" style="background:rgba(255,255,255,.35)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4A2D8A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><span style="color:#2A1060">Modular &amp; configurable setup</span></li>
+          <li><div class="pf-dot" style="background:rgba(255,255,255,.35)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4A2D8A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><span style="color:#2A1060">Works for clinics to hospitals</span></li>
+          <li><div class="pf-dot" style="background:rgba(255,255,255,.35)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4A2D8A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><span style="color:#2A1060">Connected patient ecosystem</span></li>
+          <li><div class="pf-dot" style="background:rgba(255,255,255,.35)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4A2D8A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><span style="color:#2A1060">Arovita adapts to your workflow</span></li>
         </ul>
-        <a href="login.html" class="pc-btn">Start Pro Plan</a>
+        <a href="mailto:hello@arovita.care" class="pc-btn" style="background:rgba(255,255,255,.9);color:#4A2D8A;border-color:transparent">Partner with Arovita</a>
       </div>
+      <!-- Block 3: Health Intelligence -->
       <div class="pc fu d3">
-        <div class="pc-name">Corporate</div>
-        <div class="pc-price"><sub style="font-size:20px;vertical-align:middle;font-family:'Outfit'">From</sub> <sup>₹</sup>99<sub>/emp/mo</sub></div>
-        <div class="pc-desc">Enterprise health benefits for your entire team</div>
+        <div class="feat-ic2" style="margin-bottom:20px;background:var(--gp)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#1A7A5A" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <div class="pc-name" style="font-family:'Playfair Display',serif;font-size:20px">Health Intelligence</div>
+        <div class="pc-desc" style="margin-top:12px;font-size:14px;line-height:1.7">Structured health data enables insights, reminders, and continuous care coordination.</div>
         <div class="pc-sep"></div>
         <ul class="pc-feats">
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>All Pro features for every employee</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Dedicated account manager</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Occupational health services</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Health analytics dashboard</li>
-          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Custom onsite camps & check-ups</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Connected patient journeys</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>ABHA &amp; interoperability alignment</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Continuous care insights</li>
+          <li><div class="pf-dot"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#1A7A5A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>Preventive &amp; population health</li>
         </ul>
-        <a href="login.html" class="pc-btn">Contact Sales</a>
+        <a href="mailto:karthik.jagadish@arovita.care" class="pc-btn">Explore Collaboration</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- APP CTA -->
-<section class="app-cta" id="appointment">
+<!-- CTA SECTION -->
+<section class="app-cta" id="get-started">
   <div class="app-cta-orb ao1"></div>
   <div class="app-cta-orb ao2"></div>
   <div class="container">
-    <div class="app-cta-in">
-      <div class="app-cta-text sl-left">
-        <div class="sec-label">Get the App</div>
-        <h2 class="app-cta-h">Health at Your <em>Fingertips</em></h2>
-        <p class="app-cta-p">Download the Arovita app and access India's best doctors, fastest lab results, and your complete health history — all from the palm of your hand.</p>
-        <div class="app-btns">
-          <a href="#" class="app-dl-btn">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.42c1.23.06 2.08.76 2.85.79 1.1-.18 2.17-.84 3.37-.76 1.42.11 2.49.67 3.19 1.68-3 1.78-2.29 5.63.51 6.82-.57 1.62-1.32 3.22-1.92 4.33M12.03 7.25c-.16-2.42 1.93-4.42 4.22-4.62.32 2.75-2.5 4.77-4.22 4.62z"/></svg>
-            <div><div class="app-dl-btn-sub">Download on the</div><div class="app-dl-btn-main">App Store</div></div>
+    <div class="app-cta-in" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:36px">
+      <div class="app-cta-text sl-left" style="max-width:620px">
+        <div class="sec-label">Get Started</div>
+        <h2 class="app-cta-h">Start your connected <em>healthcare journey.</em></h2>
+        <p class="app-cta-p">Whether you are a patient, healthcare provider, or looking to build the future of healthcare, Arovita brings you into a connected ecosystem.</p>
+        <div class="app-btns" style="flex-wrap:wrap;justify-content:center;gap:14px">
+          <a href="https://my.arovita.care" class="app-dl-btn" style="background:white;color:var(--g);border:none">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <div><div class="app-dl-btn-sub" style="color:var(--muted)">Open Platform</div><div class="app-dl-btn-main" style="color:var(--g)">Explore Platform</div></div>
           </a>
-          <a href="#" class="app-dl-btn">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3.18 23.82a1.5 1.5 0 001.77-.29L15 13.5 4.95.47A1.5 1.5 0 003 2v20.08c0 .63.38 1.18.95 1.47l.23.27zM16.5 12L5.5 1 19.62 8.86A1.5 1.5 0 0120.5 10c0 .65-.39 1.24-1.01 1.5L16.5 12zM5.5 23 16.5 12l2.99-1.5a1.5 1.5 0 011.01 1.5c0 .65-.39 1.24-1.01 1.5L5.5 23z"/></svg>
-            <div><div class="app-dl-btn-sub">Get it on</div><div class="app-dl-btn-main">Google Play</div></div>
+          <a href="mailto:hello@arovita.care" class="app-dl-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>
+            <div><div class="app-dl-btn-sub">For Providers</div><div class="app-dl-btn-main">Partner with Us</div></div>
+          </a>
+          <a href="mailto:careers@arovita.care" class="app-dl-btn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+            <div><div class="app-dl-btn-sub">Careers</div><div class="app-dl-btn-main">Join Our Team</div></div>
           </a>
         </div>
-      </div>
-      <!-- Phone mockup -->
-      <div class="phone-mock sl-right">
-        <div class="phone-body">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="phone-stat">
-              <div class="phone-stat-label">Today's Health Score</div>
-              <div class="phone-stat-val">86<span style="font-size:14px;color:var(--gl)">/100</span></div>
-              <div class="phone-stat-sub">↑ +4 points from yesterday</div>
-              <svg class="phone-mini-ecg" viewBox="0 0 160 30" fill="none" style="width:100%;height:28px">
-                <path d="M0,15 L20,15 L26,15 L30,6 L34,24 L38,6 L42,24 L46,15 L60,15 L66,11 L70,19 L74,11 L78,19 L82,15 L160,15" stroke="#2EC48A" stroke-width="1.5" fill="none" stroke-linecap="round">
-                  <animate attributeName="stroke-dasharray" values="0 300;300 0" dur="2s" fill="freeze"/>
-                </path>
-              </svg>
-            </div>
-            <div class="phone-cards">
-              <div class="phone-doc">
-                <div class="phone-doc-av">D</div>
-                <div><div class="phone-doc-name">Dr. Sharma<br><span style="font-weight:400;color:rgba(255,255,255,.5)">Cardiologist</span></div></div>
-                <div class="phone-doc-on" style="margin-left:auto">● Online</div>
-              </div>
-              <div class="phone-doc">
-                <div class="phone-doc-av" style="background:linear-gradient(135deg,#D4C4ED,#9882C9);color:#6B52D9">M</div>
-                <div><div class="phone-doc-name">Dr. Mehta<br><span style="font-weight:400;color:rgba(255,255,255,.5)">Dermatologist</span></div></div>
-                <div class="phone-doc-on" style="margin-left:auto">● Online</div>
-              </div>
-              <div class="phone-doc">
-                <div class="phone-doc-av" style="background:linear-gradient(135deg,#EDD8C4,#C99A6E);color:#7A4E20">K</div>
-                <div><div class="phone-doc-name">Dr. Kapoor<br><span style="font-weight:400;color:rgba(255,255,255,.5)">Paediatrician</span></div></div>
-                <div style="font-size:8px;color:rgba(255,255,255,.3);margin-left:auto">15 min</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="phone-fc pfc1">🔔 Lab report ready!</div>
-        <div class="phone-fc pfc2">👨‍⚕️ Dr. Sharma is online</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG -->
-<section class="blog" id="blog">
-  <div class="container">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px" class="fu">
-      <div>
-        <div class="sec-label">Health Blog</div>
-        <h2 class="sec-title">Wellness Insights from <em>Our Experts</em></h2>
-      </div>
-      <a href="#" class="btn-outline">View All Articles <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-card fu d1">
-        <div class="blog-img" style="background:linear-gradient(145deg,#B8E8D0,#4FAF82)">
-          <div class="blog-img-inner">
-            <svg viewBox="0 0 120 100" width="120" height="100" fill="none">
-              <circle cx="60" cy="50" r="34" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-              <path d="M40 50 L48 50 L52 40 L57 60 L62 44 L67 56 L71 50 L80 50" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="blog-cat">Diagnostics</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta"><span>Dr. Iyer</span><div class="blog-dot"></div><span>5 min read</span><div class="blog-dot"></div><span>Jan 2025</span></div>
-          <div class="blog-title">Understanding Your Blood Test Report — A Complete Guide for Non-Doctors</div>
-          <a href="#" class="blog-link">Read Article <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-      <div class="blog-card fu d2">
-        <div class="blog-img" style="background:linear-gradient(145deg,#D4C4ED,#9882C9)">
-          <div class="blog-img-inner">
-            <svg viewBox="0 0 120 100" width="120" height="100" fill="none">
-              <path d="M60 80 Q30 60 30 40 A18 18 0 0 1 60 30 A18 18 0 0 1 90 40 Q90 60 60 80Z" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-              <path d="M46 48 L50 48 L53 42 L56 54 L59 46 L62 50 L74 50" stroke="rgba(255,255,255,0.9)" stroke-width="2" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="blog-cat">Mental Health</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta"><span>Dr. Sharma</span><div class="blog-dot"></div><span>4 min read</span><div class="blog-dot"></div><span>Feb 2025</span></div>
-          <div class="blog-title">5-Minute Mindfulness: Beating Stress in Today's Hyperconnected World</div>
-          <a href="#" class="blog-link">Read Article <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-      </div>
-      <div class="blog-card fu d3">
-        <div class="blog-img" style="background:linear-gradient(145deg,#EDD8C4,#C99A6E)">
-          <div class="blog-img-inner">
-            <svg viewBox="0 0 120 100" width="120" height="100" fill="none">
-              <rect x="36" y="18" width="16" height="46" rx="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-              <path d="M36 46 Q44 53 52 46 V60 Q44 68 36 60Z" fill="rgba(255,255,255,0.3)"/>
-              <path d="M64 80 L64 68 L76 56 L88 68 L88 80 Z" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="rgba(255,255,255,0.14)"/>
-              <path d="M22 52 L28 59 L40 46" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="blog-cat">Diagnostics</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta"><span>Dr. Mehta</span><div class="blog-dot"></div><span>6 min read</span><div class="blog-dot"></div><span>Mar 2025</span></div>
-          <div class="blog-title">What Your Blood Sugar Numbers Actually Mean — Decoded Simply</div>
-          <a href="#" class="blog-link">Read Article <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
+        <p style="font-size:13px;color:rgba(255,255,255,.4);margin-top:18px;line-height:1.7">We're building across technology, healthcare, and data. Join us in shaping connected healthcare.</p>
       </div>
     </div>
   </div>
@@ -1932,12 +1792,12 @@ a{text-decoration:none;color:inherit}
   <div class="container">
     <div class="appt-in">
       <div class="appt-text fu">
-        <h2 class="appt-h">Ready to Take Control<br>of Your Health?</h2>
-        <p class="appt-p">Join 50,000+ Indians who trust Arovita for daily healthcare. Your first consultation is free — start today.</p>
+        <h2 class="appt-h">Connected care starts<br>with one step.</h2>
+        <p class="appt-p">Access consultations, diagnostics, and ongoing care — all in one connected platform.</p>
       </div>
       <div class="appt-actions fu d2">
-        <a href="consult.html" class="btn-white">Book Free Consultation <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="tel:+911800AROVITA" class="btn-white-outline">📞 1800-ARO-VITA</a>
+        <a href="https://my.arovita.care" class="btn-white">Explore Platform <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="mailto:hello@arovita.care" class="btn-white-outline">Contact Us</a>
       </div>
     </div>
   </div>
@@ -1952,7 +1812,7 @@ a{text-decoration:none;color:inherit}
           <img src="logoPoppins-white.svg" alt="Arovita" width="36" height="36">
           <span class="footer-brand">Aro<span>vita</span></span>
         </div>
-        <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
+        <p class="footer-desc">Building a connected ecosystem for continuous healthcare — across services, providers, and health data.</p>
         <div class="footer-social">
           <div class="fsb">f</div><div class="fsb">𝕏</div><div class="fsb">in</div><div class="fsb">▶</div>
         </div>
@@ -1960,42 +1820,50 @@ a{text-decoration:none;color:inherit}
       <div>
         <div class="footer-h">Services</div>
         <ul class="footer-links">
-          <li><a href="consult.html">Online Consultation</a></li>
-          <li><a href="doctor.html">Offline Clinic Visit</a></li>
-          <li><a href="lab-tests.html">Home Lab Tests</a></li>
-          <li><a href="lab-tests.html">Offline Lab Tests</a></li>
-          <li><a href="services.html">Wellness Programmes</a></li>
+          <li><a href="doctor.html">In-Clinic Visits</a></li>
+          <li><a href="consult.html">Tele-Consultation</a></li>
+          <li><a href="lab-tests.html">Lab Tests</a></li>
+          <li><a href="#">Pharmacy <span style="font-size:10px;opacity:.5">(Coming Soon)</span></a></li>
+          <li><a href="#">Disease Management <span style="font-size:10px;opacity:.5">(Coming Soon)</span></a></li>
+          <li><a href="hms.html">Hospital Management System</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-h">Quick Links</div>
+        <div class="footer-h">Providers</div>
         <ul class="footer-links">
-          <li><a href="#about">About Arovita</a></li>
-          <li><a href="doctor.html">Find a Doctor</a></li>
-          <li><a href="#blog">Health Blog</a></li>
-          <li><a href="consult.html">Book Appointment</a></li>
-          <li><a href="login.html">Patient Login</a></li>
+          <li><a href="mailto:hello@arovita.care">Provider Platform</a></li>
+          <li><a href="mailto:hello@arovita.care">Partner with Arovita</a></li>
+          <li><a href="hms.html">Hospital Management System</a></li>
+        </ul>
+        <div class="footer-h" style="margin-top:24px">Company</div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#ecosystem">Vision</a></li>
+          <li><a href="mailto:careers@arovita.care">Careers</a></li>
+          <li><a href="mailto:hello@arovita.care">Contact</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-h">Stay Healthy</div>
-        <p style="font-size:13px;color:rgba(255,255,255,.32);margin-bottom:14px;line-height:1.7">Subscribe for weekly health tips, wellness reads, and exclusive offers.</p>
-        <div class="nl-form">
-          <input type="email" class="nl-input" placeholder="Your email address">
-          <button class="nl-btn">Subscribe</button>
-        </div>
-        <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
-          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ABDM Registered</div>
-          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ISO Certified</div>
-        </div>
+        <div class="footer-h">Resources</div>
+        <ul class="footer-links">
+          <li><a href="#how-it-works">How it Works</a></li>
+          <li><a href="#ecosystem">Ecosystem</a></li>
+          <li><a href="mailto:karthik.jagadish@arovita.care">Health Intelligence</a></li>
+          <li><a href="mailto:hello@arovita.care">ABHA Integration</a></li>
+        </ul>
+        <div class="footer-h" style="margin-top:24px">Legal</div>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© <a href="index.html">Arovita</a> 2025 · All Rights Reserved · ABDM Registered · NABH Certified</div>
+      <div class="footer-copy">© Arovita Healthcare. All rights reserved.</div>
       <ul class="footer-links2">
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="mailto:hello@arovita.care">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -2007,83 +1875,11 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>
-/* Custom Cursor (desktop only) */
-const cur = document.getElementById('cur');
-const curRing = document.getElementById('curRing');
-if(window.matchMedia('(hover:hover)').matches){
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px';
-    cur.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      curRing.style.left = e.clientX + 'px';
-      curRing.style.top = e.clientY + 'px';
-    }, 80);
-  });
-  document.querySelectorAll('a,button,.svc-tab,.brand-item').forEach(el => {
-    el.addEventListener('mouseenter', () => { cur.classList.add('hovered'); curRing.classList.add('hovered'); });
-    el.addEventListener('mouseleave', () => { cur.classList.remove('hovered'); curRing.classList.remove('hovered'); });
-  });
-}
-
-/* Navbar scroll */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('sc', scrollY > 60);
-  document.getElementById('stb').classList.toggle('show', scrollY > 400);
-});
-
-/* Mobile menu */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const mmBackdrop = document.getElementById('mmBackdrop');
-
-function openMenu(){
-  hamburger.classList.add('active');
-  mobileMenu.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeMenu(){
-  hamburger.classList.remove('active');
-  mobileMenu.classList.remove('open');
-  document.body.style.overflow='';
-}
-
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
-});
-mmBackdrop.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mm-link').forEach(link => {
-  link.addEventListener('click', closeMenu);
-});
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeMenu();
-});
-
 /* Intersection Observer */
 const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), { threshold: 0.12 });
 document.querySelectorAll('.fu,.sl-left,.sl-right').forEach(el => obs.observe(el));
 
 /* Counters */
-let counted = false;
-const counterObs = new IntersectionObserver(es => {
-  if(es[0].isIntersecting && !counted) {
-    counted = true;
-    const targets = [['c1','50','K+'],['c2','200','+'],['c3','500','+'],['c4','98','%']];
-    targets.forEach(([id, target, suf]) => {
-      const el = document.getElementById(id);
-      let n = 0, t = +target, step = Math.ceil(t/50);
-      const iv = setInterval(() => {
-        n = Math.min(n + step, t);
-        el.textContent = n + suf;
-        if(n >= t) clearInterval(iv);
-      }, 35);
-    });
-  }
-}, { threshold: 0.3 });
-const statsEl = document.querySelector('.stats-strip');
-if(statsEl) counterObs.observe(statsEl);
 
 /* Service Tabs */
 document.querySelectorAll('.svc-tab').forEach(tab => {
@@ -2113,5 +1909,6 @@ const barObs = new IntersectionObserver(es => {
 const barSec = document.querySelector('.testimonials');
 if(barSec) barObs.observe(barSec);
 </script>
+<script src="shared.js"></script>
 </body>
 </html>

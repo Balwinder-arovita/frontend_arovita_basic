@@ -376,62 +376,14 @@ a{text-decoration:none;color:inherit}
   .doc-card{padding:18px 14px}
 }
 </style>
+<link rel="stylesheet" href="shared.css">
 </head>
 <body>
 
 <div class="cursor" id="cur"></div>
 <div class="cursor-ring" id="curRing"></div>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="nav">
-  <div class="nav-in">
-    <a href="index.html" class="nav-logo">
-      <div class="logo-svg-wrap">
-        <img src="logoPoppins.svg" alt="Arovita" width="42" height="42">
-      </div>
-      <span class="nav-brand">Aro<span>vita</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="consult.html" class="nav-a active"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Consult</a>
-      <a href="lab-tests.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>Lab Tests</a>
-      <a href="home-nurse.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>Home Nurse</a>
-      <a href="my-care.html" class="nav-a"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>My Care</a>
-      <a href="services.html" class="nav-a"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Services</a>
-    </div>
-    <div class="nav-right">
-      <div class="nav-cta">
-        <a href="login.html" class="btn-outline" style="padding:10px 20px;font-size:13px">Sign In</a>
-        <a href="consult.html" class="btn-green" style="padding:10px 20px;font-size:13px">Book Now <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </div>
-      <a href="profile.html" class="nav-profile" title="My Profile">RS</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-backdrop" id="mmBackdrop"></div>
-  <div class="mobile-menu-panel">
-    <div class="mm-label">Quick Access</div>
-    <a href="consult.html" class="mm-link"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Book Consultation</a>
-    <a href="lab-tests.html" class="mm-link"><svg viewBox="0 0 24 24"><path d="M6 2v6l-2 4a6 6 0 0012 0L14 8V2"/><path d="M6 2h8"/></svg>Lab Tests</a>
-    <a href="home-nurse.html" class="mm-link"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>Home Nurse</a>
-    <a href="my-care.html" class="mm-link"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>My Care</a>
-    <div class="mm-sep"></div>
-    <div class="mm-label">Explore</div>
-    <a href="services.html" class="mm-link"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>All Services</a>
-    <a href="doctor.html" class="mm-link"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Find Doctor</a>
-    <a href="index.html#about" class="mm-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>About Us</a>
-    <a href="index.html#pricing" class="mm-link"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Plans & Pricing</a>
-    <a href="index.html#blog" class="mm-link"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>Health Blog</a>
-    <div class="mm-sep"></div>
-    <div class="mm-label">Account</div>
-    <a href="profile.html" class="mm-link"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
-    <div class="mm-cta">
-      <a href="login.html" class="btn-outline" style="justify-content:center">Sign In</a>
-      <a href="consult.html" class="btn-green" style="justify-content:center">Book Now</a>
-    </div>
-  </div>
-</div>
+<div id="navbar-placeholder"></div>
 
 <!-- ===================== HERO ===================== -->
 <section class="consult-hero">
@@ -891,63 +843,7 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">
-          <img src="logoPoppins-white.svg" alt="Arovita" width="36" height="36">
-          <span class="footer-brand">Aro<span>vita</span></span>
-        </div>
-        <p class="footer-desc">India's most trusted healthcare platform. We connect you to top doctors, diagnostic labs, and wellness experts — online and offline, whenever you need care most.</p>
-        <div class="footer-social">
-          <div class="fsb">f</div><div class="fsb">𝕏</div><div class="fsb">in</div><div class="fsb">▶</div>
-        </div>
-      </div>
-      <div>
-        <div class="footer-h">Services</div>
-        <ul class="footer-links">
-          <li><a href="consult.html">Online Consultation</a></li>
-          <li><a href="services.html">Offline Clinic Visit</a></li>
-          <li><a href="lab-tests.html">Home Lab Tests</a></li>
-          <li><a href="lab-tests.html">Offline Lab Tests</a></li>
-          <li><a href="services.html">Wellness Programmes</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-h">Quick Links</div>
-        <ul class="footer-links">
-          <li><a href="index.html">About Arovita</a></li>
-          <li><a href="consult.html">Find a Doctor</a></li>
-          <li><a href="index.html">Health Blog</a></li>
-          <li><a href="consult.html">Book Appointment</a></li>
-          <li><a href="login.html">Patient Login</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-h">Stay Healthy</div>
-        <p style="font-size:13px;color:rgba(255,255,255,.32);margin-bottom:14px;line-height:1.7">Subscribe for weekly health tips, wellness reads, and exclusive offers.</p>
-        <div class="nl-form">
-          <input type="email" class="nl-input" placeholder="Your email address">
-          <button class="nl-btn">Subscribe</button>
-        </div>
-        <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
-          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ABDM Registered</div>
-          <div style="display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;color:rgba(46,196,138,.6);background:rgba(46,196,138,.06);border:1px solid rgba(46,196,138,.15);padding:5px 10px;border-radius:20px">✓ ISO Certified</div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© <a href="index.html">Arovita</a> 2025 · All Rights Reserved · ABDM Registered · NABH Certified</div>
-      <ul class="footer-links2">
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Contact Us</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
+<div id="footer-placeholder"></div>
 
 <!-- SCROLL TOP -->
 <div class="stb" id="stb" onclick="scrollTo({top:0,behavior:'smooth'})">
@@ -955,16 +851,6 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>
-const cur=document.getElementById('cur'),curRing=document.getElementById('curRing');
-document.addEventListener('mousemove',e=>{
-  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
-  setTimeout(()=>{curRing.style.left=e.clientX+'px';curRing.style.top=e.clientY+'px'},80);
-});
-document.querySelectorAll('a,button,.pill,.symptom-chip,.faq-q,.spec-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.classList.add('hovered');curRing.classList.add('hovered')});
-  el.addEventListener('mouseleave',()=>{cur.classList.remove('hovered');curRing.classList.remove('hovered')});
-});
-
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{
   nav.classList.toggle('sc',scrollY>60);
@@ -988,5 +874,6 @@ window.addEventListener('scroll',()=>{
   if(grid)grid.style.transform='translateY('+scrollY*0.15+'px)';
 });
 </script>
+<script src="shared.js"></script>
 </body>
 </html>
